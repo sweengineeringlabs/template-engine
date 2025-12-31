@@ -16,6 +16,20 @@ A comprehensive collection of production-ready documentation templates that foll
 - 📊 **Visual** - Includes workflow diagrams and dataflow charts
 - ✅ **Complete** - Checklists, best practices, troubleshooting included
 
+## Research Foundation
+
+This template engine is based on documented research. If your project is based on any research and you wish to document that work, use the `01-ideation/research/papers/` folder structure.
+
+### Included Research Papers
+
+| Paper | Description |
+|-------|-------------|
+| [SEA Workflow](sea-workflow.md) | Stratified Encapsulation Architecture workflow guide |
+| [SDLC Documentation Framework](01-ideation/research/papers/sdlc-documentation-framework.md) | Documentation standards across SDLC phases |
+| [Module Governance Framework](01-ideation/research/papers/module-governance-framework.md) | Module organization and governance patterns |
+| [Documentation Navigation Framework](01-ideation/research/papers/documentation-navigation-framework.md) | Documentation structure and navigation |
+| [Research Methodology](01-ideation/research/papers/research-methodology.md) | Research approach and methodology |
+
 ### 1. Setup Git Authentication (if needed)
 
 If you haven't set up SSH authentication with GitHub yet:
