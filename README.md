@@ -72,6 +72,7 @@ Each template includes:
 |----------|---------|-----------------|----------|
 | [crate-overview-template.md](templates/crate-overview-template.md) | Module/component docs | `docs/overview.md` | Libraries, modules, packages |
 | [framework-doc-template.md](templates/framework-doc-template.md) | Framework-wide docs | `docs/guides/*.md` | Architecture, security, patterns |
+| [glossary.template.md](templates/glossary.template.md) | Term definitions | `docs/glossary.md` | All projects (REQUIRED) |
 
 ### SDLC Templates
 
