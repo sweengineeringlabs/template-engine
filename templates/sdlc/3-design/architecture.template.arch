@@ -1,0 +1,100 @@
+# {Project Name} System Architecture
+
+## Version
+
+| Field        | Value                     |
+|--------------|---------------------------|
+| Version      | {0.1.0}                   |
+| Status       | {Draft | Approved | Superseded} |
+| Last Updated | {YYYY-MM-DD}              |
+| Owner        | {owner}                   |
+
+## Overview
+
+{1-2 paragraph description of the system architecture, key design principles,
+and the constraints that shaped the current design.}
+## System Diagram
+
+```
++---------------------+     +---------------------+
+|   {Layer / Module}  |---->|   {Layer / Module}  |
++---------------------+     +---------------------+
+          |                            |
+          v                            v
++---------------------+     +---------------------+
+|   {Layer / Module}  |---->|   {Layer / Module}  |
++---------------------+     +---------------------+
+          |
+          v
++---------------------+
+|   {Storage / IO}    |
++---------------------+
+```
+
+## Layer Architecture
+
+| Layer | Crate | Responsibility |
+|-------|-------|----------------|
+| {Presentation} | `{crate-name}` | {what this layer does} |
+| {Application}  | `{crate-name}` | {what this layer does} |
+| {Domain}       | `{crate-name}` | {what this layer does} |
+| {Infrastructure} | `{crate-name}` | {what this layer does} |
+
+## Data Flow
+
+```
+{Input Source}
+    |
+    v
+[ {Step 1: parse / validate} ]
+    |
+    v
+[ {Step 2: transform / process} ]
+    |
+    v
+[ {Step 3: emit / persist} ]
+    |
+    v
+{Output Sink}
+```
+
+## Cross-Cutting Concerns
+
+### Security
+
+- {authentication strategy}
+- {authorization model}
+- {data-at-rest and data-in-transit protections}
+
+### Error Handling
+
+- {error propagation strategy}
+- {user-facing error format}
+- {logging and tracing integration}
+
+### Performance
+
+- {hot-path optimizations}
+- {resource budget per request / operation}
+- {caching strategy}
+
+## Key Design Decisions
+
+| ADR | Decision | Date | Status |
+|-----|----------|------|--------|
+| [ADR-{###}](./{adr-file}.md) | {decision summary} | {YYYY-MM-DD} | {Accepted | Superseded} |
+| [ADR-{###}](./{adr-file}.md) | {decision summary} | {YYYY-MM-DD} | {Accepted | Superseded} |
+
+## Related Documents
+
+### Requirements
+- [Business Requirements](../1-requirements/brd.spec)
+
+### Development
+- [Developer Guide](../4-development/developer_guide.md)
+
+### Testing
+- [Testing Strategy](../5-testing/testing_strategy.md)
+
+### Deployment
+- [CI/CD Pipeline](../6-deployment/ci_cd.md)

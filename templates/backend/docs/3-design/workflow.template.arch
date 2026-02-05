@@ -1,0 +1,94 @@
+# {Module Name} Workflow
+
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+Data and process flows for {module-name}.
+
+## Data Flow
+
+```
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│  Input   │───▶│ Validate │───▶│ Process  │───▶│  Output  │
+│  {type}  │    │  Schema  │    │  Logic   │    │  {type}  │
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+                     │                               │
+                     ▼                               ▼
+                ┌──────────┐                   ┌──────────┐
+                │  Error   │                   │  Store   │
+                │ Response │                   │ {target} │
+                └──────────┘                   └──────────┘
+```
+
+### Input Stage
+
+- Source: {describe the input source}
+- Format: `{InputType}` defined in `{module}-common`
+- Validation rules: {describe validation}
+
+### Processing Stage
+
+- Business logic resides in `{module}-core`
+- Transformations applied: {list key transformations}
+- Side effects: {describe any side effects}
+
+### Output Stage
+
+- Destination: {describe the output target}
+- Format: `{OutputType}` defined in `{module}-common`
+
+## Process Lifecycle
+
+```
+┌────────────┐
+│  Created   │
+└─────┬──────┘
+      │ initialize()
+      ▼
+┌────────────┐
+│   Ready    │◀──────────────┐
+└─────┬──────┘               │
+      │ start()              │ reset()
+      ▼                      │
+┌────────────┐          ┌────┴───────┐
+│  Running   │─────────▶│  Stopped   │
+└─────┬──────┘  stop()  └────────────┘
+      │ complete()
+      ▼
+┌────────────┐
+│ Completed  │
+└────────────┘
+```
+
+### State Transitions
+
+| From | To | Trigger | Guard |
+|------|----|---------|-------|
+| Created | Ready | `initialize()` | Config is valid |
+| Ready | Running | `start()` | Dependencies available |
+| Running | Stopped | `stop()` | None |
+| Running | Completed | `complete()` | All work done |
+| Stopped | Ready | `reset()` | None |
+
+## Pipeline Stages
+
+| Stage | Responsibility | Input | Output |
+|-------|---------------|-------|--------|
+| {stage_1} | {description} | `{InputType}` | `{IntermediateType}` |
+| {stage_2} | {description} | `{IntermediateType}` | `{OutputType}` |
+
+## Error Propagation
+
+```
+{module}-spi error
+    └──▶ wrapped as {Module}Error::{Variant}
+         └──▶ propagated through {module}-core
+              └──▶ returned from facade to caller
+```
+
+## See Also
+
+- [Architecture](architecture.template.arch)
+- [Sequence Diagrams](sequence.template.arch)
+- [Overview](../README.md)

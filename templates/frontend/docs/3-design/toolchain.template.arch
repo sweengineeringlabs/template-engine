@@ -1,0 +1,87 @@
+# {Module Name} Toolchain
+
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+Dependencies, tools, and build infrastructure for {module-name}.
+
+## Language and Runtime
+
+| Item | Value |
+|------|-------|
+| Language | TypeScript {typescript_version} |
+| Runtime | Bun {bun_version} |
+| Framework | React {react_version} |
+| Build tool | Vite {vite_version} |
+
+## Package Dependencies
+
+### Production
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `react` | {version} | UI framework |
+| `react-dom` | {version} | DOM rendering |
+| `zustand` | {version} | State management |
+| `{package}` | {version} | {purpose} |
+
+### Development
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| `typescript` | {version} | Type checking |
+| `vite` | {version} | Build tooling |
+| `eslint` | {version} | Linting |
+| `prettier` | {version} | Code formatting |
+| `@testing-library/react` | {version} | Component testing |
+| `{package}` | {version} | {purpose} |
+
+## Build Tools
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| `bun` | {version} | Package management and runtime |
+| `vite` | {version} | Dev server and bundler |
+| `tsc` | {version} | Type checking |
+| `eslint` | {version} | Linting |
+| `prettier` | {version} | Code formatting |
+| `{tool}` | {version} | {purpose} |
+
+## CI/CD Pipeline
+
+| Stage | Tool | Command |
+|-------|------|---------|
+| Install | bun | `bun install --frozen-lockfile` |
+| Lint | eslint | `bun run lint` |
+| Type-check | tsc | `bun run typecheck` |
+| Test | bun | `bun test` |
+| Build | vite | `bun run build` |
+| {stage} | {tool} | `{command}` |
+
+## External Services
+
+| Service | Purpose | Environment Variable |
+|---------|---------|---------------------|
+| {service} | {purpose} | `VITE_{MODULE}_{SERVICE}_URL` |
+
+## Version Pinning Strategy
+
+- **Direct dependencies**: pinned to exact versions in `package.json`
+- **Lock file**: `bun.lockb` committed for reproducible installs
+- **Node version**: specified in `.nvmrc` or `package.json` `engines`
+
+## Upgrade Checklist
+
+1. Update dependency version in `package.json`
+2. Run `bun install`
+3. Run full test suite: `bun test`
+4. Verify lint passes: `bun run lint`
+5. Verify type-check passes: `bun run typecheck`
+6. Update this document if a tool or dependency changes
+
+## See Also
+
+- [Architecture](architecture.template.arch)
+- [Setup Guide](../4-development/setup_guide.md)
+- [Overview](../README.md)

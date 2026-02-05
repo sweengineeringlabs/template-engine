@@ -1,0 +1,97 @@
+# {Module Name} Sequence Diagrams
+
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+Interaction sequences for key operations in {module-name}.
+
+## Primary Flow: {User Action}
+
+```
+┌────────┐     ┌────────────┐     ┌────────┐     ┌────────┐
+│  User  │     │ Component  │     │ Store  │     │  API   │
+└───┬────┘     └─────┬──────┘     └───┬────┘     └───┬────┘
+    │                │                │              │
+    │  interaction   │                │              │
+    │───────────────▶│                │              │
+    │                │  dispatch()    │              │
+    │                │───────────────▶│              │
+    │                │                │  fetch()     │
+    │                │                │─────────────▶│
+    │                │                │  response    │
+    │                │                │◀─────────────│
+    │                │  re-render     │              │
+    │                │◀───────────────│              │
+    │  UI update     │                │              │
+    │◀───────────────│                │              │
+    │                │                │              │
+```
+
+### Steps
+
+1. **User** triggers an interaction (click, submit, navigate)
+2. **Component** calls a store action via `use{Feature}Store()`
+3. **Store** performs async API call and updates state
+4. **Component** re-renders in response to state change
+5. **User** sees the updated UI
+
+## Error Flow: {Error Scenario}
+
+```
+┌────────┐     ┌────────────┐     ┌────────┐     ┌────────┐
+│  User  │     │ Component  │     │ Store  │     │  API   │
+└───┬────┘     └─────┬──────┘     └───┬────┘     └───┬────┘
+    │                │                │              │
+    │  interaction   │                │              │
+    │───────────────▶│                │              │
+    │                │  dispatch()    │              │
+    │                │───────────────▶│              │
+    │                │                │  fetch()     │
+    │                │                │─────────────▶│
+    │                │                │  error       │
+    │                │                │◀─────────────│
+    │                │  error state   │              │
+    │                │◀───────────────│              │
+    │  error UI      │                │              │
+    │◀───────────────│                │              │
+    │                │                │              │
+```
+
+### Error Handling
+
+- API errors are caught in the store action and stored as `error` state
+- Components read `error` from the store and render appropriate feedback
+- Transient errors show a toast notification; persistent errors show inline messages
+
+## Optimistic Update: {Optimistic Scenario}
+
+```
+┌────────┐     ┌────────────┐     ┌────────┐     ┌────────┐
+│  User  │     │ Component  │     │ Store  │     │  API   │
+└───┬────┘     └─────┬──────┘     └───┬────┘     └───┬────┘
+    │                │                │              │
+    │  interaction   │                │              │
+    │───────────────▶│                │              │
+    │                │  dispatch()    │              │
+    │                │───────────────▶│              │
+    │                │  optimistic    │              │
+    │                │◀───────────────│              │
+    │  instant UI    │                │  fetch()     │
+    │◀───────────────│                │─────────────▶│
+    │                │                │  confirm     │
+    │                │                │◀─────────────│
+    │                │                │              │
+```
+
+### Notes
+
+- Optimistic updates provide immediate feedback before server confirmation
+- On server failure the store rolls back to the previous state
+- Use optimistic updates only for low-risk, reversible actions
+
+## See Also
+
+- [Architecture](architecture.template.arch)
+- [Workflow](workflow.template.arch)
+- [Overview](../README.md)

@@ -1,0 +1,67 @@
+# Test Plan: {Component Name}
+
+**Spec:** [{Spec ID}]({path/to/spec.md})
+**Architecture:** [{Component Name} Architecture](../3-design/{component}_architecture.md)
+**Requirements:** [FR-{###}](../../1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+{Describe the testing strategy for this component, including the scope of
+testing, key risk areas, and the relationship between test levels.}
+
+## Unit Tests
+
+| ID | Test | Verifies | Priority |
+|----|------|----------|----------|
+| UT-{###}.1 | {test_function_name} | {Requirement or behavior verified} | {Critical \| High \| Medium \| Low} |
+| UT-{###}.2 | {test_function_name} | {Requirement or behavior verified} | {Critical \| High \| Medium \| Low} |
+| UT-{###}.3 | {test_function_name} | {Requirement or behavior verified} | {Critical \| High \| Medium \| Low} |
+
+## Integration Tests
+
+| ID | Test | Verifies | Priority |
+|----|------|----------|----------|
+| IT-{###}.1 | {test_function_name} | {Cross-module interaction verified} | {Critical \| High \| Medium \| Low} |
+| IT-{###}.2 | {test_function_name} | {Cross-module interaction verified} | {Critical \| High \| Medium \| Low} |
+
+## E2E Tests
+
+| ID | Test | Verifies | Priority |
+|----|------|----------|----------|
+| E2E-{###}.1 | {test_scenario_name} | {User-facing behavior verified} | {Critical \| High \| Medium \| Low} |
+| E2E-{###}.2 | {test_scenario_name} | {User-facing behavior verified} | {Critical \| High \| Medium \| Low} |
+
+## Performance Tests
+
+| ID | Test | Target | Priority |
+|----|------|--------|----------|
+| PT-{###}.1 | {benchmark_name} | {e.g., <50ms p99 latency} | {Critical \| High \| Medium \| Low} |
+| PT-{###}.2 | {benchmark_name} | {e.g., >1000 ops/sec throughput} | {Critical \| High \| Medium \| Low} |
+
+## Coverage Requirements
+
+### Targets
+
+- **Line coverage:** {>=X%}
+- **Branch coverage:** {>=X%}
+
+### Critical Paths
+
+All of the following must have explicit test cases:
+
+- {Critical path 1}
+- {Critical path 2}
+- {Critical path 3}
+
+### Exclusions
+
+The following are excluded from coverage targets:
+
+- {Generated code / boilerplate / unreachable defensive branches}
+
+### Mocking Strategy
+
+| Dependency | Mock Type | Notes |
+|------------|-----------|-------|
+| `{dependency}` | {Trait mock / fake / stub} | {When and why to use this mock} |
+| `{dependency}` | {Trait mock / fake / stub} | {When and why to use this mock} |

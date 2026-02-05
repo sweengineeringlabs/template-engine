@@ -1,0 +1,80 @@
+# {Component Name} Developer Setup
+
+**Crate:** `{crate-name}`
+**Spec:** [{Spec ID}]({path/to/spec.md})
+**Architecture:** [{Component Name} Architecture](../3-design/{component}_architecture.md)
+
+## Prerequisites
+
+| Tool | Version | Install |
+|------|---------|---------|
+| Rust | `{>=1.XX}` | [rustup.rs](https://rustup.rs) |
+| {tool} | `{>=X.Y}` | `{install command}` |
+
+## Clone & Build
+
+```bash
+git clone {repository-url}
+cd {project-root}
+cargo build -p {crate-name}
+```
+
+## Project Structure
+
+```
+{crate-name}/
+├── Cargo.toml
+├── src/
+│   ├── lib.rs          # {description}
+│   ├── {module_a}.rs   # {description}
+│   └── {module_b}.rs   # {description}
+└── tests/
+    └── integration.rs  # {description}
+```
+
+## Development Workflow
+
+1. Create a feature branch: `git checkout -b feat/{component}/{description}`
+2. Run `cargo fmt` and `cargo clippy -p {crate-name}`
+3. Run tests and open a pull request against `main`
+
+## Dependencies
+
+| Crate | Purpose |
+|-------|---------|
+| `{crate}` | {Why this dependency is needed} |
+| `{crate}` | {Why this dependency is needed} |
+
+## Environment Variables
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `{VAR_NAME}` | `{default}` | {What it controls} |
+| `{VAR_NAME}` | `{default}` | {What it controls} |
+
+## Common Tasks
+
+```bash
+# Run all tests
+cargo test -p {crate-name}
+
+# Run a specific test
+cargo test -p {crate-name} -- {test_name}
+
+# Check for lint issues
+cargo clippy -p {crate-name} -- -D warnings
+```
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---------|-----|
+| `{error message}` | {Resolution steps} |
+| `{error message}` | {Resolution steps} |
+| Build fails on `{dependency}` | {Resolution steps} |
+
+## See Also
+
+- [Architecture](../3-design/{component}_architecture.md)
+- [Test Plan](../5-testing/{component}_test_plan.md)
+- [Deployment](../6-deployment/{component}_deploy.md)

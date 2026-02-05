@@ -1,0 +1,79 @@
+# {Module Name} Toolchain
+
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+Dependencies, tools, and build infrastructure for {module-name}.
+
+## Language and Runtime
+
+| Item | Value |
+|------|-------|
+| Language | Rust {rust_edition} edition |
+| Minimum Rust version | `{rust_version}` |
+| Target(s) | `{target_triple}` |
+
+## Crate Dependencies
+
+### Production
+
+| Crate | Version | Purpose | Layer |
+|-------|---------|---------|-------|
+| `serde` | {version} | Serialization | `{module}-common` |
+| `thiserror` | {version} | Error derive macros | `{module}-common` |
+| `{crate}` | {version} | {purpose} | `{module}-{layer}` |
+
+### Development / Test
+
+| Crate | Version | Purpose |
+|-------|---------|---------|
+| `mockall` | {version} | Trait mocking |
+| `tokio` (test) | {version} | Async test runtime |
+| `{crate}` | {version} | {purpose} |
+
+## Build Tools
+
+| Tool | Version | Purpose |
+|------|---------|---------|
+| `cargo` | {version} | Build and dependency management |
+| `cargo-clippy` | {version} | Linting |
+| `cargo-fmt` | {version} | Code formatting |
+| `cargo-nextest` | {version} | Test runner (optional) |
+| `{tool}` | {version} | {purpose} |
+
+## CI/CD Pipeline
+
+| Stage | Tool | Command |
+|-------|------|---------|
+| Lint | clippy | `cargo clippy -p {module-name} -- -D warnings` |
+| Format | rustfmt | `cargo fmt -p {module-name} -- --check` |
+| Test | cargo | `cargo test -p {module-name}` |
+| Build | cargo | `cargo build -p {module-name} --release` |
+| {stage} | {tool} | `{command}` |
+
+## External Services
+
+| Service | Purpose | Environment Variable |
+|---------|---------|---------------------|
+| {service} | {purpose} | `{MODULE}_{SERVICE}_URL` |
+
+## Version Pinning Strategy
+
+- **Direct dependencies**: pinned to minor version (`1.2`) in `Cargo.toml`
+- **Lock file**: `Cargo.lock` committed for reproducible builds
+- **Rust toolchain**: pinned via `rust-toolchain.toml`
+
+## Upgrade Checklist
+
+1. Update dependency version in `Cargo.toml`
+2. Run `cargo update -p {crate}`
+3. Run full test suite: `cargo test -p {module-name}`
+4. Verify clippy passes: `cargo clippy -p {module-name}`
+5. Update this document if a tool or dependency changes
+
+## See Also
+
+- [Architecture](architecture.template.arch)
+- [Setup Guide](../4-development/setup_guide.md)
+- [Overview](../README.md)

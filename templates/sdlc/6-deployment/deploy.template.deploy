@@ -1,0 +1,70 @@
+# {Component Name} Deployment
+
+**Crate:** `{crate-name}`
+**Spec:** [{Spec ID}]({path/to/spec.md})
+
+## Overview
+
+{Describe the deployment model for this component: binary release, library
+publish, container image, or embedded artifact. Note any environments
+(staging, production) and promotion gates.}
+
+## Build
+
+```bash
+# Release build
+cargo build -p {crate-name} --release
+
+# Cross-compile (if applicable)
+cross build -p {crate-name} --release --target {target-triple}
+```
+
+## Package
+
+| Artifact | Path | Description |
+|----------|------|-------------|
+| `{binary}` | `target/release/{binary}` | {Main executable} |
+| `{library}` | `target/release/lib{name}.rlib` | {Library artifact} |
+| `{config}` | `deploy/{config-file}` | {Default configuration} |
+
+## Publish
+
+1. Ensure all CI checks pass on the release branch.
+2. Tag the release: `git tag -a v{X.Y.Z} -m "{Release description}"`
+3. Push the tag: `git push origin v{X.Y.Z}`
+4. {Publish to crates.io / deploy container / copy artifact}
+5. Verify the published artifact: `{verification command}`
+
+## Rollback
+
+1. Identify the last known-good version: `v{X.Y.Z}`
+2. {Revert deployment / re-deploy previous tag / roll back migration}
+3. Verify rollback: `{health check command}`
+4. Open an incident report if rollback was triggered by a defect.
+
+## Configuration
+
+| Key | Default | Description |
+|-----|---------|-------------|
+| `{key}` | `{default}` | {What this setting controls} |
+| `{key}` | `{default}` | {What this setting controls} |
+| `{key}` | `{default}` | {What this setting controls} |
+
+## Health Check
+
+```bash
+# Verify the binary starts
+./{binary} --version
+
+# Verify core functionality
+./{binary} {smoke-test-command}
+
+# Check listening port (if applicable)
+curl -sf http://localhost:{port}/health || echo "UNHEALTHY"
+```
+
+## Related Documents
+
+- **Architecture:** [{Component Name} Architecture](../3-design/{component}_architecture.md)
+- **Setup:** [{Component Name} Setup](../4-development/{component}_setup.md)
+- **Runbook:** [{Component Name} Runbook](../7-operation/{component}_runbook.md)

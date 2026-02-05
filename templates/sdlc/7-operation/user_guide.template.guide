@@ -1,0 +1,80 @@
+# {Component Name} User Guide
+
+**Spec:** [{Spec ID}]({path/to/spec.md})
+**Status:** {Draft | Review | Published}
+
+## Overview
+
+{1-2 paragraph description of what this component does from the user's
+perspective, who the intended audience is, and what problems it solves.}
+
+## Getting Started
+
+```rust
+use {crate_name}::{prelude::*, {Type}};
+
+fn main() {
+    let instance = {Type}::new({args});
+    let result = instance.{method}({args});
+    println!("{result:?}");
+}
+```
+
+## Common Tasks
+
+### {Task 1: e.g., Creating a Resource}
+
+```rust
+let resource = {Type}::builder()
+    .{field}({value})
+    .build()?;
+```
+
+### {Task 2: e.g., Querying Data}
+
+```rust
+let items = resource.{query_method}({filter})?;
+for item in items {
+    println!("{item}");
+}
+```
+
+### {Task 3: e.g., Handling Errors}
+
+```rust
+match resource.{method}({args}) {
+    Ok(value) => { /* success path */ }
+    Err({Error}::{Variant}) => { /* handle specific error */ }
+    Err(e) => { /* handle unexpected error */ }
+}
+```
+
+## Configuration
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `{key}` | `{type}` | `{default}` | {What it controls} |
+| `{key}` | `{type}` | `{default}` | {What it controls} |
+| `{key}` | `{type}` | `{default}` | {What it controls} |
+
+## Examples
+
+### {Scenario 1: e.g., Minimal Setup}
+
+```rust
+{Complete, runnable example for this scenario.}
+```
+
+## Troubleshooting
+
+| Problem | Cause | Fix |
+|---------|-------|-----|
+| `{error or symptom}` | {Why it happens} | {How to resolve it} |
+| `{error or symptom}` | {Why it happens} | {How to resolve it} |
+| `{error or symptom}` | {Why it happens} | {How to resolve it} |
+
+## See Also
+
+- [Architecture](../3-design/{component}_architecture.md)
+- [Reference Manual](./{component}_reference.md)
+- [Test Plan](../5-testing/{component}_test_plan.md)

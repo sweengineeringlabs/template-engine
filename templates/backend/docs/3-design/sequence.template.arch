@@ -1,0 +1,96 @@
+# {Module Name} Sequence Diagrams
+
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+Interaction sequences for key operations in {module-name}.
+
+## Primary Flow: {Operation Name}
+
+```
+┌────────┐     ┌────────┐     ┌────────┐     ┌────────┐
+│ Caller │     │ Facade │     │  Core  │     │  SPI   │
+└───┬────┘     └───┬────┘     └───┬────┘     └───┬────┘
+    │              │              │              │
+    │  request()   │              │              │
+    │─────────────▶│              │              │
+    │              │  process()   │              │
+    │              │─────────────▶│              │
+    │              │              │  provide()   │
+    │              │              │─────────────▶│
+    │              │              │  result      │
+    │              │              │◀─────────────│
+    │              │  result      │              │
+    │              │◀─────────────│              │
+    │  response    │              │              │
+    │◀─────────────│              │              │
+    │              │              │              │
+```
+
+### Steps
+
+1. **Caller** invokes the facade with `{method_name}({params})`
+2. **Facade** delegates to the core implementation
+3. **Core** applies business logic and calls the SPI provider
+4. **SPI Provider** performs the underlying operation and returns a result
+5. **Core** transforms the result and returns it through the facade
+
+## Error Flow: {Error Scenario}
+
+```
+┌────────┐     ┌────────┐     ┌────────┐
+│ Caller │     │ Facade │     │  Core  │
+└───┬────┘     └───┬────┘     └───┬────┘
+    │              │              │
+    │  request()   │              │
+    │─────────────▶│              │
+    │              │  process()   │
+    │              │─────────────▶│
+    │              │  Err(...)    │
+    │              │◀─────────────│
+    │  Err(...)    │              │
+    │◀─────────────│              │
+    │              │              │
+```
+
+### Error Handling
+
+- Errors from the SPI layer are wrapped in `{Module}Error::{Variant}`
+- The facade propagates errors without modification
+- Callers should pattern-match on the error variant to decide recovery strategy
+
+## Async Flow: {Async Operation}
+
+```
+┌────────┐     ┌────────┐     ┌────────┐     ┌──────────┐
+│ Caller │     │ Facade │     │  Core  │     │ External │
+└───┬────┘     └───┬────┘     └───┬────┘     └────┬─────┘
+    │              │              │                │
+    │  request()   │              │                │
+    │─────────────▶│              │                │
+    │              │  process()   │                │
+    │              │─────────────▶│                │
+    │              │              │  async call    │
+    │              │              │───────────────▶│
+    │              │              │  ...           │
+    │              │              │  response      │
+    │              │              │◀───────────────│
+    │              │  result      │                │
+    │              │◀─────────────│                │
+    │  response    │              │                │
+    │◀─────────────│              │                │
+    │              │              │                │
+```
+
+### Notes
+
+- Async operations use `async/.await` throughout the call chain
+- Timeouts are configured via `{Module}Config::timeout`
+- Cancellation is supported through standard `Drop` semantics
+
+## See Also
+
+- [Architecture](architecture.template.arch)
+- [Workflow](workflow.template.arch)
+- [Overview](../README.md)

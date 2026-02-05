@@ -1,0 +1,80 @@
+# {COMPONENT}(1) --- {Short description of the component}
+
+## NAME
+
+**{component}** --- {One-line summary of what it does.}
+
+## SYNOPSIS
+
+```
+{component} [OPTIONS] <COMMAND>
+{component} {subcommand} [--flag] <arg>
+{component} --help | --version
+```
+
+## DESCRIPTION
+
+{2-3 paragraph description of the component. Explain what it does, when to use
+it, and how it fits into the larger system.}
+
+## API REFERENCE
+
+### Public Types
+
+| Type | Description |
+|------|-------------|
+| `{TypeA}` | {What this type represents} |
+| `{TypeB}` | {What this type represents} |
+
+### Public Traits
+
+| Trait | Methods | Description |
+|-------|---------|-------------|
+| `{TraitA}` | `{method}(&self) -> {Return}` | {What this trait defines} |
+| `{TraitB}` | `{method}(&mut self, {arg}: {T})` | {What this trait defines} |
+
+### Key Functions
+
+| Function | Signature | Description |
+|----------|-----------|-------------|
+| `{function_a}` | `fn({args}) -> {Return}` | {What it does} |
+| `{function_b}` | `fn({args}) -> Result<{T}, {E}>` | {What it does} |
+
+## CONFIGURATION
+
+```toml
+[{component}]
+{key} = {value}       # {description}
+{key} = {value}       # {description}
+```
+
+## ENVIRONMENT
+
+| Variable | Description |
+|----------|-------------|
+| `{COMPONENT}_LOG` | Set log level (`trace`, `debug`, `info`, `warn`, `error`) |
+| `{COMPONENT}_CONFIG` | Path to configuration file |
+| `{VAR_NAME}` | {Description of this variable} |
+
+## EXAMPLES
+
+```bash
+# Run with default settings
+{component}
+
+# Run with a custom configuration file
+{component} --config /etc/{component}/config.toml
+
+# Use a specific subcommand
+{component} {subcommand} --{flag} {value}
+```
+
+## SEE ALSO
+
+- [{Component Name} User Guide](./{component}_user_guide.md)
+- [{Component Name} Architecture](../3-design/{component}_architecture.md)
+- [{Spec ID}]({path/to/spec.md})
+
+## AUTHORS
+
+{Author Name} <{author@example.com}>

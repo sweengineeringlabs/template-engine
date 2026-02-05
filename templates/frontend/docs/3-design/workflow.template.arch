@@ -1,0 +1,99 @@
+# {Module Name} Workflow
+
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+Data and process flows for {module-name}.
+
+## Data Flow
+
+```
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│   User   │───▶│    UI    │───▶│  Store   │───▶│   API    │
+│  Input   │    │Component │    │  Action  │    │  Layer   │
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+                     ▲               │
+                     │               ▼
+                     │          ┌──────────┐
+                     └──────────│  State   │
+                   re-render    │  Update  │
+                                └──────────┘
+```
+
+### Input Stage
+
+- Source: {describe the user input or event}
+- Validation: performed in the component before dispatching
+- Transformation: mapped to store action parameters
+
+### Processing Stage
+
+- Store action processes the request asynchronously
+- API layer communicates with the backend
+- Response is normalized and merged into store state
+
+### Rendering Stage
+
+- React re-renders subscribed components on state change
+- Selectors derive computed values from store state
+- Memoization prevents unnecessary re-renders
+
+## Component Lifecycle
+
+```
+┌────────────┐
+│   Mount    │
+└─────┬──────┘
+      │ useEffect()
+      ▼
+┌────────────┐
+│   Fetch    │◀──────────────┐
+│   Data     │               │
+└─────┬──────┘               │
+      │ setState()           │ refetch
+      ▼                      │
+┌────────────┐          ┌────┴───────┐
+│  Render    │─────────▶│  Update    │
+│    UI      │  event   │  State     │
+└─────┬──────┘          └────────────┘
+      │ cleanup
+      ▼
+┌────────────┐
+│  Unmount   │
+└────────────┘
+```
+
+### State Transitions
+
+| From | To | Trigger | Guard |
+|------|----|---------|-------|
+| Mount | Fetch Data | Component mounts | Dependencies ready |
+| Fetch Data | Render UI | Data loaded | No error |
+| Render UI | Update State | User interaction | Validation passes |
+| Update State | Fetch Data | Refetch needed | None |
+| Render UI | Unmount | Route change | None |
+
+## Store Data Pipeline
+
+| Stage | Responsibility | Input | Output |
+|-------|---------------|-------|--------|
+| Action | Dispatch intent | User event | API request |
+| API | Network call | Request params | Raw response |
+| Normalizer | Shape data | Raw response | Normalized state |
+| Selector | Derive view | Full state | Component props |
+
+## Error Propagation
+
+```
+API error (network / server)
+    └──▶ caught in store action
+         └──▶ stored as error state
+              └──▶ rendered by ErrorBoundary or inline message
+```
+
+## See Also
+
+- [Architecture](architecture.template.arch)
+- [Sequence Diagrams](sequence.template.arch)
+- [Overview](../README.md)

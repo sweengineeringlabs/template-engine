@@ -1,0 +1,80 @@
+# {Component Name} Operations Runbook
+
+**Component:** `{crate-name}`
+**Binary:** `{binary-name}`
+**Config:** `{path/to/config.toml}`
+
+## Overview
+
+{Describe what this component does in production, where it runs, and what
+services depend on it. Include the on-call team or ownership information.}
+
+## Health Checks
+
+| Check | Command | Expected |
+|-------|---------|----------|
+| Process alive | `pgrep -f {binary-name}` | PID returned |
+| HTTP health | `curl -sf http://localhost:{port}/health` | `200 OK` |
+| {Custom check} | `{command}` | {expected output} |
+
+## Monitoring
+
+### Key Metrics
+
+- `{component}_requests_total` -- Total requests processed.
+- `{component}_errors_total` -- Errors by category.
+- `{component}_latency_seconds` -- Request latency histogram.
+
+### Log Patterns
+
+| Pattern | Meaning | Action |
+|---------|---------|--------|
+| `ERROR {component}::{module}` | {What went wrong} | {Investigate / escalate} |
+| `WARN slow_query` | {Query exceeded threshold} | {Check load / indexes} |
+
+## Common Issues
+
+### {Issue 1: e.g., High Memory Usage}
+
+- **Symptom:** RSS exceeds `{threshold}`.
+- **Cause:** {Likely root cause}.
+- **Fix:** {Step-by-step resolution}.
+
+### {Issue 2: e.g., Connection Pool Exhaustion}
+
+- **Symptom:** `{error message in logs}`.
+- **Cause:** {Likely root cause}.
+- **Fix:** {Step-by-step resolution}.
+
+### {Issue 3: e.g., Stale Cache}
+
+- **Symptom:** {Observable behavior}.
+- **Cause:** {Likely root cause}.
+- **Fix:** {Step-by-step resolution}.
+
+## Performance Tuning
+
+| Parameter | Default | Guidance |
+|-----------|---------|----------|
+| `{parameter}` | `{default}` | {When and how to adjust} |
+| `{parameter}` | `{default}` | {When and how to adjust} |
+
+## Maintenance
+
+- **Log rotation:** {Frequency and retention policy}.
+- **Backups:** {What to back up and how often}.
+
+## Incident Response
+
+| Severity | Scenario | Action |
+|----------|----------|--------|
+| P1 -- Critical | {Component completely down} | {Restart, page on-call, open incident} |
+| P2 -- High | {Degraded performance} | {Scale up, investigate, notify} |
+| P3 -- Medium | {Intermittent errors} | {Monitor, investigate during hours} |
+| P4 -- Low | {Cosmetic / non-urgent} | {Track in backlog} |
+
+## See Also
+
+- [Deployment](../6-deployment/{component}_deploy.md)
+- [User Guide](./{component}_user_guide.md)
+- [Architecture](../3-design/{component}_architecture.md)

@@ -1,0 +1,73 @@
+# {Component Name} Architecture
+
+**Spec:** [{Spec ID}]({path/to/spec.md})
+**Status:** {Draft | Review | Approved}
+**Related:** [FR-{###}](../../1-requirements/FR-{###}-{name}.md)
+
+## Overview
+
+{High-level description of the component's purpose and how it fits into the
+broader system. Explain the problem it solves and the architectural style chosen
+(e.g., layered, event-driven, pipeline).}
+
+{Describe key constraints, quality attributes, and any external systems this
+component interacts with.}
+
+## Architecture Diagram
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                    {Component Name}                      │
+│  ┌───────────────┐  ┌───────────────┐  ┌────────────┐  │
+│  │  {Module A}   │  │  {Module B}   │  │ {Module C} │  │
+│  └───────┬───────┘  └───────┬───────┘  └─────┬──────┘  │
+│          │                  │                 │         │
+│          └──────────────────┼─────────────────┘         │
+│                             ▼                           │
+│                    ┌────────────────┐                    │
+│                    │  {Shared Core} │                    │
+│                    └────────────────┘                    │
+└─────────────────────────────────────────────────────────┘
+```
+
+## Module Structure
+
+| Module | Responsibility |
+|--------|----------------|
+| `{module_a}` | {Primary responsibility of module A} |
+| `{module_b}` | {Primary responsibility of module B} |
+| `{module_c}` | {Primary responsibility of module C} |
+| `{shared_core}` | {Shared types, traits, and utilities} |
+
+## Data Flow
+
+```
+┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
+│  Input   │───▶│ {Stage1} │───▶│ {Stage2} │───▶│  Output  │
+└──────────┘    └──────────┘    └──────────┘    └──────────┘
+                      │                               ▲
+                      ▼                               │
+                ┌──────────┐                    ┌──────────┐
+                │ {Branch} │───────────────────▶│ {Merge}  │
+                └──────────┘                    └──────────┘
+```
+
+## Key Design Decisions
+
+- **{Decision 1}:** {Rationale and trade-offs.}
+- **{Decision 2}:** {Rationale and trade-offs.}
+- **{Decision 3}:** {Rationale and trade-offs.}
+
+## Error Handling
+
+| Error Category | Strategy | Example |
+|----------------|----------|---------|
+| {Recoverable} | {Retry / fallback / default} | {description} |
+| {Fatal} | {Propagate / abort / log-and-skip} | {description} |
+| {Validation} | {Return Result<T, E>} | {description} |
+
+## Related Documents
+
+- **Spec:** [{Spec ID}]({path/to/spec.md})
+- **Setup:** [{Component Name} Setup](../../4-development/{component}_setup.md)
+- **Tests:** [{Component Name} Test Plan](../../5-testing/{component}_test_plan.md)
