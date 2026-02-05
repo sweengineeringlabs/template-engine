@@ -19,13 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Core documentation templates:
-  - crate-overview-template.md (module/component documentation)
-  - framework-doc-template.md (framework-wide documentation)
+  - crate_overview.template.md (module/component documentation)
+  - framework_doc.template.md (framework-wide documentation)
 - Deployment templates:
-  - release-versioning-template.md (version management)
-  - deployment-workflow-template.md (deployment processes)
-  - ci-cd-template.md (CI/CD pipelines)
-  - publishing-template.md (registry publishing)
+  - release_versioning.template.md (version management)
+  - deployment_workflow.template.md (deployment processes)
+  - ci_cd.template.md (CI/CD pipelines)
+  - publishing.template.md (registry publishing)
 - FRAMEWORK.md (documentation framework guide)
 - Comprehensive workflow diagrams in all deployment templates
 - ASCII art visualizations for:

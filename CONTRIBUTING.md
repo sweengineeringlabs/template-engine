@@ -18,7 +18,7 @@ If you find problems with templates or have suggestions:
 To improve a template:
 
 1. Fork the repository
-2. Create a branch (`feature/improve-ci-cd-template`)
+2. Create a branch (`feature/improve-ci-cd-template` or similar)
 3. Make your changes
 4. Test with a real project
 5. Submit a pull request

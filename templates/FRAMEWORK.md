@@ -60,8 +60,8 @@ project/
 │   ├── framework-backlog.md            # Cross-cutting backlog
 │   └── templates/
 │       ├── README.md                   # Template usage guide
-│       ├── crate-overview-template.md  # Module/component template
-│       └── framework-doc-template.md   # Framework doc template
+│       ├── crate_overview.template.md  # Module/component template
+│       └── framework_doc.template.md   # Framework doc template
 └── modules/                            # or crates/, packages/, lib/
     └── [module-name]/
         ├── Cargo.toml / package.json / setup.py

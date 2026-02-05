@@ -48,8 +48,8 @@ cd template-engine/templates
 
 ```bash
 # For a new project
-cp templates/crate-overview-template.md your-project/docs/overview.md
-cp templates/framework-doc-template.md your-project/docs/architecture.md
+cp templates/crate_overview.template.md your-project/docs/overview.md
+cp templates/framework_doc.template.md your-project/docs/architecture.md
 
 # Replace placeholders
 # [PROJECT_NAME] → your-project-name
@@ -70,52 +70,52 @@ Each template includes:
 
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
-| [crate-overview-template.md](templates/crate-overview-template.md) | Module/component docs | `docs/overview.md` | Libraries, modules, packages |
-| [framework-doc-template.md](templates/framework-doc-template.md) | Framework-wide docs | `docs/guides/*.md` | Architecture, security, patterns |
+| [crate_overview.template.md](templates/crate_overview.template.md) | Module/component docs | `docs/overview.md` | Libraries, modules, packages |
+| [framework_doc.template.md](templates/framework_doc.template.md) | Framework-wide docs | `docs/guides/*.md` | Architecture, security, patterns |
 | [glossary.template.md](templates/glossary.template.md) | Term definitions | `docs/glossary.md` | All projects (REQUIRED) |
 
 ### SDLC Templates
 
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
-| [feature-request.template.md](templates/sdlc/1-requirements/feature-request.template.md) | FR definitions | `doc/1-requirements/` | Feature tracking |
-| [implementation-plan.template.md](templates/sdlc/2-planning/implementation-plan.template.md) | Implementation plans | `doc/2-planning/FR-{###}/` | Sprint planning |
-| [backlog.template.md](templates/sdlc/4-development/backlog.template.md) | Feature backlogs | `doc/4-development/` | Work tracking |
-| [kanban.template.md](templates/sdlc/4-development/kanban.template.md) | Sprint boards | `doc/4-development/` | Sprint management |
+| [feature_request.template.md](templates/sdlc/1-requirements/feature_request.template.md) | FR definitions | `docs/1-requirements/` | Feature tracking |
+| [implementation_plan.template.md](templates/sdlc/2-planning/implementation_plan.template.md) | Implementation plans | `docs/2-planning/FR-{###}/` | Sprint planning |
+| [backlog.template.md](templates/sdlc/4-development/backlog.template.md) | Feature backlogs | `docs/4-development/` | Work tracking |
+| [kanban.template.md](templates/sdlc/4-development/kanban.template.md) | Sprint boards | `docs/4-development/` | Sprint management |
 
 ### Backend/SEA Module Templates
 
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
 | [README.template.md](templates/backend/README.template.md) | Module entry point | `{module}/README.md` | All modules |
-| [overview.template.md](templates/backend/doc/overview.template.md) | WHAT/WHY/HOW | `{module}/doc/overview.md` | All modules |
-| [architecture.template.md](templates/backend/doc/3-design/architecture.template.md) | SEA layer diagram | `{module}/doc/3-design/` | Backend modules |
-| [adr.template.md](templates/backend/doc/3-design/adr.template.md) | Architecture decisions | `{module}/doc/3-design/adr/` | Design decisions |
-| [integration.template.md](templates/backend/doc/3-design/integration.template.md) | Integration guide | `{module}/doc/3-design/` | API consumers |
-| [strategy.template.md](templates/backend/doc/5-testing/strategy.template.md) | Test strategy | `{module}/doc/5-testing/` | Test planning |
-| [configuration.template.md](templates/backend/doc/6-operation/configuration.template.md) | Config options | `{module}/doc/6-operation/` | Runtime config |
-| [troubleshooting.template.md](templates/backend/doc/6-operation/troubleshooting.template.md) | Debug guide | `{module}/doc/6-operation/` | Issue resolution |
+| [overview.template.md](templates/backend/docs/overview.template.md) | WHAT/WHY/HOW | `{module}/docs/overview.md` | All modules |
+| [architecture.template.md](templates/backend/docs/3-design/architecture.template.md) | SEA layer diagram | `{module}/docs/3-design/` | Backend modules |
+| [adr.template.md](templates/backend/docs/3-design/adr.template.md) | Architecture decisions | `{module}/docs/3-design/adr/` | Design decisions |
+| [integration.template.md](templates/backend/docs/3-design/integration.template.md) | Integration guide | `{module}/docs/3-design/` | API consumers |
+| [strategy.template.md](templates/backend/docs/5-testing/strategy.template.md) | Test strategy | `{module}/docs/5-testing/` | Test planning |
+| [configuration.template.md](templates/backend/docs/6-operation/configuration.template.md) | Config options | `{module}/docs/6-operation/` | Runtime config |
+| [troubleshooting.template.md](templates/backend/docs/6-operation/troubleshooting.template.md) | Debug guide | `{module}/docs/6-operation/` | Issue resolution |
 
 ### Frontend Templates
 
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
-| [architecture.template.md](templates/frontend/doc/3-design/architecture.template.md) | Component design | `doc/3-design/FR-{###}/` | React features |
-| [adr.template.md](templates/frontend/doc/3-design/adr.template.md) | UI decisions | `doc/3-design/FR-{###}/adr/` | Design decisions |
-| [backlog.template.md](templates/frontend/doc/4-development/backlog.template.md) | Feature backlog | `doc/4-development/FR-{###}/` | Work tracking |
-| [kanban.template.md](templates/frontend/doc/4-development/kanban.template.md) | Sprint board | `doc/4-development/` | Sprint management |
-| [test-plan.template.md](templates/frontend/doc/5-testing/test-plan.template.md) | Test strategy | `doc/5-testing/FR-{###}/` | Test planning |
-| [configuration.template.md](templates/frontend/doc/6-operation/configuration.template.md) | UI config | `doc/6-operation/FR-{###}/` | Settings |
-| [troubleshooting.template.md](templates/frontend/doc/6-operation/troubleshooting.template.md) | Debug guide | `doc/6-operation/FR-{###}/` | Issue resolution |
+| [architecture.template.md](templates/frontend/docs/3-design/architecture.template.md) | Component design | `docs/3-design/FR-{###}/` | React features |
+| [adr.template.md](templates/frontend/docs/3-design/adr.template.md) | UI decisions | `docs/3-design/FR-{###}/adr/` | Design decisions |
+| [backlog.template.md](templates/frontend/docs/4-development/backlog.template.md) | Feature backlog | `docs/4-development/FR-{###}/` | Work tracking |
+| [kanban.template.md](templates/frontend/docs/4-development/kanban.template.md) | Sprint board | `docs/4-development/` | Sprint management |
+| [test_plan.template.md](templates/frontend/docs/5-testing/test_plan.template.md) | Test strategy | `docs/5-testing/FR-{###}/` | Test planning |
+| [configuration.template.md](templates/frontend/docs/6-operation/configuration.template.md) | UI config | `docs/6-operation/FR-{###}/` | Settings |
+| [troubleshooting.template.md](templates/frontend/docs/6-operation/troubleshooting.template.md) | Debug guide | `docs/6-operation/FR-{###}/` | Issue resolution |
 
 ### Deployment Templates
 
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
-| [release-versioning-template.md](templates/release-versioning-template.md) | Version management | `docs/deployment/versioning.md` | All projects |
-| [deployment-workflow-template.md](templates/deployment-workflow-template.md) | Deployment process | `docs/deployment/workflow.md` | Libraries, applications |
-| [ci-cd-template.md](templates/ci-cd-template.md) | CI/CD pipelines | `docs/deployment/ci-cd.md` | All projects |
-| [publishing-template.md](templates/publishing-template.md) | Registry publishing | `docs/deployment/publishing.md` | Libraries, packages |
+| [release_versioning.template.md](templates/release_versioning.template.md) | Version management | `docs/deployment/versioning.md` | All projects |
+| [deployment_workflow.template.md](templates/deployment_workflow.template.md) | Deployment process | `docs/deployment/workflow.md` | Libraries, applications |
+| [ci_cd.template.md](templates/ci_cd.template.md) | CI/CD pipelines | `docs/deployment/ci-cd.md` | All projects |
+| [publishing.template.md](templates/publishing.template.md) | Registry publishing | `docs/deployment/publishing.md` | Libraries, packages |
 
 ### Repository Files
 
@@ -215,7 +215,7 @@ Platform-agnostic CI/CD templates for:
 
 ```bash
 # Copy template
-cp templates/crate-overview-template.md myproject/src/auth/docs/overview.md
+cp templates/crate_overview.template.md myproject/src/auth/docs/overview.md
 
 # Edit and replace:
 [Module Name] → Authentication
@@ -229,7 +229,7 @@ Result: Professional module documentation in minutes!
 
 ```bash
 # Copy template
-cp templates/ci-cd-template.md myproject/docs/ci-cd.md
+cp templates/ci_cd.template.md myproject/docs/ci-cd.md
 
 # Customize for your platform:
 [CI Platform] → GitHub Actions
@@ -243,13 +243,13 @@ Result: Complete CI/CD documentation with workflows!
 
 ```bash
 # Create a new Feature Request
-cp templates/sdlc/1-requirements/feature-request.template.md \
-   doc/1-requirements/FR-001-user-auth.md
+cp templates/sdlc/1-requirements/feature_request.template.md \
+   docs/1-requirements/FR-001-user-auth.md
 
 # Create implementation plan
-mkdir -p doc/2-planning/FR-001
-cp templates/sdlc/2-planning/implementation-plan.template.md \
-   doc/2-planning/FR-001/implementation-plan.md
+mkdir -p docs/2-planning/FR-001
+cp templates/sdlc/2-planning/implementation_plan.template.md \
+   docs/2-planning/FR-001/implementation_plan.md
 
 # Replace placeholders: {###} → 001, {name} → user-auth
 ```
@@ -258,11 +258,11 @@ cp templates/sdlc/2-planning/implementation-plan.template.md \
 
 ```bash
 # Bootstrap a new SEA module
-mkdir -p my-module/doc/{3-design,4-development,5-testing}
+mkdir -p my-module/docs/{3-design,4-development,5-testing}
 cp templates/backend/README.template.md my-module/README.md
-cp templates/backend/doc/overview.template.md my-module/doc/overview.md
-cp templates/backend/doc/3-design/*.template.md my-module/doc/3-design/
-cp templates/backend/doc/5-testing/*.template.md my-module/doc/5-testing/
+cp templates/backend/docs/overview.template.md my-module/docs/overview.md
+cp templates/backend/docs/3-design/*.template.md my-module/docs/3-design/
+cp templates/backend/docs/5-testing/*.template.md my-module/docs/5-testing/
 
 # Replace {module-name} → my-module, {Module} → MyModule
 ```

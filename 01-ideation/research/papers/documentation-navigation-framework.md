@@ -230,7 +230,7 @@ Categories should reflect user journeys:
 
 ### Getting Started
 - [Setup Guide](4-development/setup-guide.md) - Prerequisites, installation
-- [User Guide](../gui/frontend/doc/6-operation/user-guide.md) - Usage instructions
+- [User Guide](../gui/frontend/docs/6-operation/user-guide.md) - Usage instructions
 
 ### Architecture & Design
 - [Architecture](3-design/architecture.md) - System design
@@ -448,8 +448,8 @@ doc/overview.md (188 lines)
     ↓ (12 organized links)
     ├─→ Getting Started
     │   ├─→ doc/4-development/setup-guide.md
-    │   ├─→ gui/frontend/doc/6-operation/user-guide.md
-    │   ├─→ gui/frontend/doc/6-operation/installation.md
+    │   ├─→ gui/frontend/docs/6-operation/user-guide.md
+    │   ├─→ gui/frontend/docs/6-operation/installation.md
     │   └─→ tui/doc/6-operation/installation.md
     │
     ├─→ Architecture & Design

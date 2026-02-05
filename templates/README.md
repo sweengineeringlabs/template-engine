@@ -5,17 +5,17 @@ This directory contains language-agnostic templates for comprehensive software d
 ## Quick Reference
 
 ### Module/Component Documentation
-- **[crate-overview-template.md](crate-overview-template.md)** - Module and component documentation
+- **[crate_overview.template.md](crate_overview.template.md)** - Module and component documentation
 
 ### Framework Documentation
-- **[framework-doc-template.md](framework-doc-template.md)** - Framework-wide documentation (architecture, security, patterns)
+- **[framework_doc.template.md](framework_doc.template.md)** - Framework-wide documentation (architecture, security, patterns)
 - **[FRAMEWORK.md](FRAMEWORK.md)** - Complete documentation framework guide
 
 ### Deployment Documentation
-- **[release-versioning-template.md](release-versioning-template.md)** - Version management and SemVer
-- **[deployment-workflow-template.md](deployment-workflow-template.md)** - Deployment strategies and processes
-- **[ci-cd-template.md](ci-cd-template.md)** - CI/CD pipeline configuration
-- **[publishing-template.md](publishing-template.md)** - Package registry publishing
+- **[release_versioning.template.md](release_versioning.template.md)** - Version management and SemVer
+- **[deployment_workflow.template.md](deployment_workflow.template.md)** - Deployment strategies and processes
+- **[ci_cd.template.md](ci_cd.template.md)** - CI/CD pipeline configuration
+- **[publishing.template.md](publishing.template.md)** - Package registry publishing
 
 ### Repository Files
 - **[git-files/](git-files/)** - Git repository governance files (coming soon)
