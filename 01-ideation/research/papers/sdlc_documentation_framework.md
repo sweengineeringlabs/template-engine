@@ -447,7 +447,9 @@ Supporting research is documented under `{folder}/papers/`:
 | Requirements files | `.spec` | `stdlib_http.spec`, `compiler_ir.spec` |
 | Design files | `.arch` | `stdlib_http.arch`, `compiler_ir.arch` |
 
-> **SDLC-Specific Extensions:** Files in `1-requirements/` use `.spec` extension and files in `3-design/` use `.arch` extension. Both are markdown-compatible -- the custom extensions signal document purpose at a glance.
+> **SDLC-Specific Extensions:** Files in `1-requirements/` use `.spec` extension and files in `3-design/` use `.arch` extension. Both are markdown-compatible — the custom extensions signal document purpose at a glance.
+>
+> **1:1 Spec–Arch Pairing:** Every `.spec` file in `1-requirements/` must have a corresponding `.arch` file in `3-design/` with the same name and subdirectory path. For example, `1-requirements/stdlib/stdlib_http.spec` pairs with `3-design/stdlib/stdlib_http.arch`. The `.spec` defines *what* to build; the `.arch` defines *how* it is architected. Additional `.arch` files (supplementary design docs) may exist without a corresponding `.spec`, but every `.spec` must have an `.arch` counterpart.
 
 **Prohibited:**
 - `camelCase.md`
