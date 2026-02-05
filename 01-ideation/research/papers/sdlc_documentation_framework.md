@@ -202,7 +202,7 @@ Documentation is organized into eight folders corresponding to SDLC phases:
 ```
 docs/
 ├── 0-ideation/        # WHY to build (research, concepts, feasibility)
-├── 1-specification/   # WHAT to build (specs, requirements, grammar)
+├── 1-requirements/   # WHAT to build (specs, requirements, grammar)
 ├── 2-planning/        # WHEN and HOW to build
 ├── 3-design/          # HOW it's architected
 ├── 4-development/     # HOW to develop
@@ -237,7 +237,7 @@ Developers intuitively understand SDLC phases from their education and experienc
 | Folder | Phase | Contents |
 |--------|-------|----------|
 | `0-ideation/` | Ideation | Research papers, initial concepts, feasibility studies, prototypes |
-| `1-specification/` | Specification | Business requirements (BRD), user stories, technical specifications, grammar |
+| `1-requirements/` | Specification | Business requirements (BRD), user stories, technical specifications, grammar |
 | `2-planning/` | Planning | Backlog, roadmap, feature proposals, sprint plans |
 | `3-design/` | Design | Architecture, ADRs, sequence diagrams, patterns |
 | `4-development/` | Development | Developer guides, setup instructions, workflows |
@@ -258,7 +258,7 @@ ROOT (swe-studio/)                    MODULE ({module}/)
     ├── README.md                         ├── README.md
     ├── 0-ideation/                       ├── 3-design/
     │   └── research/                     │   ├── architecture.md
-    ├── 1-specification/                  │   ├── sequence.md
+    ├── 1-requirements/                  │   ├── sequence.md
     │   └── brd.md                        │   ├── workflow.md
     ├── 2-planning/                       │   └── toolchain.md
     │   └── backlog.md                    ├── 4-development/
@@ -293,7 +293,7 @@ The framework specifies minimum required files for root and modules:
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" |
 | `docs/README.md` | W³H | "How does it all fit together?" |
 | `docs/0-ideation/` | Research and concepts | "What research informed this?" |
-| `docs/1-specification/brd.md` | Business requirements | "Why does this exist?" |
+| `docs/1-requirements/brd.md` | Business requirements | "Why does this exist?" |
 | `docs/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
 | `docs/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
 | `docs/4-development/kanban/` | Root kanban folder (domain-prefixed files) | "What's in progress?" |
@@ -469,7 +469,7 @@ The framework is enforced through a PR template that includes a documentation ch
 #### 0-ideation/
 - [ ] Research or feasibility notes (if applicable)
 
-#### 1-specification/
+#### 1-requirements/
 - [ ] Requirements or technical specification
 
 #### 3-design/
@@ -626,7 +626,7 @@ Deleted 8 orphan stubs from `docs/4-development/`:
 
 Created missing compulsory files:
 - `docs/0-ideation/` folder
-- `docs/1-specification/` folder (renamed from `docs/1-requirements/`)
+- `docs/1-requirements/` folder (renamed from `docs/1-requirements/`)
 - `docs/2-planning/` folder (moved from `docs/1-requirements/planning/`)
 - `docs/6-deployment/` folder (split from `docs/6-operation/`)
 - `docs/7-operation/` folder (split from `docs/6-operation/`)
@@ -640,7 +640,7 @@ docs/
 ├── README.md
 ├── 0-ideation/
 │   └── research/
-├── 1-specification/
+├── 1-requirements/
 │   └── brd.md
 ├── 2-planning/
 │   ├── backlog.md
@@ -705,7 +705,7 @@ crates/swe-terminal/
 
 **RQ1: Can SDLC phases provide intuitive organization?**
 
-Yes. During migration, file placement decisions were unambiguous. "Where does the architecture document go?" has exactly one answer: `3-design/`. "Where does early research go?" → `0-ideation/`. "Where do technical specs go?" → `1-specification/`. No discussion or convention lookup required.
+Yes. During migration, file placement decisions were unambiguous. "Where does the architecture document go?" has exactly one answer: `3-design/`. "Where does early research go?" → `0-ideation/`. "Where do technical specs go?" → `1-requirements/`. No discussion or convention lookup required.
 
 **RQ2: Does mirrored structure reduce cognitive load?**
 
@@ -900,7 +900,7 @@ swe-studio/
     ├── README.md
     ├── 0-ideation/
     │   └── research/
-    ├── 1-specification/
+    ├── 1-requirements/
     │   └── brd.md
     ├── 2-planning/
     │   └── backlog.md
@@ -977,7 +977,7 @@ swe-studio/
 #### 0-ideation/
 - [ ] Research or feasibility notes (if applicable)
 
-#### 1-specification/
+#### 1-requirements/
 - [ ] Requirements or technical specification
 
 #### 3-design/
