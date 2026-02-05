@@ -1,6 +1,6 @@
 # [Module/Crate Name]
 
-> **Scope**: High-level entry point. Implementation details belong in [Developer Guide](../../../doc/4-development/developer-guide.md).
+> **Scope**: High-level entry point. Implementation details belong in [Developer Guide](../../../docs/4-development/developer-guide.md).
 
 **Audience**: [Who is this module for? E.g., "Data scientists who need X", "Backend developers building Y"]
 
@@ -34,7 +34,7 @@ let result = MainType::new().do_something(&data)?;
 
 | Document | Description |
 |----------|-------------|
-| [Developer Guide](../../../doc/4-development/developer-guide.md) | Build, test, API reference |
+| [Developer Guide](../../../docs/4-development/developer-guide.md) | Build, test, API reference |
 | [Backlog](../backlog.md) | Planned features |
 
 ---

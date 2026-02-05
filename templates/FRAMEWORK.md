@@ -66,7 +66,7 @@ project/
     └── [module-name]/
         ├── Cargo.toml / package.json / setup.py
         ├── src/
-        ├── doc/
+        ├── docs/
         │   ├── README.md               # Module overview (W³H)
         │   ├── 3-design/
         │   │   └── toolchain.md        # Tools used, overview, how/why in system
@@ -172,7 +172,7 @@ docs/README.md (Main Hub)
     ├→ 4-development/developer-guide.md (Dev Hub)
     │   └→ Development guides
     │
-    └→ Module overviews (modules/*/doc/README.md)
+    └→ Module overviews (modules/*/docs/README.md)
 ```
 
 ## Document Types & Templates
@@ -294,7 +294,7 @@ Alphabetized list of terms used in [Project Name].
 
 **Example**: See `docs/4-development/developer-guide.md` in Rustboot
 
-### 7. Module Overview (modules/*/doc/README.md)
+### 7. Module Overview (modules/*/docs/README.md)
 
 **Audience**: Developers
 **Format**: W³H (WHO-WHAT-WHY-HOW)
@@ -307,9 +307,9 @@ Alphabetized list of terms used in [Project Name].
 - Relationship to other modules
 - Status & backlog link
 
-**Example**: See `crates/rustboot-security/doc/README.md`
+**Example**: See `crates/rustboot-security/docs/README.md`
 
-### 8. Module Toolchain (modules/*/doc/3-design/toolchain.md)
+### 8. Module Toolchain (modules/*/docs/3-design/toolchain.md)
 
 **Audience**: Developers, DevOps
 **Format**: Reference documentation
@@ -353,7 +353,7 @@ Alphabetized list of terms used in [Project Name].
 [Commands to verify toolchain setup]
 ```
 
-### 9. Module Deployment (modules/*/doc/6-deployment/)
+### 9. Module Deployment (modules/*/docs/6-deployment/)
 
 **Audience**: Developers, DevOps, Users
 **Format**: Deployment guides
@@ -425,7 +425,7 @@ Every module/component must have:
 
 - [ ] **At minimum**: `examples/basic.rs` - Simple usage
 - [ ] **At minimum**: `tests/integration.rs` - Public API tests
-- [ ] **In doc/README.md**: "Examples and Tests" section with links
+- [ ] **In docs/README.md**: "Examples and Tests" section with links
 - [ ] **Links to**: Testing guides (Rust Test Organization, etc.)
 
 ### Example Structure
@@ -439,7 +439,7 @@ module/
 ├── tests/
 │   ├── integration.rs     # Always required
 │   └── [feature]_test.rs  # Additional test files as needed
-└── doc/
+└── docs/
     └── README.md          # Must link to above
 ```
 
@@ -453,9 +453,9 @@ module/
 | `docs/4-development/developer-guide.md` | Hub + Links | Developers | Dev index |
 | `docs/3-design/*.md` | W³H | Specified | Architecture docs |
 | `docs/4-development/guide/*.md` | W³H | Specified | Dev guides |
-| `modules/*/doc/README.md` | W³H + Prerequisites | Developers | Module docs |
-| `modules/*/doc/3-design/toolchain.md` | Reference (what/why/how) | Developers, DevOps | Toolchain docs |
-| `modules/*/doc/6-deployment/` | Deployment guides | Developers, DevOps, Users | Deployment docs |
+| `modules/*/docs/README.md` | W³H + Prerequisites | Developers | Module docs |
+| `modules/*/docs/3-design/toolchain.md` | Reference (what/why/how) | Developers, DevOps | Toolchain docs |
+| `modules/*/docs/6-deployment/` | Deployment guides | Developers, DevOps, Users | Deployment docs |
 
 ### Key Principles
 
@@ -541,7 +541,7 @@ Phase 6: Validation (check all phases complete)
 - [ ] Add technology-specific guides
 
 ### Phase 4: Module Documentation
-- [ ] Create doc/README.md for each module
+- [ ] Create docs/README.md for each module
 - [ ] Follow W³H (WHO-WHAT-WHY-HOW) structure
 - [ ] **Add Prerequisites section to each overview**
 - [ ] Add relationship tables
@@ -550,12 +550,12 @@ Phase 6: Validation (check all phases complete)
 - [ ] **Create tests/integration.rs for each module**
 - [ ] **Add "Examples and Tests" section to each overview**
 - [ ] **Link to testing guides**
-- [ ] **Create doc/3-design/toolchain.md for each module**
+- [ ] **Create docs/3-design/toolchain.md for each module**
   - [ ] Document all tools used
   - [ ] Include what/why/how for each tool
   - [ ] Add version matrix
   - [ ] Add verification commands
-- [ ] **Create doc/6-deployment/ for each module**
+- [ ] **Create docs/6-deployment/ for each module**
   - [ ] README.md - deployment index
   - [ ] prerequisites.md - system requirements
   - [ ] installation.md - installation guides
@@ -642,7 +642,7 @@ find docs -name "*.md" -exec grep -H "\[.*\](.*)" {} \;
 ### Template Validation
 ```bash
 # Check for Audience in all docs
-grep -r "**Audience**" docs/ modules/*/doc/
+grep -r "**Audience**" docs/ modules/*/docs/
 ```
 
 ### W³H Validation
@@ -728,7 +728,7 @@ Track in `docs/framework-backlog.md`:
   - Git standard files UPPERCASE
   - Project docs lowercase-with-hyphens
 - ✅ **docs/glossary.md exists** with domain terminology
-- ✅ All modules have doc/README.md
+- ✅ All modules have docs/README.md
 - ✅ No broken links
 - ✅ README < 100 lines
 - ✅ All docs declare **Audience** (W³H)
@@ -739,8 +739,8 @@ Track in `docs/framework-backlog.md`:
 - ✅ **All modules have tests/integration.rs**
 - ✅ **All overviews link to examples and tests**
 - ✅ **All overviews have Prerequisites section**
-- ✅ **All modules have doc/3-design/toolchain.md**
-- ✅ **All modules have doc/6-deployment/ with overview, prerequisites, installation**
+- ✅ **All modules have docs/3-design/toolchain.md**
+- ✅ **All modules have docs/6-deployment/ with overview, prerequisites, installation**
 - ✅ **Documentation guides users to working code**
 
 ---

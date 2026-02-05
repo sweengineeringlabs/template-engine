@@ -1,6 +1,6 @@
 # {module-name}
 
-> **TLDR:** {One-line description}. See [Overview](doc/README.md) for details.
+> **TLDR:** {One-line description}. See [Overview](docs/README.md) for details.
 
 ## Table of Contents
 - [Quick Start](#quick-start)
@@ -24,10 +24,10 @@ use {module_name}::prelude::*;
 
 ## Documentation
 
-- [Overview](doc/README.md) - W³H
-- [Architecture](doc/3-design/architecture.md) - System design
-- [Integration](doc/3-design/integration.md) - Integration guide
+- [Overview](docs/README.md) - W³H
+- [Architecture](docs/3-design/architecture.md) - System design
+- [Integration](docs/3-design/integration.md) - Integration guide
 
 ## Related FRs
 
-- [FR-{###}](../../doc/1-requirements/FR-{###}-{name}.md) - {description}
+- [FR-{###}](../../docs/1-requirements/FR-{###}-{name}.md) - {description}

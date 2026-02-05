@@ -1,6 +1,6 @@
 # {Module Name} Architecture
 
-**FR:** [FR-{###}](../../../../doc/1-requirements/FR-{###}-{name}.md)
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
 
 ## Overview
 

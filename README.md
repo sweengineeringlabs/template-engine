@@ -24,17 +24,17 @@ This template engine is based on documented research. If your project is based o
 
 | Paper | Description |
 |-------|-------------|
-| [SEA Workflow](sea-workflow.md) | Stratified Encapsulation Architecture workflow guide |
-| [SDLC Documentation Framework](01-ideation/research/papers/sdlc-documentation-framework.md) | Documentation standards across SDLC phases |
-| [Module Governance Framework](01-ideation/research/papers/module-governance-framework.md) | Module organization and governance patterns |
-| [Documentation Navigation Framework](01-ideation/research/papers/documentation-navigation-framework.md) | Documentation structure and navigation |
-| [Research Methodology](01-ideation/research/papers/research-methodology.md) | Research approach and methodology |
+| [SEA Workflow](sea_workflow.md) | Stratified Encapsulation Architecture workflow guide |
+| [SDLC Documentation Framework](01-ideation/research/papers/sdlc_documentation_framework.md) | Documentation standards across SDLC phases |
+| [Module Governance Framework](01-ideation/research/papers/module_governance_framework.md) | Module organization and governance patterns |
+| [Documentation Navigation Framework](01-ideation/research/papers/documentation_navigation_framework.md) | Documentation structure and navigation |
+| [Research Methodology](01-ideation/research/papers/research_methodology.md) | Research approach and methodology |
 
 ### 1. Setup Git Authentication (if needed)
 
 If you haven't set up SSH authentication with GitHub yet:
 
-📖 **See [GIT_SSH_SETUP.md](GIT_SSH_SETUP.md)** for complete SSH setup instructions (Linux, macOS, Windows, WSL).
+📖 **See [git_ssh_setup.md](git_ssh_setup.md)** for complete SSH setup instructions (Linux, macOS, Windows, WSL).
 
 ### 2. Choose Your Templates
 

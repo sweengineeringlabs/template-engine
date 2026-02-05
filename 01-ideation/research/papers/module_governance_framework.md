@@ -219,18 +219,18 @@ We derive requirements from common developer questions:
 
 | Developer Question | Required File | Location |
 |-------------------|---------------|----------|
-| What does this module do? | README.md | doc/ |
+| What does this module do? | README.md | docs/ |
 | How do I get started? | README.md | root |
 | What changed recently? | CHANGELOG.md | root |
 | How do I contribute? | CONTRIBUTING.md | root |
 | Are there security concerns? | SECURITY.md | root |
-| How is it architected? | architecture.md | doc/3-design/ |
-| What are the interaction flows? | sequence.md | doc/3-design/ |
-| What's the process/pipeline? | workflow.md | doc/3-design/ |
-| What tools does it use? | toolchain.md | doc/3-design/ |
-| How do I develop locally? | developer-guide.md | doc/4-development/ |
-| How do I set up my environment? | setup-guide.md | doc/4-development/ |
-| How do I test it? | testing-strategy.md | doc/5-testing/ |
+| How is it architected? | architecture.md | docs/3-design/ |
+| What are the interaction flows? | sequence.md | docs/3-design/ |
+| What's the process/pipeline? | workflow.md | docs/3-design/ |
+| What tools does it use? | toolchain.md | docs/3-design/ |
+| How do I develop locally? | developer-guide.md | docs/4-development/ |
+| How do I set up my environment? | setup-guide.md | docs/4-development/ |
+| How do I test it? | testing-strategy.md | docs/5-testing/ |
 
 ### 4.2 Required Files (12)
 
@@ -249,14 +249,14 @@ Every module must contain these 12 files:
 
 | File | Location | Purpose |
 |------|----------|---------|
-| `README.md` | doc/ | W³H pattern |
-| `architecture.md` | doc/3-design/ | Internal architecture, diagrams |
-| `sequence.md` | doc/3-design/ | Interaction flows, sequence diagrams |
-| `workflow.md` | doc/3-design/ | Process flow, pipelines |
-| `toolchain.md` | doc/3-design/ | Tools, dependencies, versions |
-| `developer-guide.md` | doc/4-development/ | Development workflow |
-| `setup-guide.md` | doc/4-development/ | Environment setup instructions |
-| `testing-strategy.md` | doc/5-testing/ | Test approach, coverage targets |
+| `README.md` | docs/ | W³H pattern |
+| `architecture.md` | docs/3-design/ | Internal architecture, diagrams |
+| `sequence.md` | docs/3-design/ | Interaction flows, sequence diagrams |
+| `workflow.md` | docs/3-design/ | Process flow, pipelines |
+| `toolchain.md` | docs/3-design/ | Tools, dependencies, versions |
+| `developer-guide.md` | docs/4-development/ | Development workflow |
+| `setup-guide.md` | docs/4-development/ | Environment setup instructions |
+| `testing-strategy.md` | docs/5-testing/ | Test approach, coverage targets |
 
 ### 4.3 Optional Files (3)
 
@@ -264,9 +264,9 @@ These files are recommended but not required:
 
 | File | Location | Purpose | When to Include |
 |------|----------|---------|-----------------|
-| `backlog.md` | doc/4-development/ | Feature backlog | Active development |
-| `kanban.md` | doc/4-development/ | Sprint tracking | Sprint-based work |
-| `releases/` | doc/6-operation/ | Detailed release docs | Complex releases |
+| `backlog.md` | docs/4-development/ | Feature backlog | Active development |
+| `kanban.md` | docs/4-development/ | Sprint tracking | Sprint-based work |
+| `releases/` | docs/6-operation/ | Detailed release docs | Complex releases |
 
 ### 4.4 File Naming Conventions
 
@@ -311,22 +311,22 @@ Within SDLC phase directories, only these folder types are permitted:
 
 **Rule 1: No arbitrary folders**
 ```
-✗ doc/3-design/diagrams/
-✗ doc/3-design/images/
-✗ doc/examples/
-✗ doc/misc/
+✗ docs/3-design/diagrams/
+✗ docs/3-design/images/
+✗ docs/examples/
+✗ docs/misc/
 ```
 
 **Rule 2: No nesting within allowed folders**
 ```
-✗ doc/3-design/adr/2024/
-✗ doc/3-design/papers/research/
-✗ doc/6-operation/releases/v1/archive/
+✗ docs/3-design/adr/2024/
+✗ docs/3-design/papers/research/
+✗ docs/6-operation/releases/v1/archive/
 ```
 
 **Rule 3: No duplication of SDLC structure**
 ```
-✗ {module}/doc/doc/3-design/
+✗ {module}/docs/docs/3-design/
 ✗ {module}/documentation/3-design/
 ```
 
@@ -534,7 +534,7 @@ The Module Registry Workflow gates module creation behind documentation requirem
 - **Exit criteria**: Stakeholder sign-off
 
 #### Stage 3: Design Doc
-- Create `{module}-architecture.md` in `doc/3-design/`
+- Create `{module}-architecture.md` in `docs/3-design/`
 - Document high-level architecture
 - Reference future module documentation locations
 - **Exit criteria**: Architecture doc created
@@ -614,14 +614,14 @@ Pull request templates include documentation checklists:
 
 ### For New Modules
 - [ ] `README.md` with TLDR + TOC
-- [ ] `doc/README.md` with W³H
-- [ ] `doc/3-design/architecture.md`
-- [ ] `doc/3-design/sequence.md`
-- [ ] `doc/3-design/workflow.md`
-- [ ] `doc/3-design/toolchain.md`
-- [ ] `doc/4-development/developer-guide.md`
-- [ ] `doc/4-development/setup-guide.md`
-- [ ] `doc/5-testing/testing-strategy.md`
+- [ ] `docs/README.md` with W³H
+- [ ] `docs/3-design/architecture.md`
+- [ ] `docs/3-design/sequence.md`
+- [ ] `docs/3-design/workflow.md`
+- [ ] `docs/3-design/toolchain.md`
+- [ ] `docs/4-development/developer-guide.md`
+- [ ] `docs/4-development/setup-guide.md`
+- [ ] `docs/5-testing/testing-strategy.md`
 
 ### For Existing Modules
 - [ ] Updated relevant docs if behavior changed
@@ -667,7 +667,7 @@ Prior to framework adoption, documentation exhibited common anti-patterns:
 Implementation proceeded in phases:
 
 **Phase 1: Structure Migration**
-- Created SDLC folder structure in root `doc/`
+- Created SDLC folder structure in root `docs/`
 - Established compulsory files list
 - Migrated existing docs to new locations
 
@@ -765,7 +765,7 @@ Formal validation would require:
 - Multi-project studies across different organizations
 - Longitudinal measurement of documentation maintenance
 
-See [Research Methodology](./research-methodology.md) for detailed study protocols.
+See [Research Methodology](./research_methodology.md) for detailed study protocols.
 
 ---
 
@@ -824,7 +824,7 @@ This paper presented the Module Governance Framework, a systematic approach to d
 ├── CHANGELOG.md                           # Required
 ├── CONTRIBUTING.md                        # Required
 ├── SECURITY.md                            # Required
-└── doc/
+└── docs/
     ├── README.md                          # Required (W³H)
     ├── 3-design/
     │   ├── architecture.md                # Required
@@ -850,7 +850,7 @@ This paper presented the Module Governance Framework, a systematic approach to d
 ├── CHANGELOG.md                           # Required
 ├── CONTRIBUTING.md                        # Required
 ├── SECURITY.md                            # Required
-└── doc/
+└── docs/
     ├── README.md                          # Required
     ├── 2-requirements/
     │   └── brd.md                         # Required
@@ -883,6 +883,6 @@ This paper presented the Module Governance Framework, a systematic approach to d
 
 ## See Also
 
-- [SDLC Documentation Framework](./sdlc-documentation-framework.md) - Companion paper on folder structure
-- [Research Methodology](./research-methodology.md) - Formal validation protocols
-- [Documentation Standard](../../doc/documentation-standard.md) - Implementation guide
+- [SDLC Documentation Framework](./sdlc_documentation_framework.md) - Companion paper on folder structure
+- [Research Methodology](./research_methodology.md) - Formal validation protocols
+- [Documentation Standard](../../docs/documentation-standard.md) - Implementation guide

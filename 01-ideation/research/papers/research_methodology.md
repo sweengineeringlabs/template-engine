@@ -466,5 +466,5 @@ See [Study Methods](#study-methods) and [Sample Protocols](#sample-protocols) ab
 
 ## See Also
 
-- [SDLC Documentation Framework](./sdlc-documentation-framework.md) - Main paper
-- [Documentation Standard](../../doc/documentation-standard.md) - Implementation guide
+- [SDLC Documentation Framework](./sdlc_documentation_framework.md) - Main paper
+- [Documentation Standard](../../docs/documentation-standard.md) - Implementation guide

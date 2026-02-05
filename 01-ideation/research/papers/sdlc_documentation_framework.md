@@ -190,7 +190,7 @@ Documentation follows a strict hierarchy. Each level documents only its own conc
 
 **Navigation Path:**
 ```
-README.md → doc/README.md → {MODULE}/README → {MODULE}/doc/4-development/setup-guide.md
+README.md → docs/README.md → {MODULE}/README → {MODULE}/docs/4-development/setup-guide.md
 ```
 
 This ensures users navigate progressively deeper, understanding context at each level.
@@ -200,7 +200,7 @@ This ensures users navigate progressively deeper, understanding context at each 
 Documentation is organized into six folders corresponding to SDLC phases:
 
 ```
-doc/
+docs/
 ├── 1-requirements/    # WHAT to build
 ├── 2-planning/        # WHEN and HOW to build
 ├── 3-design/          # HOW it's architected
@@ -250,7 +250,7 @@ The framework's second principle mandates that root and modules follow identical
 ```
 ROOT (swe-studio/)                    MODULE ({module}/)
 ├── README.md                         ├── README.md
-└── doc/                              └── doc/
+└── docs/                              └── docs/
     ├── README.md                         ├── README.md
     ├── 1-requirements/                   ├── 3-design/
     │   └── brd.md                        │   ├── architecture.md
@@ -283,13 +283,13 @@ The framework specifies minimum required files for root and modules:
 | `CHANGELOG.md` | Release notes | "What changed in each version?" |
 | `CONTRIBUTING.md` | Contribution guidelines | "How do I contribute?" |
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" |
-| `doc/README.md` | W³H | "How does it all fit together?" |
-| `doc/2-requirements/brd.md` | Business requirements | "Why does this exist?" |
-| `doc/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
-| `doc/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
-| `doc/4-development/kanban/` | Root kanban folder (domain-prefixed files) | "What's in progress?" |
-| `doc/6-operation/ops-manual.md` | Operations manual | "How do I run this?" |
-| `doc/6-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" |
+| `docs/README.md` | W³H | "How does it all fit together?" |
+| `docs/2-requirements/brd.md` | Business requirements | "Why does this exist?" |
+| `docs/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
+| `docs/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
+| `docs/4-development/kanban/` | Root kanban folder (domain-prefixed files) | "What's in progress?" |
+| `docs/6-operation/ops-manual.md` | Operations manual | "How do I run this?" |
+| `docs/6-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" |
 
 #### Module Compulsory Files
 
@@ -299,17 +299,17 @@ The framework specifies minimum required files for root and modules:
 | `CHANGELOG.md` | Release notes | "What changed in each version?" | Yes |
 | `CONTRIBUTING.md` | Contribution guidelines | "How do I contribute?" | Yes |
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" | Yes |
-| `doc/README.md` | W³H | "Why was it built this way?" | Yes |
-| `doc/3-design/architecture.md` | Internal architecture | "How is it structured?" | Yes |
-| `doc/3-design/sequence.md` | Interaction flows | "How do components interact?" | Yes |
-| `doc/3-design/workflow.md` | Process/pipeline | "What's the data flow?" | Yes |
-| `doc/3-design/toolchain.md` | Tools and dependencies | "What tools does it use?" | Yes |
-| `doc/4-development/developer-guide.md` | Module dev guide | "How do I work on this?" | Yes |
-| `doc/4-development/setup-guide.md` | Setup instructions | "How do I set up locally?" | Yes |
-| `doc/4-development/backlog.md` | Feature backlog | "What features are planned?" | Optional |
-| `doc/4-development/kanban.md` | Sprint kanban (single file) | "What's in progress?" | Optional |
-| `doc/5-testing/testing-strategy.md` | Test strategy | "How do I test this?" | Yes |
-| `doc/6-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" | Optional |
+| `docs/README.md` | W³H | "Why was it built this way?" | Yes |
+| `docs/3-design/architecture.md` | Internal architecture | "How is it structured?" | Yes |
+| `docs/3-design/sequence.md` | Interaction flows | "How do components interact?" | Yes |
+| `docs/3-design/workflow.md` | Process/pipeline | "What's the data flow?" | Yes |
+| `docs/3-design/toolchain.md` | Tools and dependencies | "What tools does it use?" | Yes |
+| `docs/4-development/developer-guide.md` | Module dev guide | "How do I work on this?" | Yes |
+| `docs/4-development/setup-guide.md` | Setup instructions | "How do I set up locally?" | Yes |
+| `docs/4-development/backlog.md` | Feature backlog | "What features are planned?" | Optional |
+| `docs/4-development/kanban.md` | Sprint kanban (single file) | "What's in progress?" | Optional |
+| `docs/5-testing/testing-strategy.md` | Test strategy | "How do I test this?" | Yes |
+| `docs/6-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" | Optional |
 
 **Total: 12 required + 3 optional files per module**
 
@@ -324,15 +324,15 @@ The framework's third principle mandates that documentation belongs to the domai
 #### Correct Placement
 
 ```
-crates/swe-terminal/doc/3-design/adr/001-pty-architecture.md
-crates/swe-lsp/doc/5-testing/testing-strategy.md
+crates/swe-terminal/docs/3-design/adr/001-pty-architecture.md
+crates/swe-lsp/docs/5-testing/testing-strategy.md
 ```
 
 #### Incorrect Placement
 
 ```
-doc/3-design/adr/001-terminal-pty-architecture.md  ✗
-doc/5-testing/lsp-testing-strategy.md              ✗
+docs/3-design/adr/001-terminal-pty-architecture.md  ✗
+docs/5-testing/lsp-testing-strategy.md              ✗
 ```
 
 #### Rationale
@@ -382,7 +382,7 @@ Every `README.md` file follows a four-element structure:
 
 #### 3.8.1 Architecture Decision Records (ADRs)
 
-ADRs document significant architectural decisions. Located at `{module}/doc/3-design/adr/`:
+ADRs document significant architectural decisions. Located at `{module}/docs/3-design/adr/`:
 
 ```
 3-design/adr/
@@ -423,17 +423,18 @@ Supporting research is documented under `{folder}/papers/`:
 - Performance analyses
 - Third-party research references
 
-### 3.9 File Naming Conventions
+### 3.9 Naming Conventions
 
 | Location | Convention | Examples |
 |----------|------------|----------|
-| Root level | UPPERCASE | `README.md`, `CONTRIBUTING.md`, `LICENSE` |
-| Subdirectories | lowercase | `README.md`, `architecture.md` |
-| Multi-word names | hyphens | `testing-strategy.md`, `developer-guide.md` |
+| Root level files | UPPERCASE | `README.md`, `CONTRIBUTING.md`, `LICENSE` |
+| Subdirectory files | lowercase | `README.md`, `architecture.md` |
+| Multi-word files | snake_case | `testing_strategy.md`, `developer_guide.md` |
+| Folders | kebab-case | `quality-centre/`, `developer-guide/` |
 
 **Prohibited:**
 - `camelCase.md`
-- `snake_case.md`
+- `kebab-case.md`
 - Acronyms as names (`ARCH.md`, `DEV.md`)
 
 ---
@@ -447,12 +448,12 @@ The framework is enforced through a PR template that includes a documentation ch
 ```markdown
 ## Documentation Checklist
 
-> Reference: doc/governance-framework/doc/documentation-standard.md
+> Reference: docs/governance-framework/docs/documentation-standard.md
 
 ### For New Modules
 
 - [ ] `README.md` with TLDR + TOC
-- [ ] `doc/README.md` with W³H
+- [ ] `docs/README.md` with W³H
 
 #### 3-design/
 - [ ] `architecture.md`
@@ -474,8 +475,8 @@ The framework is enforced through a PR template that includes a documentation ch
 
 ### For Root Changes
 
-- [ ] Updated `doc/README.md` if project scope changed
-- [ ] Updated `doc/4-development/developer-guide.md` if workflow changed
+- [ ] Updated `docs/README.md` if project scope changed
+- [ ] Updated `docs/4-development/developer-guide.md` if workflow changed
 ```
 
 ### 4.2 CI Integration (Future Work)
@@ -497,7 +498,7 @@ jobs:
       - name: Check compulsory files
         run: |
           for module in crates/*/; do
-            for file in README.md doc/README.md doc/3-design/architecture.md; do
+            for file in README.md docs/README.md docs/3-design/architecture.md; do
               if [ ! -f "$module$file" ]; then
                 echo "Missing: $module$file"
                 exit 1
@@ -536,7 +537,7 @@ Before applying the framework, documentation exhibited all four anti-patterns:
 
 #### Central Dump
 ```
-doc/
+docs/
 ├── plugin_system.md
 ├── plugin_quick_reference.md
 ├── plugin_system_summary.md      # 3 files, same topic
@@ -549,7 +550,7 @@ doc/
 
 #### Inconsistent Module Documentation
 ```
-crates/swe-terminal/doc/
+crates/swe-terminal/docs/
 ├── README.md
 ├── 3-design/
 │   └── quality-centre/           # Non-standard folder
@@ -563,10 +564,10 @@ crates/swe-terminal/doc/
 
 #### Misplaced Files
 ```
-doc/3-design/adr/
+docs/3-design/adr/
 └── 0001-terminal-communication-architecture.md  # Should be in terminal module
 
-doc/5-testing/
+docs/5-testing/
 └── terminal-keyboard-tests.md                   # Should be in terminal module
 ```
 
@@ -583,7 +584,7 @@ doc/5-testing/
 
 #### Step 2: Orphan Elimination
 
-Deleted 8 orphan stubs from `doc/4-development/`:
+Deleted 8 orphan stubs from `docs/4-development/`:
 - `editor-core.md`
 - `terminal-core.md`
 - `syntax.md`
@@ -599,23 +600,23 @@ Deleted 8 orphan stubs from `doc/4-development/`:
 
 | File | From | To |
 |------|------|-----|
-| `terminal-communication-architecture.md` | `doc/3-design/adr/` | `crates/swe-terminal/doc/3-design/adr/` |
-| `terminal-keyboard-tests.md` | `doc/5-testing/` | `crates/swe-terminal/doc/5-testing/` |
-| `nushell-integration.md` | `doc/3-design/integration/` | `crates/swe-terminal/doc/3-design/` |
-| `async-tools.md` | `crates/swe-terminal/doc/` | `doc/3-design/` (generic content) |
+| `terminal-communication-architecture.md` | `docs/3-design/adr/` | `crates/swe-terminal/docs/3-design/adr/` |
+| `terminal-keyboard-tests.md` | `docs/5-testing/` | `crates/swe-terminal/docs/5-testing/` |
+| `nushell-integration.md` | `docs/3-design/integration/` | `crates/swe-terminal/docs/3-design/` |
+| `async-tools.md` | `crates/swe-terminal/docs/` | `docs/3-design/` (generic content) |
 
 #### Step 4: Structure Creation
 
 Created missing compulsory files:
-- `doc/1-requirements/` folder
-- `doc/2-planning/` folder (moved from `doc/1-requirements/planning/`)
+- `docs/1-requirements/` folder
+- `docs/2-planning/` folder (moved from `docs/1-requirements/planning/`)
 - Module `README.md` files for SEA modules
 
 ### 5.4 Final State
 
 #### Root Structure
 ```
-doc/
+docs/
 ├── README.md
 ├── 1-requirements/
 │   └── brd.md
@@ -630,9 +631,9 @@ doc/
 │   ├── papers/
 │   └── uxui/
 ├── governance-framework/
-│   ├── doc/
+│   ├── docs/
 │   │   ├── documentation-standard.md
-│   │   └── sea-workflow.md
+│   │   └── sea_workflow.md
 │   └── templates/
 ├── 4-development/
 │   └── developer-guide.md
@@ -646,7 +647,7 @@ doc/
 ```
 crates/swe-terminal/
 ├── README.md
-└── doc/
+└── docs/
     ├── README.md
     ├── 3-design/
     │   ├── architecture.md
@@ -684,7 +685,7 @@ Yes. During migration, file placement decisions were unambiguous. "Where does th
 
 **RQ2: Does mirrored structure reduce cognitive load?**
 
-Yes. After learning root structure, developers navigated module documentation without guidance. The pattern "README.md is always at doc/README.md" transferred across all modules.
+Yes. After learning root structure, developers navigated module documentation without guidance. The pattern "README.md is always at docs/README.md" transferred across all modules.
 
 **RQ3: Do compulsory files increase coverage?**
 
@@ -740,7 +741,7 @@ The C4 Model [5] provides hierarchical software architecture diagrams: Context, 
 
 ADRs [6] document significant architectural decisions with context, decision, and consequences.
 
-**Integration**: Our framework incorporates ADRs at `{module}/doc/3-design/adr/`, adding guidance on when to create them.
+**Integration**: Our framework incorporates ADRs at `{module}/docs/3-design/adr/`, adding guidance on when to create them.
 
 #### RFC Process
 
@@ -823,7 +824,7 @@ For teams adopting this framework:
 3. **Metrics Dashboard**: Visualization of documentation coverage over time
 4. **Broader Validation**: Apply framework to additional projects across different languages and team sizes
 5. **Template Generator**: CLI tool to scaffold compliant documentation structure
-6. **Formal User Studies**: Conduct rigorous empirical validation (see [Research Methodology](./research-methodology.md))
+6. **Formal User Studies**: Conduct rigorous empirical validation (see [Research Methodology](./research_methodology.md))
 
 ---
 
@@ -871,7 +872,7 @@ swe-studio/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
-└── doc/
+└── docs/
     ├── README.md
     ├── 1-planning/
     ├── 2-requirements/
@@ -899,7 +900,7 @@ swe-studio/
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
 ├── SECURITY.md
-└── doc/
+└── docs/
     ├── README.md
     ├── 3-design/
     │   ├── architecture.md
@@ -936,11 +937,11 @@ swe-studio/
 
 ## Documentation Checklist
 
-> See [Documentation Standard](../../doc/documentation-standard.md)
+> See [Documentation Standard](../../docs/documentation-standard.md)
 
 ### For New Modules
 - [ ] `README.md` with TLDR + TOC
-- [ ] `doc/README.md` with W³H
+- [ ] `docs/README.md` with W³H
 
 #### 3-design/
 - [ ] `architecture.md`
