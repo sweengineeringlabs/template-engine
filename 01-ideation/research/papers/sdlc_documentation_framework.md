@@ -190,7 +190,7 @@ Documentation follows a strict hierarchy. Each level documents only its own conc
 
 **Navigation Path:**
 ```
-README.md → docs/README.md → {MODULE}/README → {MODULE}/docs/4-development/setup-guide.md
+README.md → docs/README.md → {MODULE}/README → {MODULE}/docs/4-development/setup_guide.md
 ```
 
 This ensures users navigate progressively deeper, understanding context at each level.
@@ -262,17 +262,17 @@ ROOT (swe-studio/)                    MODULE ({module}/)
     │   └── brd.spec                      │   ├── workflow.arch
     ├── 2-planning/                       │   └── toolchain.arch
     │   └── backlog.md                    ├── 4-development/
-    ├── 3-design/                         │   ├── developer-guide.md
-    │   ├── architecture.arch             │   └── setup-guide.md
+    ├── 3-design/                         │   ├── developer_guide.md
+    │   ├── architecture.arch             │   └── setup_guide.md
     │   └── adr/                          └── 5-testing/
-    ├── 4-development/                        └── testing-strategy.md
-    │   └── developer-guide.md
+    ├── 4-development/                        └── testing_strategy.md
+    │   └── developer_guide.md
     ├── 5-testing/
-    │   └── testing-strategy.md
+    │   └── testing_strategy.md
     ├── 6-deployment/
-    │   └── ci-cd.md
+    │   └── ci_cd.md
     └── 7-operation/
-        └── ops-manual.md
+        └── ops_manual.md
 ```
 
 #### Rationale
@@ -294,11 +294,11 @@ The framework specifies minimum required files for root and modules:
 | `docs/README.md` | W³H | "How does it all fit together?" |
 | `docs/0-ideation/` | Research and concepts | "What research informed this?" |
 | `docs/1-requirements/brd.spec` | Business requirements | "Why does this exist?" |
-| `docs/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
+| `docs/4-development/developer_guide.md` | Development guide | "How do I contribute?" |
 | `docs/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
 | `docs/4-development/kanban/` | Root kanban folder (domain-prefixed files) | "What's in progress?" |
-| `docs/6-deployment/ci-cd.md` | CI/CD configuration | "How is it shipped?" |
-| `docs/7-operation/ops-manual.md` | Operations manual | "How do I run this?" |
+| `docs/6-deployment/ci_cd.md` | CI/CD configuration | "How is it shipped?" |
+| `docs/7-operation/ops_manual.md` | Operations manual | "How do I run this?" |
 | `docs/7-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" |
 
 #### Module Compulsory Files
@@ -314,11 +314,11 @@ The framework specifies minimum required files for root and modules:
 | `docs/3-design/sequence.arch` | Interaction flows | "How do components interact?" | Yes |
 | `docs/3-design/workflow.arch` | Process/pipeline | "What's the data flow?" | Yes |
 | `docs/3-design/toolchain.arch` | Tools and dependencies | "What tools does it use?" | Yes |
-| `docs/4-development/developer-guide.md` | Module dev guide | "How do I work on this?" | Yes |
-| `docs/4-development/setup-guide.md` | Setup instructions | "How do I set up locally?" | Yes |
+| `docs/4-development/developer_guide.md` | Module dev guide | "How do I work on this?" | Yes |
+| `docs/4-development/setup_guide.md` | Setup instructions | "How do I set up locally?" | Yes |
 | `docs/4-development/backlog.md` | Feature backlog | "What features are planned?" | Optional |
 | `docs/4-development/kanban.md` | Sprint kanban (single file) | "What's in progress?" | Optional |
-| `docs/5-testing/testing-strategy.md` | Test strategy | "How do I test this?" | Yes |
+| `docs/5-testing/testing_strategy.md` | Test strategy | "How do I test this?" | Yes |
 | `docs/6-deployment/releases/` | Release procedures | "How is it shipped?" | Optional |
 | `docs/7-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" | Optional |
 
@@ -336,7 +336,7 @@ The framework's third principle mandates that documentation belongs to the domai
 
 ```
 crates/swe-terminal/docs/3-design/adr/001-pty-architecture.md
-crates/swe-lsp/docs/5-testing/testing-strategy.md
+crates/swe-lsp/docs/5-testing/testing_strategy.md
 ```
 
 #### Incorrect Placement
@@ -489,20 +489,20 @@ Supporting research is documented under `{folder}/papers/`:
 > |-------|---------------|----------------------|-------------------|
 > | `1-requirements/` | `*.spec` | `brd.spec` | System-wide business requirements |
 > | `3-design/` | `*.arch` | `architecture.arch` | System-wide architecture |
-> | `4-development/` | `*.setup` | `developer-guide.md` | Unified development guide |
-> | `5-testing/` | `*.test` | `testing-strategy.md` | Unified test strategy |
-> | `6-deployment/` | `*.deploy` | `ci-cd.md` | Unified deployment pipeline |
-> | `7-operation/` | `*.guide` `*.ops` `*.man` | `ops-manual.md` | Unified operations manual |
+> | `4-development/` | `*.setup` | `developer_guide.md` | Unified development guide |
+> | `5-testing/` | `*.test` | `testing_strategy.md` | Unified test strategy |
+> | `6-deployment/` | `*.deploy` | `ci_cd.md` | Unified deployment pipeline |
+> | `7-operation/` | `*.guide` `*.ops` `*.man` | `ops_manual.md` | Unified operations manual |
 >
 > **Two Navigation Paths:** The per-spec / consolidated structure gives readers two ways to navigate documentation:
 >
 > 1. **Vertical (one component, all phases):** Pick a single spec — e.g., `stdlib_http.spec` — and follow its chain across phases (`.arch` → `.setup` → `.test` → `.deploy` → `.guide`/`.ops`/`.man`) to understand that one component end-to-end, from requirements through operations.
-> 2. **Horizontal (one phase, all components):** Pick a consolidated document — e.g., `testing-strategy.md` — to see the big picture for that phase, then drill into individual per-spec files (e.g., `stdlib_http.test`) for component-level detail.
+> 2. **Horizontal (one phase, all components):** Pick a consolidated document — e.g., `testing_strategy.md` — to see the big picture for that phase, then drill into individual per-spec files (e.g., `stdlib_http.test`) for component-level detail.
 >
 > ```
 >                   Horizontal (one phase, all components)
 >                 ┌──────────────────────────────────────────┐
->                 │         testing-strategy.md               │
+>                 │         testing_strategy.md               │
 >                 │  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐    │
 >                 │  │ .test│ │ .test│ │ .test│ │ .test│ …  │
 >                 │  └──┬───┘ └──┬───┘ └──┬───┘ └──┬───┘    │
@@ -549,11 +549,11 @@ The framework is enforced through a PR template that includes a documentation ch
 - [ ] `toolchain.arch`
 
 #### 4-development/
-- [ ] `developer-guide.md`
-- [ ] `setup-guide.md`
+- [ ] `developer_guide.md`
+- [ ] `setup_guide.md`
 
 #### 5-testing/
-- [ ] `testing-strategy.md`
+- [ ] `testing_strategy.md`
 
 ### For Existing Modules
 
@@ -563,7 +563,7 @@ The framework is enforced through a PR template that includes a documentation ch
 ### For Root Changes
 
 - [ ] Updated `docs/README.md` if project scope changed
-- [ ] Updated `docs/4-development/developer-guide.md` if workflow changed
+- [ ] Updated `docs/4-development/developer_guide.md` if workflow changed
 ```
 
 ### 4.2 CI Integration (Future Work)
@@ -728,13 +728,13 @@ docs/
 │   │   └── sea_workflow.md
 │   └── templates/
 ├── 4-development/
-│   └── developer-guide.md
+│   └── developer_guide.md
 ├── 5-testing/
-│   └── testing-strategy.md
+│   └── testing_strategy.md
 ├── 6-deployment/
-│   └── ci-cd.md
+│   └── ci_cd.md
 └── 7-operation/
-    └── ops-manual.md
+    └── ops_manual.md
 ```
 
 #### Module Structure (swe-terminal)
@@ -978,16 +978,16 @@ swe-studio/
     │   ├── architecture.arch
     │   └── adr/
     ├── 4-development/
-    │   ├── developer-guide.md
+    │   ├── developer_guide.md
     │   ├── backlog.md
     │   └── kanban/                    # Folder with domain-prefixed files
     │       └── {domain}-board-*.md    # e.g., devops-board-2024-12-18_2025-01-01.md
     ├── 5-testing/
-    │   └── testing-strategy.md
+    │   └── testing_strategy.md
     ├── 6-deployment/
-    │   └── ci-cd.md
+    │   └── ci_cd.md
     └── 7-operation/
-        ├── ops-manual.md
+        ├── ops_manual.md
         └── releases/
 ```
 
@@ -1007,12 +1007,12 @@ swe-studio/
     │   ├── workflow.arch
     │   └── toolchain.arch
     ├── 4-development/
-    │   ├── developer-guide.md
-    │   ├── setup-guide.md
+    │   ├── developer_guide.md
+    │   ├── setup_guide.md
     │   ├── backlog.md                 # (Optional)
     │   └── kanban.md                  # (Optional)
     ├── 5-testing/
-    │   └── testing-strategy.md
+    │   └── testing_strategy.md
     ├── 6-deployment/
     │   └── releases/                  # (Optional)
     └── 7-operation/
@@ -1057,11 +1057,11 @@ swe-studio/
 - [ ] `toolchain.arch`
 
 #### 4-development/
-- [ ] `developer-guide.md`
-- [ ] `setup-guide.md`
+- [ ] `developer_guide.md`
+- [ ] `setup_guide.md`
 
 #### 5-testing/
-- [ ] `testing-strategy.md`
+- [ ] `testing_strategy.md`
 
 ### For Existing Modules
 - [ ] Updated relevant docs if behavior changed
