@@ -23,7 +23,7 @@ crates/{module-name}/
 ├── {module}/            # Facade (re-exports, entry point)
 ├── README.md            # Lean quick reference
 └── doc/
-    ├── overview.md      # WHAT/HOW/WHY (required)
+    ├── README.md        # W³H (required)
     └── 5-testing/       # Optional SDLC-specific docs
         └── strategy.md
 ```
@@ -100,7 +100,7 @@ See: [Documentation Standard](./documentation-standard.md) for complete specific
 
 Required:
 - `{module}/README.md` - lean quick reference (usage, API summary)
-- `{module}/doc/overview.md` - WHAT/HOW/WHY sections
+- `{module}/doc/README.md` - W³H (WHO-WHAT-WHY-HOW) sections
 
 Optional:
 - `{module}/doc/3-design/architecture.md` - detailed diagrams
@@ -114,7 +114,7 @@ Optional:
 - [ ] Unit tests use mocks
 - [ ] Integration tests use real components
 - [ ] `{module}/README.md` - lean quick reference (TLDR + TOC)
-- [ ] `{module}/doc/overview.md` - WHAT/HOW/WHY sections
+- [ ] `{module}/doc/README.md` - W³H sections
 - [ ] Main `README.md` updated with module link (if SEA module)
 
 ## Anti-Patterns

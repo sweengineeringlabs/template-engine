@@ -7,7 +7,7 @@
 
 ## What is This?
 
-A comprehensive collection of production-ready documentation templates that follow the **Audience + WHAT-WHY-HOW** structure. These templates are:
+A comprehensive collection of production-ready documentation templates that follow the **W³H (WHO-WHAT-WHY-HOW)** structure. These templates are:
 
 - 🌍 **Language-Agnostic** - Works for Rust, Python, Java, JavaScript, Go, C++, and more
 - 📋 **Comprehensive** - Covers all aspects from code modules to production deployment
@@ -48,7 +48,7 @@ cd template-engine/templates
 
 ```bash
 # For a new project
-cp templates/crate_overview.template.md your-project/docs/overview.md
+cp templates/crate_readme.template.md your-project/docs/README.md
 cp templates/framework_doc.template.md your-project/docs/architecture.md
 
 # Replace placeholders
@@ -70,7 +70,7 @@ Each template includes:
 
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
-| [crate_overview.template.md](templates/crate_overview.template.md) | Module/component docs | `docs/overview.md` | Libraries, modules, packages |
+| [crate_readme.template.md](templates/crate_readme.template.md) | Module/component docs | `docs/README.md` | Libraries, modules, packages |
 | [framework_doc.template.md](templates/framework_doc.template.md) | Framework-wide docs | `docs/guides/*.md` | Architecture, security, patterns |
 | [glossary.template.md](templates/glossary.template.md) | Term definitions | `docs/glossary.md` | All projects (REQUIRED) |
 
@@ -88,7 +88,7 @@ Each template includes:
 | Template | Purpose | Target Location | Best For |
 |----------|---------|-----------------|----------|
 | [README.template.md](templates/backend/README.template.md) | Module entry point | `{module}/README.md` | All modules |
-| [overview.template.md](templates/backend/docs/overview.template.md) | WHAT/WHY/HOW | `{module}/docs/overview.md` | All modules |
+| [README.template.md](templates/backend/docs/README.template.md) | W³H | `{module}/docs/README.md` | All modules |
 | [architecture.template.md](templates/backend/docs/3-design/architecture.template.md) | SEA layer diagram | `{module}/docs/3-design/` | Backend modules |
 | [adr.template.md](templates/backend/docs/3-design/adr.template.md) | Architecture decisions | `{module}/docs/3-design/adr/` | Design decisions |
 | [integration.template.md](templates/backend/docs/3-design/integration.template.md) | Integration guide | `{module}/docs/3-design/` | API consumers |
@@ -215,7 +215,7 @@ Platform-agnostic CI/CD templates for:
 
 ```bash
 # Copy template
-cp templates/crate_overview.template.md myproject/src/auth/docs/overview.md
+cp templates/crate_readme.template.md myproject/src/auth/docs/README.md
 
 # Edit and replace:
 [Module Name] → Authentication
@@ -260,7 +260,7 @@ cp templates/sdlc/2-planning/implementation_plan.template.md \
 # Bootstrap a new SEA module
 mkdir -p my-module/docs/{3-design,4-development,5-testing}
 cp templates/backend/README.template.md my-module/README.md
-cp templates/backend/docs/overview.template.md my-module/docs/overview.md
+cp templates/backend/docs/README.template.md my-module/docs/README.md
 cp templates/backend/docs/3-design/*.template.md my-module/docs/3-design/
 cp templates/backend/docs/5-testing/*.template.md my-module/docs/5-testing/
 

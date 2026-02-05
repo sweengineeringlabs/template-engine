@@ -5,7 +5,7 @@ This directory contains language-agnostic templates for comprehensive software d
 ## Quick Reference
 
 ### Module/Component Documentation
-- **[crate_overview.template.md](crate_overview.template.md)** - Module and component documentation
+- **[crate_readme.template.md](crate_readme.template.md)** - Module and component documentation
 
 ### Framework Documentation
 - **[framework_doc.template.md](framework_doc.template.md)** - Framework-wide documentation (architecture, security, patterns)
@@ -30,7 +30,7 @@ This directory contains language-agnostic templates for comprehensive software d
 
 ## Template Structure
 
-Each template follows this structure:
+Each template follows the W³H (WHO-WHAT-WHY-HOW) structure:
 
 ```
 # Title

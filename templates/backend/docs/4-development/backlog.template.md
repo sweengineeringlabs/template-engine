@@ -38,4 +38,4 @@ Feature backlog for {module-name}.
 ## See Also
 
 - [Architecture](../3-design/architecture.md)
-- [Overview](../overview.md)
+- [Overview](../README.md)

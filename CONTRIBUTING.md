@@ -35,7 +35,7 @@ To improve a template:
 To add a new template:
 
 1. Check if it fits the project scope
-2. Follow the standard template structure:
+2. Follow the W³H (WHO-WHAT-WHY-HOW) template structure:
    ```
    # Title
    **Audience**: [...]

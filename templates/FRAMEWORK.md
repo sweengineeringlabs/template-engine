@@ -3,7 +3,7 @@
 A layered, audience-focused documentation structure for libraries and frameworks.
 
 **Based on**: Rustboot implementation using SEA (Stratified Encapsulation Architecture)  
-**Format**: WHAT-WHY-HOW structure
+**Format**: W³H (WHO-WHAT-WHY-HOW) structure
 
 ## Overview
 
@@ -36,7 +36,7 @@ The numbered directories follow the Software Development Life Cycle (SDLC) phase
 project/
 ├── README.md                           # Lean entry point
 ├── docs/
-│   ├── overview.md                     # Main documentation hub
+│   ├── README.md                       # Main documentation hub
 │   ├── glossary.md                     # Term definitions (REQUIRED)
 │   ├── 0-ideation/                     # (Optional) Research & ideas
 │   ├── 1-requirements/                 # (Optional) Requirements docs
@@ -60,18 +60,18 @@ project/
 │   ├── framework-backlog.md            # Cross-cutting backlog
 │   └── templates/
 │       ├── README.md                   # Template usage guide
-│       ├── crate_overview.template.md  # Module/component template
+│       ├── crate_readme.template.md    # Module/component template
 │       └── framework_doc.template.md   # Framework doc template
 └── modules/                            # or crates/, packages/, lib/
     └── [module-name]/
         ├── Cargo.toml / package.json / setup.py
         ├── src/
         ├── doc/
-        │   ├── overview.md             # Module overview (WHAT-WHY-HOW)
+        │   ├── README.md               # Module overview (W³H)
         │   ├── 3-design/
         │   │   └── toolchain.md        # Tools used, overview, how/why in system
         │   └── 6-deployment/
-        │       ├── overview.md         # Deployment index
+        │       ├── README.md           # Deployment index
         │       ├── prerequisites.md    # System requirements
         │       └── installation.md     # Installation guides
         └── backlog.md                  # Module-specific backlog
@@ -104,7 +104,7 @@ All other documentation files use lowercase with hyphens:
 
 ```
 docs/
-├── overview.md
+├── README.md
 ├── 3-design/
 │   ├── architecture.md
 │   ├── authentication.md
@@ -163,7 +163,7 @@ Templates available in: `docs/templates/git-files/{open-source|internal}/`
 ```
 README.md (Quick Start)
     ↓
-docs/overview.md (Main Hub)
+docs/README.md (Main Hub)
     ├→ 3-design/architecture.md (Design Hub)
     │   ├→ Feature architecture docs
     │   ├→ Security/compliance docs
@@ -172,7 +172,7 @@ docs/overview.md (Main Hub)
     ├→ 4-development/developer-guide.md (Dev Hub)
     │   └→ Development guides
     │
-    └→ Module overviews (modules/*/doc/overview.md)
+    └→ Module overviews (modules/*/doc/README.md)
 ```
 
 ## Document Types & Templates
@@ -185,7 +185,7 @@ docs/overview.md (Main Hub)
 - Project tagline (1 sentence)
 - Key features (bullet points)
 - Quick Start code example
-- Link to `docs/overview.md`
+- Link to `docs/README.md`
 - Installation instructions
 - License
 
@@ -205,13 +205,13 @@ docs/overview.md (Main Hub)
 \`\`\`
 
 ## Documentation
-See [docs/overview.md](docs/overview.md) for complete documentation.
+See [docs/README.md](docs/README.md) for complete documentation.
 
 ## License
 MIT
 ```
 
-### 2. docs/overview.md (Main Hub)
+### 2. docs/README.md (Main Hub)
 
 **Purpose**: Central navigation to all documentation
 **Audience**: All
@@ -224,7 +224,7 @@ MIT
 - Backlog links
 - Template links
 
-**Example**: See `docs/overview.md` in Rustboot
+**Example**: See `docs/README.md` in Rustboot
 
 ### 3. docs/glossary.md (Glossary - REQUIRED)
 
@@ -262,14 +262,14 @@ Alphabetized list of terms used in [Project Name].
 - Include acronym expansions
 - Cross-reference related terms
 - Update when new terminology is introduced
-- Link from overview.md
+- Link from README.md
 
 **Example**: See `docs/glossary.md` in RustML
 
 ### 5. docs/3-design/architecture.md (Design Hub)
 
 **Audience**: Architects, Technical Leadership, Security Teams
-**Format**: Audience + WHAT-WHY-HOW
+**Format**: W³H (WHO-WHAT-WHY-HOW)
 **Content**:
 - Architecture overview
 - Security documentation
@@ -282,8 +282,8 @@ Alphabetized list of terms used in [Project Name].
 
 ### 6. docs/4-development/developer-guide.md (Development Hub)
 
-**Audience**: Developers, Contributors  
-**Format**: Audience + WHAT-WHY-HOW  
+**Audience**: Developers, Contributors
+**Format**: W³H (WHO-WHAT-WHY-HOW)
 **Content**:
 - Development guides organized by topic
 - Testing guides
@@ -294,11 +294,12 @@ Alphabetized list of terms used in [Project Name].
 
 **Example**: See `docs/4-development/developer-guide.md` in Rustboot
 
-### 7. Module Overview (modules/*/doc/overview.md)
+### 7. Module Overview (modules/*/doc/README.md)
 
-**Audience**: Developers (implicit)
-**Format**: WHAT-WHY-HOW (NO Audience section)
+**Audience**: Developers
+**Format**: W³H (WHO-WHAT-WHY-HOW)
 **Content**:
+- WHO: **Audience** declaration
 - WHAT: Clear description of the module
 - Prerequisites: Tools, versions, install commands, dependencies
 - WHY: Problems solved, when to use
@@ -306,7 +307,7 @@ Alphabetized list of terms used in [Project Name].
 - Relationship to other modules
 - Status & backlog link
 
-**Example**: See `crates/rustboot-security/doc/overview.md`
+**Example**: See `crates/rustboot-security/doc/README.md`
 
 ### 8. Module Toolchain (modules/*/doc/3-design/toolchain.md)
 
@@ -357,7 +358,7 @@ Alphabetized list of terms used in [Project Name].
 **Audience**: Developers, DevOps, Users
 **Format**: Deployment guides
 **Required files**:
-- `overview.md` - Index of deployment documentation
+- `README.md` - Index of deployment documentation
 - `prerequisites.md` - System requirements for users and developers
 - `installation.md` - Installation guides (package manager, source)
 
@@ -366,7 +367,7 @@ Alphabetized list of terms used in [Project Name].
 - `ci-cd.md` - CI/CD pipeline setup
 - `docker.md` - Container deployment
 
-**overview.md structure**:
+**README.md structure**:
 ```markdown
 # Deployment Documentation
 
@@ -383,10 +384,10 @@ Alphabetized list of terms used in [Project Name].
 
 ### 10. Framework Documentation (docs/*/\*.md)
 
-**Audience**: Various (MUST specify)  
-**Format**: Audience + WHAT-WHY-HOW  
+**Audience**: Various (MUST specify)
+**Format**: W³H (WHO-WHAT-WHY-HOW)
 **Content**:
-- Audience declaration (required!)
+- WHO: **Audience** declaration (required!)
 - WHAT: What is covered
 - WHY: Problems/motivation
 - HOW: Implementation/application
@@ -424,7 +425,7 @@ Every module/component must have:
 
 - [ ] **At minimum**: `examples/basic.rs` - Simple usage
 - [ ] **At minimum**: `tests/integration.rs` - Public API tests
-- [ ] **In doc/overview.md**: "Examples and Tests" section with links
+- [ ] **In doc/README.md**: "Examples and Tests" section with links
 - [ ] **Links to**: Testing guides (Rust Test Organization, etc.)
 
 ### Example Structure
@@ -439,7 +440,7 @@ module/
 │   ├── integration.rs     # Always required
 │   └── [feature]_test.rs  # Additional test files as needed
 └── doc/
-    └── overview.md        # Must link to above
+    └── README.md          # Must link to above
 ```
 
 ## Documentation Rules
@@ -447,20 +448,19 @@ module/
 | Location | Format | Audience | Examples |
 |----------|--------|----------|----------|
 | `README.md` | Quick Start | Everyone | Project entry |
-| `docs/overview.md` | Hub + Links | All | Main index |
+| `docs/README.md` | Hub + Links | All | Main index |
 | `docs/3-design/architecture.md` | Hub + Links | Architects | Design index |
 | `docs/4-development/developer-guide.md` | Hub + Links | Developers | Dev index |
-| `docs/3-design/*.md` | Audience + WHAT-WHY-HOW | Specified | Architecture docs |
-| `docs/4-development/guide/*.md` | Audience + WHAT-WHY-HOW | Specified | Dev guides |
-| `modules/*/doc/overview.md` | WHAT-WHY-HOW + Prerequisites | Developers (implicit) | Module docs |
+| `docs/3-design/*.md` | W³H | Specified | Architecture docs |
+| `docs/4-development/guide/*.md` | W³H | Specified | Dev guides |
+| `modules/*/doc/README.md` | W³H + Prerequisites | Developers | Module docs |
 | `modules/*/doc/3-design/toolchain.md` | Reference (what/why/how) | Developers, DevOps | Toolchain docs |
 | `modules/*/doc/6-deployment/` | Deployment guides | Developers, DevOps, Users | Deployment docs |
 
 ### Key Principles
 
-1. **Audience Required for Framework Docs** - Multiple audiences need clarity
-2. **No Audience for Module Docs** - Technical docs, audience is obvious
-3. **WHAT-WHY-HOW Structure** - Consistent across all docs
+1. **W³H Pattern Universal** - All docs declare WHO, WHAT, WHY, HOW
+2. **Hub Documents** - Navigate to specialized docs
 4. **Hub Documents** - Navigate to specialized docs
 5. **No TLDR/TOC** - Only if doc is very long (200+ lines)
 
@@ -471,13 +471,13 @@ The documentation framework follows a **six-phase sequential implementation**:
 ```
 Phase 0: Git Repository Files
     ↓ (MUST complete before Phase 1)
-Phase 1: Foundation (README, docs/overview.md, glossary.md, templates)
+Phase 1: Foundation (README, docs/README.md, glossary.md, templates)
     ↓
 Phase 2: Design Documentation (architecture.md, ADRs)
     ↓
 Phase 3: Development Documentation (developer-guide.md, guides)
     ↓
-Phase 4: Module Documentation (module overviews, examples, tests)
+Phase 4: Module Documentation (module READMEs, examples, tests)
     ↓
 Phase 5: Backlog & Planning (backlog files)
     ↓
@@ -523,7 +523,7 @@ Phase 6: Validation (check all phases complete)
 
 ### Phase 1: Foundation
 - [ ] Create lean README.md with Quick Start
-- [ ] Create docs/overview.md as main hub
+- [ ] Create docs/README.md as main hub
 - [ ] Create docs/glossary.md with domain terminology (REQUIRED)
 - [ ] Create docs/templates/ with both templates
 - [ ] Set up directory structure (0-6 folders)
@@ -541,11 +541,11 @@ Phase 6: Validation (check all phases complete)
 - [ ] Add technology-specific guides
 
 ### Phase 4: Module Documentation
-- [ ] Create doc/overview.md for each module
-- [ ] Follow WHAT-WHY-HOW structure
+- [ ] Create doc/README.md for each module
+- [ ] Follow W³H (WHO-WHAT-WHY-HOW) structure
 - [ ] **Add Prerequisites section to each overview**
 - [ ] Add relationship tables
-- [ ] Link from docs/overview.md
+- [ ] Link from docs/README.md
 - [ ] **Create examples/basic.rs for each module**
 - [ ] **Create tests/integration.rs for each module**
 - [ ] **Add "Examples and Tests" section to each overview**
@@ -556,7 +556,7 @@ Phase 6: Validation (check all phases complete)
   - [ ] Add version matrix
   - [ ] Add verification commands
 - [ ] **Create doc/6-deployment/ for each module**
-  - [ ] overview.md - deployment index
+  - [ ] README.md - deployment index
   - [ ] prerequisites.md - system requirements
   - [ ] installation.md - installation guides
 
@@ -577,9 +577,8 @@ Phase 6: Validation (check all phases complete)
   - [ ] Directories are lowercase-with-hyphens (3-design/, 4-development/)
 - [ ] **Verify docs/glossary.md exists** with domain terminology
 - [ ] Verify no broken links
-- [ ] Check all Audience declarations in framework docs
-- [ ] Verify no Audience in module docs
-- [ ] Ensure WHAT-WHY-HOW in all docs
+- [ ] Verify **Audience** in ALL docs
+- [ ] Ensure W³H in all docs
 - [ ] Remove unnecessary TLDR/TOC sections
 - [ ] **Verify all modules have examples/basic.rs**
 - [ ] **Verify all modules have tests/integration.rs**
@@ -614,7 +613,7 @@ Phase 6: Validation (check all phases complete)
 ## Example Implementations
 
 ### Small Library (5-10 modules)
-- Minimal structure: README, docs/overview.md, module docs
+- Minimal structure: README, docs/README.md, module docs
 - Single architecture.md
 - Single developer-guide.md
 - Templates in docs/templates/
@@ -642,17 +641,14 @@ find docs -name "*.md" -exec grep -H "\[.*\](.*)" {} \;
 
 ### Template Validation
 ```bash
-# Check for Audience in framework docs
-grep -r "**Audience**" docs/3-design docs/4-development
-
-# Verify no Audience in module docs
-! grep -r "**Audience**" modules/*/doc/
+# Check for Audience in all docs
+grep -r "**Audience**" docs/ modules/*/doc/
 ```
 
-### WHAT-WHY-HOW Validation
+### W³H Validation
 ```bash
 # Check structure in all docs
-for file in $(find . -name "overview.md"); do
+for file in $(find . -name "README.md"); do
   echo "Checking $file"
   grep -q "## WHAT" $file && echo "  ✓ WHAT"
   grep -q "## WHY" $file && echo "  ✓ WHY"
@@ -665,15 +661,14 @@ done
 ### ✅ DO
 - Keep README lean (< 100 lines)
 - Use hub documents for navigation
-- Specify Audience for framework docs
-- Maintain WHAT-WHY-HOW structure
+- Declare **Audience** in every document (W³H)
+- Maintain W³H structure
 - Link related docs
-- Update docs/overview.md when adding modules
+- Update docs/README.md when adding modules
 - Use templates for consistency
 
 ### ❌ DON'T
 - Put all docs in README
-- Add Audience to module docs
 - Create TLDR/TOC for short docs
 - Have broken links
 - Duplicate content across docs
@@ -685,7 +680,7 @@ done
 ### Regular Reviews
 - **Monthly**: Check for broken links
 - **Per Release**: Update version numbers
-- **Per Module**: Create overview.md
+- **Per Module**: Create README.md
 - **Per Decision**: Create ADR
 
 ### Documentation Debt
@@ -703,9 +698,9 @@ Track in `docs/framework-backlog.md`:
 2. **Create structure**: Set up directory hierarchy
 3. **Categorize**: Sort docs into design vs development
 4. **Create hubs**: Write architecture.md and developer-guide.md
-5. **Convert format**: Apply WHAT-WHY-HOW to each doc
-6. **Add Audience**: Mark framework docs with target readers
-7. **Link everything**: Update docs/overview.md
+5. **Convert format**: Apply W³H to each doc
+6. **Add Audience**: Declare **Audience** in ALL docs
+7. **Link everything**: Update docs/README.md
 8. **Clean README**: Simplify to Quick Start only
 
 ### From Other Formats
@@ -718,7 +713,7 @@ Track in `docs/framework-backlog.md`:
 **From Wiki-style**:
 - Organize by audience
 - Create hub documents
-- Apply WHAT-WHY-HOW structure
+- Apply W³H structure
 
 ## Success Metrics
 
@@ -733,12 +728,11 @@ Track in `docs/framework-backlog.md`:
   - Git standard files UPPERCASE
   - Project docs lowercase-with-hyphens
 - ✅ **docs/glossary.md exists** with domain terminology
-- ✅ All modules have doc/overview.md
+- ✅ All modules have doc/README.md
 - ✅ No broken links
 - ✅ README < 100 lines
-- ✅ Framework docs have Audience
-- ✅ Module docs don't have Audience
-- ✅ All docs use WHAT-WHY-HOW
+- ✅ All docs declare **Audience** (W³H)
+- ✅ All docs use W³H
 - ✅ Hub documents exist at each level
 - ✅ New contributors can navigate easily
 - ✅ **All modules have examples/basic.rs**

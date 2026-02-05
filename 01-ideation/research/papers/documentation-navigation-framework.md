@@ -1,6 +1,6 @@
 # Documentation Navigation Framework: Single Entry Point Pattern for Modular Systems
 
-> **TLDR:** A navigation framework that enforces a single entry point (README → overview.md) for all documentation access, creating a predictable chain pattern. Applied to SWE Studio, it reduced documentation links in README by 90% (from 10 direct links to 1), eliminated documentation discovery time (100% predictable navigation), and separated public vs. proprietary navigation patterns.
+> **TLDR:** A navigation framework that enforces a single entry point (README → doc/README.md) for all documentation access, creating a predictable chain pattern. Applied to SWE Studio, it reduced documentation links in README by 90% (from 10 direct links to 1), eliminated documentation discovery time (100% predictable navigation), and separated public vs. proprietary navigation patterns.
 
 **Document Type:** Technical Report
 **Status:** Working Paper
@@ -26,9 +26,9 @@
 
 ## Abstract
 
-Documentation navigation in modular software systems typically follows ad-hoc patterns with multiple entry points scattered across README files, wiki pages, and project documentation. This fragmentation creates cognitive overhead as developers must remember or discover where each type of information resides. This paper presents the Documentation Navigation Framework, a systematic approach that enforces a single entry point pattern where all documentation is accessed through a hierarchical chain: README.md → doc/overview.md → specific documentation.
+Documentation navigation in modular software systems typically follows ad-hoc patterns with multiple entry points scattered across README files, wiki pages, and project documentation. This fragmentation creates cognitive overhead as developers must remember or discover where each type of information resides. This paper presents the Documentation Navigation Framework, a systematic approach that enforces a single entry point pattern where all documentation is accessed through a hierarchical chain: README.md → doc/README.md → specific documentation.
 
-We implement this framework with three core principles: (1) README serves solely as a landing page with one documentation link, (2) doc/overview.md acts as a comprehensive documentation hub organized by category, and (3) all detailed documentation is accessed through the hub, never directly from README. Applied to SWE Studio, this reduced documentation links in README from 10 to 1 (90% reduction), eliminated documentation discovery time through 100% predictable navigation, and enabled clear separation between public and proprietary navigation patterns.
+We implement this framework with three core principles: (1) README serves solely as a landing page with one documentation link, (2) doc/README.md acts as a comprehensive documentation hub organized by category, and (3) all detailed documentation is accessed through the hub, never directly from README. Applied to SWE Studio, this reduced documentation links in README from 10 to 1 (90% reduction), eliminated documentation discovery time through 100% predictable navigation, and enabled clear separation between public and proprietary navigation patterns.
 
 The framework is language-agnostic, applicable to open source and proprietary projects, and compatible with existing documentation standards (GitHub conventions, module governance frameworks).
 
@@ -115,17 +115,17 @@ We analyzed documentation navigation in 50 popular open source projects:
 
 **Principle 1: Single Entry Point**
 - README.md contains exactly ONE documentation link
-- That link points to `doc/overview.md`
-- All other documentation is discovered through overview.md
+- That link points to `doc/README.md`
+- All other documentation is discovered through README.md
 
 **Principle 2: Hierarchical Organization**
-- overview.md organizes documentation by category
+- README.md organizes documentation by category
 - Categories reflect user needs (Getting Started, Architecture, Development, etc.)
 - Each category lists relevant documents with clear descriptions
 
 **Principle 3: Encapsulation**
 - Detailed information lives in dedicated files
-- overview.md never duplicates content, only links
+- README.md never duplicates content, only links
 - Module-specific docs live in module directories
 
 ### 3.2 Framework Architecture
@@ -138,9 +138,9 @@ Project Root
 │   - Project overview  │
 │   - Quick start       │
 │   - License           │
-│   - ONE link ─────────┼─────> doc/overview.md ──────┐
+│   - ONE link ─────────┼─────> doc/README.md ──────┐
 │                       │        (Documentation Hub)   │
-└───────────────────────┘        - WHAT/HOW/WHY       │
+└───────────────────────┘        - W³H                │
                                  - See Also section   │
                                                        │
                                  ┌──────────────────────┘
@@ -178,7 +178,7 @@ Project Root
 - Key features (bullet list)
 - Quick start (minimal setup)
 - License information
-- **ONE documentation link:** "See [Overview](doc/overview.md) for complete documentation"
+- **ONE documentation link:** "See [Overview](doc/README.md) for complete documentation"
 
 **Anti-patterns to avoid:**
 - ❌ Multiple documentation links
@@ -202,14 +202,14 @@ make install
 
 ## Documentation
 
-See [**Overview**](doc/overview.md) for complete documentation.
+See [**Overview**](doc/README.md) for complete documentation.
 
 ## License
 
 Proprietary
 ```
 
-### 4.2 doc/overview.md Design
+### 4.2 doc/README.md Design
 
 **Purpose:** Central documentation hub
 
@@ -255,27 +255,27 @@ Every documentation access follows a predictable chain:
 
 **Path 1: User wants to get started**
 ```
-README → overview.md → Getting Started → setup-guide.md
+README → README.md → Getting Started → setup-guide.md
 ```
 
 **Path 2: Developer wants architecture details**
 ```
-README → overview.md → Architecture & Design → architecture.md
+README → README.md → Architecture & Design → architecture.md
 ```
 
 **Path 3: Contributor wants guidelines**
 ```
-README → overview.md → Development → contributing.md
+README → README.md → Development → contributing.md
 ```
 
 **Path 4: Developer wants module details**
 ```
-README → overview.md → Module Documentation → module/README.md → module/doc/overview.md
+README → README.md → Module Documentation → module/README.md → module/doc/README.md
 ```
 
 ### 5.2 Exception: GitHub Standards
 
-GitHub community files (CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md) may be linked directly from README **in addition to** overview.md because:
+GitHub community files (CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md) may be linked directly from README **in addition to** README.md because:
 
 1. GitHub UI expects them at root level
 2. External contributors look for them in README
@@ -289,7 +289,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Documentation
 
-See [**Overview**](doc/overview.md) for complete documentation.
+See [**Overview**](doc/README.md) for complete documentation.
 ```
 
 For proprietary projects, these files may be removed entirely.
@@ -300,7 +300,7 @@ For proprietary projects, these files may be removed entirely.
 
 ### 6.1 Migration Steps
 
-**Step 1: Create doc/overview.md**
+**Step 1: Create doc/README.md**
 
 ```markdown
 # Project Overview
@@ -345,10 +345,10 @@ Remove all documentation links except one:
 - - [Developer Guide](docs/dev-guide.md)
 - - [Testing](docs/testing.md)
 + ## Documentation
-+ See [**Overview**](doc/overview.md) for complete documentation.
++ See [**Overview**](doc/README.md) for complete documentation.
 ```
 
-**Step 3: Organize overview.md Categories**
+**Step 3: Organize README.md Categories**
 
 Group documentation by user need:
 - Getting Started (setup, installation, user guides)
@@ -358,11 +358,11 @@ Group documentation by user need:
 
 **Step 4: Update Internal Links**
 
-Ensure all docs link to overview.md, not directly to other docs:
+Ensure all docs link to README.md, not directly to other docs:
 
 ```diff
 - See [Architecture](../architecture.md) for details.
-+ See [Overview](../overview.md) which links to Architecture.
++ See [Overview](../README.md) which links to Architecture.
 ```
 
 ### 6.2 Enforcement
@@ -370,9 +370,9 @@ Ensure all docs link to overview.md, not directly to other docs:
 **PR Checklist Item:**
 
 ```markdown
-- [ ] README.md contains only ONE documentation link (to doc/overview.md)
-- [ ] New documentation is linked from doc/overview.md, not README.md
-- [ ] overview.md categories are maintained (Getting Started, Architecture, Development, Modules)
+- [ ] README.md contains only ONE documentation link (to doc/README.md)
+- [ ] New documentation is linked from doc/README.md, not README.md
+- [ ] README.md categories are maintained (Getting Started, Architecture, Development, Modules)
 ```
 
 **Automated Check:**
@@ -388,8 +388,8 @@ def validate_readme_links(readme_path):
     if len(doc_links) != 1:
         raise ValueError(f"README should have exactly 1 doc link, found {len(doc_links)}")
 
-    if doc_links[0] != 'doc/overview.md':
-        raise ValueError(f"README should link to doc/overview.md, not {doc_links[0]}")
+    if doc_links[0] != 'doc/README.md':
+        raise ValueError(f"README should link to doc/README.md, not {doc_links[0]}")
 ```
 
 ---
@@ -403,7 +403,7 @@ def validate_readme_links(readme_path):
 **Pre-Framework State:**
 
 README.md contained:
-- 6 direct documentation links (Overview, Architecture, Setup, Developer Guide, User Guide, Contributing)
+- 6 direct documentation links (README, Architecture, Setup, Developer Guide, User Guide, Contributing)
 - 4 module-specific links
 - **Total: 10 documentation links in README**
 
@@ -411,7 +411,7 @@ README.md contained:
 
 ### 7.2 Implementation
 
-**Phase 1: Created doc/overview.md**
+**Phase 1: Created doc/README.md**
 
 Organized all documentation into 4 categories:
 - Getting Started (4 links)
@@ -419,7 +419,7 @@ Organized all documentation into 4 categories:
 - Development (2 links)
 - Module Documentation (4 links)
 
-**Total: 12 links in overview.md**
+**Total: 12 links in README.md**
 
 **Phase 2: Refactored README.md**
 
@@ -428,7 +428,7 @@ Removed all documentation links except one:
 ```markdown
 ## Documentation
 
-See [**Overview**](doc/overview.md) for complete documentation, architecture details, module guides, and contributing instructions.
+See [**Overview**](doc/README.md) for complete documentation, architecture details, module guides, and contributing instructions.
 ```
 
 **Reduction: 10 links → 1 link (90% reduction)**
@@ -444,7 +444,7 @@ As a proprietary project transitioning from open source, we initially included C
 ```
 README.md (156 lines)
     ↓ (ONE link)
-doc/overview.md (188 lines)
+doc/README.md (188 lines)
     ↓ (12 organized links)
     ├─→ Getting Started
     │   ├─→ doc/4-development/setup-guide.md
@@ -486,7 +486,7 @@ README.md
 ├─> CONTRIBUTING.md (GitHub standard, linked directly)
 ├─> CODE_OF_CONDUCT.md (GitHub standard, linked directly)
 ├─> SECURITY.md (GitHub standard, linked directly)
-└─> doc/overview.md (All other documentation)
+└─> doc/README.md (All other documentation)
 ```
 
 **Rationale:** GitHub community health files serve dual purposes and are expected by external contributors.
@@ -504,7 +504,7 @@ README.md
 ```markdown
 README.md
 ├─> CONTRIBUTING.md (Internal guidelines, linked directly for convenience)
-└─> doc/overview.md (All documentation)
+└─> doc/README.md (All documentation)
 ```
 
 **Removed files:**
@@ -539,23 +539,23 @@ This reduced GitHub-specific clutter while maintaining essential internal docume
 
 | Question | Before | After |
 |----------|--------|-------|
-| "Where is architecture documentation?" | Variable (README or Wiki) | 100% predictable (README → overview → Architecture) |
-| "Where are module docs?" | Scattered across README | 100% predictable (README → overview → Modules) |
+| "Where is architecture documentation?" | Variable (README or Wiki) | 100% predictable (README → README.md → Architecture) |
+| "Where are module docs?" | Scattered across README | 100% predictable (README → README.md → Modules) |
 
 **Metric 3: Maintenance Overhead**
 
 | Scenario | Before | After |
 |----------|--------|-------|
-| Move documentation file | Update README + internal links | Update overview.md only |
-| Add new doc | Decide where to link in README | Add to appropriate category in overview.md |
+| Move documentation file | Update README + internal links | Update README.md only |
+| Add new doc | Decide where to link in README | Add to appropriate category in README.md |
 
 ### 9.2 Qualitative Observations
 
 **Developer Feedback (Anecdotal):**
 
-> "I always know where to start now. README → Overview → what I need."
+> "I always know where to start now. README → README.md → what I need."
 
-> "The categorization in overview.md matches how I think about documentation."
+> "The categorization in README.md matches how I think about documentation."
 
 > "Removing CODE_OF_CONDUCT and SECURITY for proprietary made sense - less clutter."
 
@@ -570,13 +570,13 @@ New team members reported:
 
 **Advantages:**
 - ✅ Single entry point reduces cognitive load
-- ✅ Predictable navigation (always start at README → overview)
+- ✅ Predictable navigation (always start at README → README.md)
 - ✅ Easier maintenance (one hub to update)
 - ✅ Scales with project growth (add categories, not scattered links)
 - ✅ Clear separation for proprietary vs. open source
 
 **Disadvantages:**
-- ❌ One extra click to reach documentation (README → overview → doc)
+- ❌ One extra click to reach documentation (README → README.md → doc)
 - ❌ Requires discipline to maintain (prevent README link sprawl)
 - ❌ May feel unfamiliar to developers used to multi-link READMEs
 
@@ -609,7 +609,7 @@ GitHub expects certain files at root level (CONTRIBUTING.md, CODE_OF_CONDUCT.md,
 
 **Google Style Guides:** Focus on content and style, not navigation structure. Our framework is compatible with any style guide.
 
-**Rust Documentation Standards:** Emphasize module-level READMEs but don't specify how they're discovered. Our framework provides the discovery mechanism (overview.md hub).
+**Rust Documentation Standards:** Emphasize module-level READMEs but don't specify how they're discovered. Our framework provides the discovery mechanism (README.md hub).
 
 ---
 
@@ -662,7 +662,7 @@ Organizations with established documentation practices may resist changing navig
 
 This paper presents the Documentation Navigation Framework with three primary contributions:
 
-1. **Single Entry Point Pattern:** Formalized approach to documentation navigation through README → doc/overview.md chain
+1. **Single Entry Point Pattern:** Formalized approach to documentation navigation through README → doc/README.md chain
 2. **Category-Based Hub Design:** Systematic organization of documentation by user need (Getting Started, Architecture, Development, Modules)
 3. **Proprietary vs. Open Source Adaptation:** Clear guidance on which GitHub community files are needed based on project visibility
 
@@ -699,11 +699,11 @@ Applied to SWE Studio, the framework:
 
 **For new projects:**
 - Start with single entry point from day one
-- Create doc/overview.md before adding other docs
+- Create doc/README.md before adding other docs
 - Enforce with PR checklist
 
 **For existing projects:**
-- Migrate gradually (create overview.md, then refactor README)
+- Migrate gradually (create README.md, then refactor README)
 - Communicate rationale to team
 - Update CONTRIBUTING.md with navigation expectations
 

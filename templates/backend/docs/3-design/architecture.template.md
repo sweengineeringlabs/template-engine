@@ -131,5 +131,5 @@ See [ADR folder](adr/) for architecture decision records.
 
 ## See Also
 
-- [Overview](../overview.md)
+- [Overview](../README.md)
 - [Integration Guide](integration.md)

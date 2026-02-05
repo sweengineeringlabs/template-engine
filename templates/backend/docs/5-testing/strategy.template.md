@@ -122,4 +122,4 @@ cargo test -p {module-name} --test e2e
 ## See Also
 
 - [Architecture](../../3-design/architecture.md)
-- [Overview](../../overview.md)
+- [Overview](../../README.md)

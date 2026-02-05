@@ -1,6 +1,6 @@
 # Module Governance Framework: Enforcing Documentation Standards in Modular Software Systems
 
-> **TLDR:** A governance framework for modular software documentation that defines compulsory files (12 required + 3 optional per module), folder restrictions (7 allowed folder types), content requirements (TLDR + TOC + WHAT/HOW/WHY pattern), and a 4-stage module registry workflow. Applied to SWE Studio with 15+ modules achieving structural compliance through automated scanning.
+> **TLDR:** A governance framework for modular software documentation that defines compulsory files (12 required + 3 optional per module), folder restrictions (7 allowed folder types), content requirements (TLDR + TOC + W³H pattern), and a 4-stage module registry workflow. Applied to SWE Studio with 15+ modules achieving structural compliance through automated scanning.
 
 **Document Type:** Technical Report
 **Status:** Working Paper
@@ -27,7 +27,7 @@
 
 ## Abstract
 
-Documentation governance in modular software systems lacks formal frameworks for defining, enforcing, and validating documentation requirements. While style guides address content quality, they rarely specify structural requirements—which files must exist, where they must reside, and what content they must contain. This paper presents the Module Governance Framework, a systematic approach that: (1) defines compulsory files with specific purposes for each module (12 required + 3 optional), (2) restricts folder creation to 7 allowed types preventing structural sprawl, (3) mandates content patterns (TLDR, TOC, WHAT/HOW/WHY) for consistency, and (4) establishes a 4-stage module registry workflow from concept to implementation.
+Documentation governance in modular software systems lacks formal frameworks for defining, enforcing, and validating documentation requirements. While style guides address content quality, they rarely specify structural requirements—which files must exist, where they must reside, and what content they must contain. This paper presents the Module Governance Framework, a systematic approach that: (1) defines compulsory files with specific purposes for each module (12 required + 3 optional), (2) restricts folder creation to 7 allowed types preventing structural sprawl, (3) mandates content patterns (TLDR, TOC, W³H) for consistency, and (4) establishes a 4-stage module registry workflow from concept to implementation.
 
 We implement enforcement through automated documentation scanning integrated with CI/CD pipelines. Applied to SWE Studio, a modular IDE with 15+ Rust crates, the framework achieved 100% structural compliance and reduced documentation-related PR review comments by an estimated 60%. The framework is language-agnostic and applicable to monorepos, microservices, and plugin architectures.
 
@@ -72,7 +72,7 @@ This paper makes the following contributions:
 
 1. **Compulsory Files Specification**: A formal definition of 12 required + 3 optional files per module with explicit purposes
 2. **Folder Restriction System**: 7 allowed folder types within SDLC phases, preventing structural sprawl
-3. **Content Requirements Pattern**: TLDR + TOC + WHAT/HOW/WHY pattern for consistent documentation structure
+3. **Content Requirements Pattern**: TLDR + TOC + W³H pattern for consistent documentation structure
 4. **Module Registry Workflow**: 4-stage lifecycle (Concept → Approved → Design Doc → Create Module)
 5. **Automated Enforcement**: Documentation scanner integrated with CI/CD for compliance verification
 
@@ -140,7 +140,7 @@ We address the following questions:
 
 - **RQ1**: Can compulsory file specifications make documentation gaps visible?
 - **RQ2**: Do folder restrictions reduce structural complexity while maintaining expressiveness?
-- **RQ3**: Does the WHAT/HOW/WHY pattern improve documentation comprehensiveness?
+- **RQ3**: Does the W³H pattern improve documentation comprehensiveness?
 - **RQ4**: Can automated scanning effectively enforce governance requirements?
 
 ---
@@ -180,7 +180,7 @@ The framework consists of four interconnected components:
 │           ┌──────────────────────┐                               │
 │           │  3. Content          │                               │
 │           │     Requirements     │                               │
-│           │  (TLDR+TOC+WHW)      │                               │
+│           │  (TLDR+TOC+W³H)     │                               │
 │           └──────────┬───────────┘                               │
 │                      │                                           │
 │                      ▼                                           │
@@ -219,7 +219,7 @@ We derive requirements from common developer questions:
 
 | Developer Question | Required File | Location |
 |-------------------|---------------|----------|
-| What does this module do? | overview.md | doc/ |
+| What does this module do? | README.md | doc/ |
 | How do I get started? | README.md | root |
 | What changed recently? | CHANGELOG.md | root |
 | How do I contribute? | CONTRIBUTING.md | root |
@@ -249,7 +249,7 @@ Every module must contain these 12 files:
 
 | File | Location | Purpose |
 |------|----------|---------|
-| `overview.md` | doc/ | WHAT/HOW/WHY pattern |
+| `README.md` | doc/ | W³H pattern |
 | `architecture.md` | doc/3-design/ | Internal architecture, diagrams |
 | `sequence.md` | doc/3-design/ | Interaction flows, sequence diagrams |
 | `workflow.md` | doc/3-design/ | Process flow, pipelines |
@@ -275,7 +275,7 @@ The framework enforces consistent naming:
 | Context | Convention | Examples |
 |---------|------------|----------|
 | Root-level | UPPERCASE | README.md, CONTRIBUTING.md |
-| Subdirectories | lowercase | overview.md, architecture.md |
+| Subdirectories | lowercase | README.md, architecture.md |
 | Multi-word | hyphen-separated | developer-guide.md, testing-strategy.md |
 | Multiple of same type | prefix-name | backend-architecture.md, frontend-architecture.md |
 
@@ -369,15 +369,21 @@ A 1-3 sentence summary immediately after the title:
 
 **Rationale**: Long documents without navigation are difficult to use. TOC provides structure visibility.
 
-### 6.2 The WHAT/HOW/WHY Pattern
+### 6.2 The W³H: WHO / WHAT / WHY / HOW Pattern
 
-Every `overview.md` must contain three sections:
+Every `README.md` must contain four elements:
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│                     WHAT / HOW / WHY Pattern                     │
+│                W³H: WHO / WHAT / WHY / HOW Pattern               │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                  │
+│  ┌─────────────────┐                                            │
+│  │      WHO        │  **Audience**: Who is this for?            │
+│  │                 │  (inline declaration, not a heading)       │
+│  └────────┬────────┘                                            │
+│           │                                                      │
+│           ▼                                                      │
 │  ┌─────────────────┐                                            │
 │  │      WHAT       │  What does this module do?                 │
 │  │                 │  What features does it provide?            │
@@ -386,16 +392,16 @@ Every `overview.md` must contain three sections:
 │           │                                                      │
 │           ▼                                                      │
 │  ┌─────────────────┐                                            │
-│  │      HOW        │  How is it architected?                    │
-│  │                 │  How do the layers interact?               │
-│  │                 │  How do you extend it?                     │
+│  │      WHY        │  Why these design decisions?               │
+│  │                 │  Why this architecture?                    │
+│  │                 │  Why not alternatives?                     │
 │  └────────┬────────┘                                            │
 │           │                                                      │
 │           ▼                                                      │
 │  ┌─────────────────┐                                            │
-│  │      WHY        │  Why these design decisions?               │
-│  │                 │  Why this architecture?                    │
-│  │                 │  Why not alternatives?                     │
+│  │      HOW        │  How is it architected?                    │
+│  │                 │  How do the layers interact?               │
+│  │                 │  How do you extend it?                     │
 │  └─────────────────┘                                            │
 │                                                                  │
 └─────────────────────────────────────────────────────────────────┘
@@ -608,7 +614,7 @@ Pull request templates include documentation checklists:
 
 ### For New Modules
 - [ ] `README.md` with TLDR + TOC
-- [ ] `doc/overview.md` with WHAT/HOW/WHY
+- [ ] `doc/README.md` with W³H
 - [ ] `doc/3-design/architecture.md`
 - [ ] `doc/3-design/sequence.md`
 - [ ] `doc/3-design/workflow.md`
@@ -673,7 +679,7 @@ Implementation proceeded in phases:
 **Phase 3: Content Standardization**
 - Added TLDR to all documents
 - Added TOC to documents with 3+ sections
-- Converted overview.md to WHAT/HOW/WHY pattern
+- Converted README.md to W³H pattern
 
 **Phase 4: Enforcement**
 - Deployed `swe-docscan` scanner
@@ -771,7 +777,7 @@ This paper presented the Module Governance Framework, a systematic approach to d
 
 1. **Compulsory files** (12 required + 3 optional) that make gaps structurally visible
 2. **Folder restrictions** (7 allowed types) that prevent structural sprawl
-3. **Content requirements** (TLDR + TOC + WHAT/HOW/WHY) that ensure consistency
+3. **Content requirements** (TLDR + TOC + W³H) that ensure consistency
 4. **Enforcement mechanisms** (scanner + CI + PR templates) that verify compliance
 
 ### 12.2 Key Insights
@@ -786,7 +792,7 @@ This paper presented the Module Governance Framework, a systematic approach to d
 1. **Content quality metrics**: Extend scanner to assess documentation quality, not just existence
 2. **Cross-project validation**: Apply framework to diverse projects and measure outcomes
 3. **IDE integration**: Surface documentation gaps in editor, not just CI
-4. **Natural language analysis**: Use NLP to verify WHAT/HOW/WHY sections address required questions
+4. **Natural language analysis**: Use NLP to verify W³H sections address required questions
 
 ---
 
@@ -819,7 +825,7 @@ This paper presented the Module Governance Framework, a systematic approach to d
 ├── CONTRIBUTING.md                        # Required
 ├── SECURITY.md                            # Required
 └── doc/
-    ├── overview.md                        # Required (WHAT/HOW/WHY)
+    ├── README.md                          # Required (W³H)
     ├── 3-design/
     │   ├── architecture.md                # Required
     │   ├── sequence.md                    # Required
@@ -845,7 +851,7 @@ This paper presented the Module Governance Framework, a systematic approach to d
 ├── CONTRIBUTING.md                        # Required
 ├── SECURITY.md                            # Required
 └── doc/
-    ├── overview.md                        # Required
+    ├── README.md                          # Required
     ├── 2-requirements/
     │   └── brd.md                         # Required
     ├── 3-design/

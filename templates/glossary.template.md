@@ -188,5 +188,5 @@ Alphabetized list of terms used in {Project Name}.
 
 ## See Also
 
-- [Overview](overview.md)
+- [Overview](README.md)
 - [Architecture](3-design/architecture.md)

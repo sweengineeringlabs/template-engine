@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Core documentation templates:
-  - crate_overview.template.md (module/component documentation)
+  - crate_readme.template.md (module/component documentation)
   - framework_doc.template.md (framework-wide documentation)
 - Deployment templates:
   - release_versioning.template.md (version management)

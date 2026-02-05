@@ -190,7 +190,7 @@ Documentation follows a strict hierarchy. Each level documents only its own conc
 
 **Navigation Path:**
 ```
-README.md → doc/overview.md → {MODULE}/README → {MODULE}/doc/4-development/setup-guide.md
+README.md → doc/README.md → {MODULE}/README → {MODULE}/doc/4-development/setup-guide.md
 ```
 
 This ensures users navigate progressively deeper, understanding context at each level.
@@ -251,7 +251,7 @@ The framework's second principle mandates that root and modules follow identical
 ROOT (swe-studio/)                    MODULE ({module}/)
 ├── README.md                         ├── README.md
 └── doc/                              └── doc/
-    ├── overview.md                       ├── overview.md
+    ├── README.md                         ├── README.md
     ├── 1-requirements/                   ├── 3-design/
     │   └── brd.md                        │   ├── architecture.md
     ├── 2-planning/                       │   ├── sequence.md
@@ -283,7 +283,7 @@ The framework specifies minimum required files for root and modules:
 | `CHANGELOG.md` | Release notes | "What changed in each version?" |
 | `CONTRIBUTING.md` | Contribution guidelines | "How do I contribute?" |
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" |
-| `doc/overview.md` | WHAT/HOW/WHY | "How does it all fit together?" |
+| `doc/README.md` | W³H | "How does it all fit together?" |
 | `doc/2-requirements/brd.md` | Business requirements | "Why does this exist?" |
 | `doc/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
 | `doc/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
@@ -299,7 +299,7 @@ The framework specifies minimum required files for root and modules:
 | `CHANGELOG.md` | Release notes | "What changed in each version?" | Yes |
 | `CONTRIBUTING.md` | Contribution guidelines | "How do I contribute?" | Yes |
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" | Yes |
-| `doc/overview.md` | WHAT/HOW/WHY | "Why was it built this way?" | Yes |
+| `doc/README.md` | W³H | "Why was it built this way?" | Yes |
 | `doc/3-design/architecture.md` | Internal architecture | "How is it structured?" | Yes |
 | `doc/3-design/sequence.md` | Interaction flows | "How do components interact?" | Yes |
 | `doc/3-design/workflow.md` | Process/pipeline | "What's the data flow?" | Yes |
@@ -365,17 +365,18 @@ Every document begins with a summary and navigation:
 
 **Rationale**: Developers often scan documentation. TLDR enables quick relevance assessment. TOC enables non-linear navigation.
 
-#### 3.7.2 WHAT/HOW/WHY Pattern
+#### 3.7.2 W³H (WHO/WHAT/WHY/HOW) Pattern
 
-Every `overview.md` file follows a three-section structure:
+Every `README.md` file follows a four-element structure:
 
-| Section | Questions Answered |
+| Element | Questions Answered |
 |---------|-------------------|
+| **WHO** | **Audience**: Who is this for? (inline declaration) |
 | **WHAT** | What does this do? What features? What problems solved? |
-| **HOW** | How is it architected? How do layers interact? How to extend? |
 | **WHY** | Why these decisions? Why this architecture? Why not alternatives? |
+| **HOW** | How is it architected? How do layers interact? How to extend? |
 
-**Rationale**: These are the three fundamental questions developers ask when encountering new code. Structuring documentation around them ensures completeness.
+**Rationale**: These are the four fundamental questions developers ask when encountering new code. Structuring documentation around them ensures completeness.
 
 ### 3.8 Supporting Structures
 
@@ -427,7 +428,7 @@ Supporting research is documented under `{folder}/papers/`:
 | Location | Convention | Examples |
 |----------|------------|----------|
 | Root level | UPPERCASE | `README.md`, `CONTRIBUTING.md`, `LICENSE` |
-| Subdirectories | lowercase | `overview.md`, `architecture.md` |
+| Subdirectories | lowercase | `README.md`, `architecture.md` |
 | Multi-word names | hyphens | `testing-strategy.md`, `developer-guide.md` |
 
 **Prohibited:**
@@ -451,7 +452,7 @@ The framework is enforced through a PR template that includes a documentation ch
 ### For New Modules
 
 - [ ] `README.md` with TLDR + TOC
-- [ ] `doc/overview.md` with WHAT/HOW/WHY
+- [ ] `doc/README.md` with W³H
 
 #### 3-design/
 - [ ] `architecture.md`
@@ -473,7 +474,7 @@ The framework is enforced through a PR template that includes a documentation ch
 
 ### For Root Changes
 
-- [ ] Updated `doc/overview.md` if project scope changed
+- [ ] Updated `doc/README.md` if project scope changed
 - [ ] Updated `doc/4-development/developer-guide.md` if workflow changed
 ```
 
@@ -496,7 +497,7 @@ jobs:
       - name: Check compulsory files
         run: |
           for module in crates/*/; do
-            for file in README.md doc/overview.md doc/3-design/architecture.md; do
+            for file in README.md doc/README.md doc/3-design/architecture.md; do
               if [ ! -f "$module$file" ]; then
                 echo "Missing: $module$file"
                 exit 1
@@ -549,7 +550,7 @@ doc/
 #### Inconsistent Module Documentation
 ```
 crates/swe-terminal/doc/
-├── overview.md
+├── README.md
 ├── 3-design/
 │   └── quality-centre/           # Non-standard folder
 │       ├── tools.md
@@ -608,14 +609,14 @@ Deleted 8 orphan stubs from `doc/4-development/`:
 Created missing compulsory files:
 - `doc/1-requirements/` folder
 - `doc/2-planning/` folder (moved from `doc/1-requirements/planning/`)
-- Module `overview.md` files for SEA modules
+- Module `README.md` files for SEA modules
 
 ### 5.4 Final State
 
 #### Root Structure
 ```
 doc/
-├── overview.md
+├── README.md
 ├── 1-requirements/
 │   └── brd.md
 ├── 2-planning/
@@ -646,7 +647,7 @@ doc/
 crates/swe-terminal/
 ├── README.md
 └── doc/
-    ├── overview.md
+    ├── README.md
     ├── 3-design/
     │   ├── architecture.md
     │   ├── nushell.md
@@ -669,7 +670,7 @@ crates/swe-terminal/
 | Total documentation lines | 4,200+ | 1,800 | -57% |
 | Orphaned files | 10 | 0 | -100% |
 | Duplicate content instances | 5 | 0 | -100% |
-| Modules with overview.md | 1/4 | 4/4 | +300% |
+| Modules with README.md | 1/4 | 4/4 | +300% |
 | Modules following structure | 0/4 | 4/4 | +400% |
 | Compulsory file compliance | ~30% | 100% | +233% |
 
@@ -683,7 +684,7 @@ Yes. During migration, file placement decisions were unambiguous. "Where does th
 
 **RQ2: Does mirrored structure reduce cognitive load?**
 
-Yes. After learning root structure, developers navigated module documentation without guidance. The pattern "overview.md is always at doc/overview.md" transferred across all modules.
+Yes. After learning root structure, developers navigated module documentation without guidance. The pattern "README.md is always at doc/README.md" transferred across all modules.
 
 **RQ3: Do compulsory files increase coverage?**
 
@@ -699,7 +700,7 @@ During migration and subsequent development, we observed the following qualitati
 
 1. **Reduced navigation time**: Developers no longer search for documentation location—the SDLC structure provides deterministic placement.
 
-2. **Structured thinking**: The WHAT/HOW/WHY pattern encourages documentation authors to address design rationale, not just implementation details.
+2. **Structured thinking**: The W³H pattern encourages documentation authors to address design rationale, not just implementation details.
 
 3. **Visible accountability**: Empty compulsory file placeholders create social pressure to complete documentation before code review approval.
 
@@ -871,7 +872,7 @@ swe-studio/
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 └── doc/
-    ├── overview.md
+    ├── README.md
     ├── 1-planning/
     ├── 2-requirements/
     │   └── brd.md
@@ -899,7 +900,7 @@ swe-studio/
 ├── CONTRIBUTING.md
 ├── SECURITY.md
 └── doc/
-    ├── overview.md
+    ├── README.md
     ├── 3-design/
     │   ├── architecture.md
     │   ├── sequence.md
@@ -939,7 +940,7 @@ swe-studio/
 
 ### For New Modules
 - [ ] `README.md` with TLDR + TOC
-- [ ] `doc/overview.md` with WHAT/HOW/WHY
+- [ ] `doc/README.md` with W³H
 
 #### 3-design/
 - [ ] `architecture.md`
