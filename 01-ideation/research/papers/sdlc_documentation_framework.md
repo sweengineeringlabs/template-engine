@@ -202,9 +202,9 @@ Documentation is organized into eight folders corresponding to SDLC phases:
 ```
 docs/
 ├── 0-ideation/        # WHY to build (research, concepts, feasibility)
-├── 1-requirements/   # WHAT to build (specs, requirements, grammar)
+├── 1-requirements/   # WHAT to build (.spec files)
 ├── 2-planning/        # WHEN and HOW to build
-├── 3-design/          # HOW it's architected
+├── 3-design/          # HOW it's architected (.arch files)
 ├── 4-development/     # HOW to develop
 ├── 5-testing/         # HOW to verify
 ├── 6-deployment/      # HOW to ship
@@ -237,9 +237,9 @@ Developers intuitively understand SDLC phases from their education and experienc
 | Folder | Phase | Contents |
 |--------|-------|----------|
 | `0-ideation/` | Ideation | Research papers, initial concepts, feasibility studies, prototypes |
-| `1-requirements/` | Specification | Business requirements (BRD), user stories, technical specifications, grammar |
+| `1-requirements/` | Specification | Business requirements (BRD), user stories, technical specifications, grammar (`.spec` extension) |
 | `2-planning/` | Planning | Backlog, roadmap, feature proposals, sprint plans |
-| `3-design/` | Design | Architecture, ADRs, sequence diagrams, patterns |
+| `3-design/` | Design | Architecture, ADRs, sequence diagrams, patterns (`.arch` extension; ADRs keep `.md`) |
 | `4-development/` | Development | Developer guides, setup instructions, workflows |
 | `5-testing/` | Testing | Test strategy, coverage reports, test plans |
 | `6-deployment/` | Deployment | CI/CD pipelines, release procedures, packaging, distribution |
@@ -257,13 +257,13 @@ ROOT (swe-studio/)                    MODULE ({module}/)
 └── docs/                              └── docs/
     ├── README.md                         ├── README.md
     ├── 0-ideation/                       ├── 3-design/
-    │   └── research/                     │   ├── architecture.md
-    ├── 1-requirements/                  │   ├── sequence.md
-    │   └── brd.md                        │   ├── workflow.md
-    ├── 2-planning/                       │   └── toolchain.md
+    │   └── research/                     │   ├── architecture.arch
+    ├── 1-requirements/                  │   ├── sequence.arch
+    │   └── brd.spec                      │   ├── workflow.arch
+    ├── 2-planning/                       │   └── toolchain.arch
     │   └── backlog.md                    ├── 4-development/
     ├── 3-design/                         │   ├── developer-guide.md
-    │   ├── architecture.md               │   └── setup-guide.md
+    │   ├── architecture.arch             │   └── setup-guide.md
     │   └── adr/                          └── 5-testing/
     ├── 4-development/                        └── testing-strategy.md
     │   └── developer-guide.md
@@ -293,7 +293,7 @@ The framework specifies minimum required files for root and modules:
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" |
 | `docs/README.md` | W³H | "How does it all fit together?" |
 | `docs/0-ideation/` | Research and concepts | "What research informed this?" |
-| `docs/1-requirements/brd.md` | Business requirements | "Why does this exist?" |
+| `docs/1-requirements/brd.spec` | Business requirements | "Why does this exist?" |
 | `docs/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
 | `docs/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
 | `docs/4-development/kanban/` | Root kanban folder (domain-prefixed files) | "What's in progress?" |
@@ -310,10 +310,10 @@ The framework specifies minimum required files for root and modules:
 | `CONTRIBUTING.md` | Contribution guidelines | "How do I contribute?" | Yes |
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" | Yes |
 | `docs/README.md` | W³H | "Why was it built this way?" | Yes |
-| `docs/3-design/architecture.md` | Internal architecture | "How is it structured?" | Yes |
-| `docs/3-design/sequence.md` | Interaction flows | "How do components interact?" | Yes |
-| `docs/3-design/workflow.md` | Process/pipeline | "What's the data flow?" | Yes |
-| `docs/3-design/toolchain.md` | Tools and dependencies | "What tools does it use?" | Yes |
+| `docs/3-design/architecture.arch` | Internal architecture | "How is it structured?" | Yes |
+| `docs/3-design/sequence.arch` | Interaction flows | "How do components interact?" | Yes |
+| `docs/3-design/workflow.arch` | Process/pipeline | "What's the data flow?" | Yes |
+| `docs/3-design/toolchain.arch` | Tools and dependencies | "What tools does it use?" | Yes |
 | `docs/4-development/developer-guide.md` | Module dev guide | "How do I work on this?" | Yes |
 | `docs/4-development/setup-guide.md` | Setup instructions | "How do I set up locally?" | Yes |
 | `docs/4-development/backlog.md` | Feature backlog | "What features are planned?" | Optional |
@@ -417,6 +417,8 @@ ADRs document significant architectural decisions. Located at `{module}/docs/3-d
 
 **Heuristic**: If you debated the decision for more than 10 minutes, it probably deserves an ADR.
 
+> **Note:** ADRs retain the `.md` extension as they follow the standard ADR format. While other files in `3-design/` use the `.arch` extension, ADRs are an industry-standard document type with established tooling that expects `.md`.
+
 #### 3.8.2 Research Papers
 
 Supporting research is documented under `{folder}/papers/`:
@@ -439,9 +441,13 @@ Supporting research is documented under `{folder}/papers/`:
 | Location | Convention | Examples |
 |----------|------------|----------|
 | Root level files | UPPERCASE | `README.md`, `CONTRIBUTING.md`, `LICENSE` |
-| Subdirectory files | lowercase | `README.md`, `architecture.md` |
+| Subdirectory files | lowercase | `README.md`, `architecture.arch` |
 | Multi-word files | snake_case | `testing_strategy.md`, `developer_guide.md` |
 | Folders | kebab-case | `quality-centre/`, `developer-guide/` |
+| Requirements files | `.spec` | `stdlib_http.spec`, `compiler_ir.spec` |
+| Design files | `.arch` | `stdlib_http.arch`, `compiler_ir.arch` |
+
+> **SDLC-Specific Extensions:** Files in `1-requirements/` use `.spec` extension and files in `3-design/` use `.arch` extension. Both are markdown-compatible -- the custom extensions signal document purpose at a glance.
 
 **Prohibited:**
 - `camelCase.md`
@@ -470,13 +476,13 @@ The framework is enforced through a PR template that includes a documentation ch
 - [ ] Research or feasibility notes (if applicable)
 
 #### 1-requirements/
-- [ ] Requirements or technical specification
+- [ ] Requirements or technical specification (`.spec` extension)
 
 #### 3-design/
-- [ ] `architecture.md`
-- [ ] `sequence.md`
-- [ ] `workflow.md`
-- [ ] `toolchain.md`
+- [ ] `architecture.arch`
+- [ ] `sequence.arch`
+- [ ] `workflow.arch`
+- [ ] `toolchain.arch`
 
 #### 4-development/
 - [ ] `developer-guide.md`
@@ -515,7 +521,7 @@ jobs:
       - name: Check compulsory files
         run: |
           for module in crates/*/; do
-            for file in README.md docs/README.md docs/3-design/architecture.md; do
+            for file in README.md docs/README.md docs/3-design/architecture.arch; do
               if [ ! -f "$module$file" ]; then
                 echo "Missing: $module$file"
                 exit 1
@@ -641,12 +647,12 @@ docs/
 ├── 0-ideation/
 │   └── research/
 ├── 1-requirements/
-│   └── brd.md
+│   └── brd.spec
 ├── 2-planning/
 │   ├── backlog.md
 │   └── features/
 ├── 3-design/
-│   ├── architecture.md
+│   ├── architecture.arch
 │   ├── coding-standard.md
 │   ├── adr/
 │   │   └── 2025-01-terminology-deliberation.md
@@ -674,9 +680,9 @@ crates/swe-terminal/
 └── docs/
     ├── README.md
     ├── 3-design/
-    │   ├── architecture.md
-    │   ├── nushell.md
-    │   ├── toolchain.md
+    │   ├── architecture.arch
+    │   ├── nushell.arch
+    │   ├── toolchain.arch
     │   └── adr/
     │       └── 0001-terminal-communication-architecture.md
     └── 5-testing/
@@ -751,13 +757,13 @@ Diátaxis [3] organizes documentation by user needs into four quadrants:
 
 Arc42 [4] provides a template for architecture documentation with 12 sections covering stakeholders, constraints, context, building blocks, runtime, deployment, etc.
 
-**Comparison**: Arc42 is comprehensive for architecture documentation but doesn't address non-architectural docs (testing, operations). Our `3-design/architecture.md` can follow Arc42 internally.
+**Comparison**: Arc42 is comprehensive for architecture documentation but doesn't address non-architectural docs (testing, operations). Our `3-design/architecture.arch` can follow Arc42 internally.
 
 #### C4 Model
 
 The C4 Model [5] provides hierarchical software architecture diagrams: Context, Containers, Components, Code.
 
-**Comparison**: C4 focuses on visualization; our framework focuses on organization. C4 diagrams fit naturally in `3-design/architecture.md`.
+**Comparison**: C4 focuses on visualization; our framework focuses on organization. C4 diagrams fit naturally in `3-design/architecture.arch`.
 
 ### 7.2 Decision Documentation
 
@@ -901,11 +907,11 @@ swe-studio/
     ├── 0-ideation/
     │   └── research/
     ├── 1-requirements/
-    │   └── brd.md
+    │   └── brd.spec
     ├── 2-planning/
     │   └── backlog.md
     ├── 3-design/
-    │   ├── architecture.md
+    │   ├── architecture.arch
     │   └── adr/
     ├── 4-development/
     │   ├── developer-guide.md
@@ -932,10 +938,10 @@ swe-studio/
 └── docs/
     ├── README.md
     ├── 3-design/
-    │   ├── architecture.md
-    │   ├── sequence.md
-    │   ├── workflow.md
-    │   └── toolchain.md
+    │   ├── architecture.arch
+    │   ├── sequence.arch
+    │   ├── workflow.arch
+    │   └── toolchain.arch
     ├── 4-development/
     │   ├── developer-guide.md
     │   ├── setup-guide.md
@@ -978,13 +984,13 @@ swe-studio/
 - [ ] Research or feasibility notes (if applicable)
 
 #### 1-requirements/
-- [ ] Requirements or technical specification
+- [ ] Requirements or technical specification (`.spec` extension)
 
 #### 3-design/
-- [ ] `architecture.md`
-- [ ] `sequence.md`
-- [ ] `workflow.md`
-- [ ] `toolchain.md`
+- [ ] `architecture.arch`
+- [ ] `sequence.arch`
+- [ ] `workflow.arch`
+- [ ] `toolchain.arch`
 
 #### 4-development/
 - [ ] `developer-guide.md`
