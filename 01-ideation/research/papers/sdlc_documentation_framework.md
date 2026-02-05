@@ -54,7 +54,7 @@ This insight leads to our framework's core principle: **documentation is archite
 
 This paper makes the following contributions:
 
-1. **SDLC-Aligned Folder Structure**: A six-phase organization mapping to software lifecycle
+1. **SDLC-Aligned Folder Structure**: An eight-phase organization mapping to software lifecycle
 2. **Mirrored Structure Pattern**: Identical organization for root and submodules
 3. **Compulsory Files Specification**: Minimum required documentation per module
 4. **Enforcement Mechanism**: PR template integration for compliance checking
@@ -197,49 +197,53 @@ This ensures users navigate progressively deeper, understanding context at each 
 
 ### 3.2 SDLC Folder Structure
 
-Documentation is organized into six folders corresponding to SDLC phases:
+Documentation is organized into eight folders corresponding to SDLC phases:
 
 ```
 docs/
-├── 1-requirements/    # WHAT to build
+├── 0-ideation/        # WHY to build (research, concepts, feasibility)
+├── 1-specification/   # WHAT to build (specs, requirements, grammar)
 ├── 2-planning/        # WHEN and HOW to build
 ├── 3-design/          # HOW it's architected
 ├── 4-development/     # HOW to develop
 ├── 5-testing/         # HOW to verify
-└── 6-operation/       # HOW to run and maintain
+├── 6-deployment/      # HOW to ship
+└── 7-operation/       # HOW to run and maintain
 ```
 
 #### Figure 1: SDLC Phase Mapping
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Software Development Lifecycle                │
-├─────────────┬─────────────┬─────────────┬─────────────┬─────────┤
-│ Requirements│  Planning   │   Design    │ Development │ Testing │
-│      ↓      │      ↓      │      ↓      │      ↓      │    ↓    │
-│ 1-require-  │ 2-planning/ │ 3-design/   │ 4-develop-  │5-testing│
-│ ments/      │             │             │ ment/       │         │
-├─────────────┴─────────────┴─────────────┴─────────────┴─────────┤
-│                           Operation                              │
-│                              ↓                                   │
-│                        6-operation/                              │
-└─────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────┐
+│                      Software Development Lifecycle                       │
+├──────────┬────────────┬──────────┬──────────┬───────────┬─────────┬──────┤
+│ Ideation │Specification│ Planning │  Design  │Development│ Testing │      │
+│    ↓     │     ↓      │    ↓     │    ↓     │     ↓     │    ↓    │      │
+│0-ideation│1-specifi-  │2-planning│3-design/ │4-develop- │5-testing│      │
+│          │ cation/    │          │          │ ment/     │         │      │
+├──────────┴────────────┴──────────┴──────────┴───────────┴─────────┴──────┤
+│                      Deployment & Operation                               │
+│                         ↓                ↓                                │
+│                   6-deployment/     7-operation/                          │
+└───────────────────────────────────────────────────────────────────────────┘
 ```
 
 #### Rationale
 
-Developers intuitively understand SDLC phases from their education and experience. When asked "where does the architecture document go?", the answer is unambiguous: `3-design/`. This eliminates the cognitive overhead of learning project-specific conventions.
+Developers intuitively understand SDLC phases from their education and experience. When asked "where does the architecture document go?", the answer is unambiguous: `3-design/`. When asked "where does initial research go?", the answer is `0-ideation/`. This eliminates the cognitive overhead of learning project-specific conventions.
 
 ### 3.3 Folder Contents
 
 | Folder | Phase | Contents |
 |--------|-------|----------|
-| `1-requirements/` | Requirements | Business requirements (BRD), user stories, specifications |
+| `0-ideation/` | Ideation | Research papers, initial concepts, feasibility studies, prototypes |
+| `1-specification/` | Specification | Business requirements (BRD), user stories, technical specifications, grammar |
 | `2-planning/` | Planning | Backlog, roadmap, feature proposals, sprint plans |
 | `3-design/` | Design | Architecture, ADRs, sequence diagrams, patterns |
 | `4-development/` | Development | Developer guides, setup instructions, workflows |
 | `5-testing/` | Testing | Test strategy, coverage reports, test plans |
-| `6-operation/` | Operations | Deployment guides, runbooks, monitoring setup |
+| `6-deployment/` | Deployment | CI/CD pipelines, release procedures, packaging, distribution |
+| `7-operation/` | Operations | Runbooks, monitoring setup, syntax references, operational guides |
 
 ### 3.4 Mirrored Structure
 
@@ -252,18 +256,22 @@ ROOT (swe-studio/)                    MODULE ({module}/)
 ├── README.md                         ├── README.md
 └── docs/                              └── docs/
     ├── README.md                         ├── README.md
-    ├── 1-requirements/                   ├── 3-design/
-    │   └── brd.md                        │   ├── architecture.md
-    ├── 2-planning/                       │   ├── sequence.md
-    │   └── backlog.md                    │   ├── workflow.md
-    ├── 3-design/                         │   └── toolchain.md
-    │   ├── architecture.md               ├── 4-development/
-    │   └── adr/                          │   ├── developer-guide.md
-    ├── 4-development/                    │   └── setup-guide.md
-    │   └── developer-guide.md            └── 5-testing/
-    ├── 5-testing/                            └── testing-strategy.md
+    ├── 0-ideation/                       ├── 3-design/
+    │   └── research/                     │   ├── architecture.md
+    ├── 1-specification/                  │   ├── sequence.md
+    │   └── brd.md                        │   ├── workflow.md
+    ├── 2-planning/                       │   └── toolchain.md
+    │   └── backlog.md                    ├── 4-development/
+    ├── 3-design/                         │   ├── developer-guide.md
+    │   ├── architecture.md               │   └── setup-guide.md
+    │   └── adr/                          └── 5-testing/
+    ├── 4-development/                        └── testing-strategy.md
+    │   └── developer-guide.md
+    ├── 5-testing/
     │   └── testing-strategy.md
-    └── 6-operation/
+    ├── 6-deployment/
+    │   └── ci-cd.md
+    └── 7-operation/
         └── ops-manual.md
 ```
 
@@ -284,12 +292,14 @@ The framework specifies minimum required files for root and modules:
 | `CONTRIBUTING.md` | Contribution guidelines | "How do I contribute?" |
 | `SECURITY.md` | Security policy | "How do I report vulnerabilities?" |
 | `docs/README.md` | W³H | "How does it all fit together?" |
-| `docs/2-requirements/brd.md` | Business requirements | "Why does this exist?" |
+| `docs/0-ideation/` | Research and concepts | "What research informed this?" |
+| `docs/1-specification/brd.md` | Business requirements | "Why does this exist?" |
 | `docs/4-development/developer-guide.md` | Development guide | "How do I contribute?" |
 | `docs/4-development/backlog.md` | Root feature backlog | "What features are planned?" |
 | `docs/4-development/kanban/` | Root kanban folder (domain-prefixed files) | "What's in progress?" |
-| `docs/6-operation/ops-manual.md` | Operations manual | "How do I run this?" |
-| `docs/6-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" |
+| `docs/6-deployment/ci-cd.md` | CI/CD configuration | "How is it shipped?" |
+| `docs/7-operation/ops-manual.md` | Operations manual | "How do I run this?" |
+| `docs/7-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" |
 
 #### Module Compulsory Files
 
@@ -309,13 +319,14 @@ The framework specifies minimum required files for root and modules:
 | `docs/4-development/backlog.md` | Feature backlog | "What features are planned?" | Optional |
 | `docs/4-development/kanban.md` | Sprint kanban (single file) | "What's in progress?" | Optional |
 | `docs/5-testing/testing-strategy.md` | Test strategy | "How do I test this?" | Yes |
-| `docs/6-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" | Optional |
+| `docs/6-deployment/releases/` | Release procedures | "How is it shipped?" | Optional |
+| `docs/7-operation/releases/` | Detailed release docs | "Migration guides, breaking changes" | Optional |
 
-**Total: 12 required + 3 optional files per module**
+**Total: 12 required + 4 optional files per module**
 
 #### Rationale
 
-Compulsory files transform documentation from "nice to have" to "required deliverable." Missing files are visible in directory listings—an empty `3-design/` folder signals a documentation gap. This visibility creates social pressure for compliance and makes gaps reviewable in pull requests.
+Compulsory files transform documentation from "nice to have" to "required deliverable." Missing files are visible in directory listings—an empty `3-design/` folder signals a documentation gap. An empty `0-ideation/` folder signals no research was done. This visibility creates social pressure for compliance and makes gaps reviewable in pull requests.
 
 ### 3.6 Domain Ownership
 
@@ -454,6 +465,12 @@ The framework is enforced through a PR template that includes a documentation ch
 
 - [ ] `README.md` with TLDR + TOC
 - [ ] `docs/README.md` with W³H
+
+#### 0-ideation/
+- [ ] Research or feasibility notes (if applicable)
+
+#### 1-specification/
+- [ ] Requirements or technical specification
 
 #### 3-design/
 - [ ] `architecture.md`
@@ -608,8 +625,11 @@ Deleted 8 orphan stubs from `docs/4-development/`:
 #### Step 4: Structure Creation
 
 Created missing compulsory files:
-- `docs/1-requirements/` folder
+- `docs/0-ideation/` folder
+- `docs/1-specification/` folder (renamed from `docs/1-requirements/`)
 - `docs/2-planning/` folder (moved from `docs/1-requirements/planning/`)
+- `docs/6-deployment/` folder (split from `docs/6-operation/`)
+- `docs/7-operation/` folder (split from `docs/6-operation/`)
 - Module `README.md` files for SEA modules
 
 ### 5.4 Final State
@@ -618,7 +638,9 @@ Created missing compulsory files:
 ```
 docs/
 ├── README.md
-├── 1-requirements/
+├── 0-ideation/
+│   └── research/
+├── 1-specification/
 │   └── brd.md
 ├── 2-planning/
 │   ├── backlog.md
@@ -639,7 +661,9 @@ docs/
 │   └── developer-guide.md
 ├── 5-testing/
 │   └── testing-strategy.md
-└── 6-operation/
+├── 6-deployment/
+│   └── ci-cd.md
+└── 7-operation/
     └── ops-manual.md
 ```
 
@@ -681,7 +705,7 @@ crates/swe-terminal/
 
 **RQ1: Can SDLC phases provide intuitive organization?**
 
-Yes. During migration, file placement decisions were unambiguous. "Where does the architecture document go?" has exactly one answer: `3-design/`. No discussion or convention lookup required.
+Yes. During migration, file placement decisions were unambiguous. "Where does the architecture document go?" has exactly one answer: `3-design/`. "Where does early research go?" → `0-ideation/`. "Where do technical specs go?" → `1-specification/`. No discussion or convention lookup required.
 
 **RQ2: Does mirrored structure reduce cognitive load?**
 
@@ -747,7 +771,7 @@ ADRs [6] document significant architectural decisions with context, decision, an
 
 The RFC (Request for Comments) process [7] provides a mechanism for proposing and discussing changes.
 
-**Comparison**: RFCs are pre-decision; ADRs are post-decision. RFCs could live in `2-planning/` during discussion, then convert to ADRs in `3-design/adr/` after acceptance.
+**Comparison**: RFCs are pre-decision; ADRs are post-decision. RFCs could live in `2-planning/` during discussion, then convert to ADRs in `3-design/adr/` after acceptance. Early research and feasibility studies live in `0-ideation/`.
 
 ### 7.3 Comparison Matrix
 
@@ -795,7 +819,7 @@ The RFC (Request for Comments) process [7] provides a mechanism for proposing an
 
 This paper presented the SDLC-Driven Documentation Framework, addressing documentation challenges in modular software systems through:
 
-1. **SDLC-Aligned Folders**: Six folders mapping to software lifecycle phases
+1. **SDLC-Aligned Folders**: Eight folders mapping to software lifecycle phases
 2. **Mirrored Structure**: Identical organization for root and modules
 3. **Domain Ownership**: Documentation belongs where it describes
 4. **Compulsory Files**: Minimum required files ensuring coverage
@@ -874,9 +898,12 @@ swe-studio/
 ├── SECURITY.md
 └── docs/
     ├── README.md
-    ├── 1-planning/
-    ├── 2-requirements/
+    ├── 0-ideation/
+    │   └── research/
+    ├── 1-specification/
     │   └── brd.md
+    ├── 2-planning/
+    │   └── backlog.md
     ├── 3-design/
     │   ├── architecture.md
     │   └── adr/
@@ -887,7 +914,9 @@ swe-studio/
     │       └── {domain}-board-*.md    # e.g., devops-board-2024-12-18_2025-01-01.md
     ├── 5-testing/
     │   └── testing-strategy.md
-    └── 6-operation/
+    ├── 6-deployment/
+    │   └── ci-cd.md
+    └── 7-operation/
         ├── ops-manual.md
         └── releases/
 ```
@@ -914,7 +943,9 @@ swe-studio/
     │   └── kanban.md                  # (Optional)
     ├── 5-testing/
     │   └── testing-strategy.md
-    └── 6-operation/
+    ├── 6-deployment/
+    │   └── releases/                  # (Optional)
+    └── 7-operation/
         └── releases/                  # (Optional - required at root only)
 ```
 
@@ -942,6 +973,12 @@ swe-studio/
 ### For New Modules
 - [ ] `README.md` with TLDR + TOC
 - [ ] `docs/README.md` with W³H
+
+#### 0-ideation/
+- [ ] Research or feasibility notes (if applicable)
+
+#### 1-specification/
+- [ ] Requirements or technical specification
 
 #### 3-design/
 - [ ] `architecture.md`
