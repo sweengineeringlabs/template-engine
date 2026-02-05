@@ -482,6 +482,17 @@ Supporting research is documented under `{folder}/papers/`:
 > Additional `.arch` files (supplementary design docs) may exist without a corresponding `.spec`, but every `.spec` must have at minimum an `.arch` counterpart. ADRs in `3-design/adr/` retain `.md` extension.
 >
 > **Phase Granularity:** Not all phases require per-spec files. Phases `0-ideation/` and `2-planning/` use consolidated files with sections referencing multiple specs (e.g., a single roadmap or backlog). Phases `1-requirements/` through `7-operation/` use per-spec files with the extensions above.
+>
+> **Consolidation:** Each phase that contains per-spec files also has a single consolidated document that provides the big picture. Individual per-spec files own component-level detail; the consolidated document owns cross-cutting concerns, shared patterns, and serves as the navigation index into the individual files.
+>
+> | Phase | Per-Spec Files | Consolidated Document | Consolidation Role |
+> |-------|---------------|----------------------|-------------------|
+> | `1-requirements/` | `*.spec` | `brd.spec` | System-wide business requirements |
+> | `3-design/` | `*.arch` | `architecture.arch` | System-wide architecture |
+> | `4-development/` | `*.setup` | `developer-guide.md` | Unified development guide |
+> | `5-testing/` | `*.test` | `testing-strategy.md` | Unified test strategy |
+> | `6-deployment/` | `*.deploy` | `ci-cd.md` | Unified deployment pipeline |
+> | `7-operation/` | `*.guide` `*.ops` `*.man` | `ops-manual.md` | Unified operations manual |
 
 **Prohibited:**
 - `camelCase.md`
