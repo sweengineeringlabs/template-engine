@@ -217,10 +217,10 @@ docs/
 ┌───────────────────────────────────────────────────────────────────────────┐
 │                      Software Development Lifecycle                       │
 ├──────────┬────────────┬──────────┬──────────┬───────────┬─────────┬──────┤
-│ Ideation │Specification│ Planning │  Design  │Development│ Testing │      │
+│ Ideation │Requirements│ Planning │  Design  │Development│ Testing │      │
 │    ↓     │     ↓      │    ↓     │    ↓     │     ↓     │    ↓    │      │
-│0-ideation│1-specifi-  │2-planning│3-design/ │4-develop- │5-testing│      │
-│          │ cation/    │          │          │ ment/     │         │      │
+│0-ideation│1-require-  │2-planning│3-design/ │4-develop- │5-testing│      │
+│          │ ments/     │          │          │ ment/     │         │      │
 ├──────────┴────────────┴──────────┴──────────┴───────────┴─────────┴──────┤
 │                      Deployment & Operation                               │
 │                         ↓                ↓                                │
@@ -236,14 +236,14 @@ Developers intuitively understand SDLC phases from their education and experienc
 
 | Folder | Phase | Contents |
 |--------|-------|----------|
-| `0-ideation/` | Ideation | Research papers, initial concepts, feasibility studies, prototypes |
+| `0-ideation/` | Ideation | Research papers, initial concepts, feasibility studies, prototypes (consolidated files, not per-spec) |
 | `1-requirements/` | Specification | Business requirements (BRD), user stories, technical specifications, grammar (`.spec` extension) |
-| `2-planning/` | Planning | Backlog, roadmap, feature proposals, sprint plans |
+| `2-planning/` | Planning | Backlog, roadmap, feature proposals, sprint plans (consolidated files, not per-spec) |
 | `3-design/` | Design | Architecture, ADRs, sequence diagrams, patterns (`.arch` extension; ADRs keep `.md`) |
-| `4-development/` | Development | Developer guides, setup instructions, workflows |
-| `5-testing/` | Testing | Test strategy, coverage reports, test plans |
-| `6-deployment/` | Deployment | CI/CD pipelines, release procedures, packaging, distribution |
-| `7-operation/` | Operations | Runbooks, monitoring setup, syntax references, operational guides |
+| `4-development/` | Development | Developer setup guides, workflows (`.setup` extension for per-spec guides) |
+| `5-testing/` | Testing | Test plans, coverage reports, test strategy (`.test` extension for per-spec plans) |
+| `6-deployment/` | Deployment | CI/CD pipelines, release procedures, packaging (`.deploy` extension for per-spec procedures) |
+| `7-operation/` | Operations | User guides (`.guide`), operations runbooks (`.ops`), reference manuals (`.man`) |
 
 ### 3.4 Mirrored Structure
 
@@ -446,10 +446,42 @@ Supporting research is documented under `{folder}/papers/`:
 | Folders | kebab-case | `quality-centre/`, `developer-guide/` |
 | Requirements files | `.spec` | `stdlib_http.spec`, `compiler_ir.spec` |
 | Design files | `.arch` | `stdlib_http.arch`, `compiler_ir.arch` |
+| Development files | `.setup` | `stdlib_http.setup`, `compiler_ir.setup` |
+| Testing files | `.test` | `stdlib_http.test`, `compiler_ir.test` |
+| Deployment files | `.deploy` | `stdlib_http.deploy`, `compiler_ir.deploy` |
+| User guide files | `.guide` | `stdlib_http.guide`, `compiler_ir.guide` |
+| Operations files | `.ops` | `stdlib_http.ops`, `compiler_ir.ops` |
+| Reference manual files | `.man` | `stdlib_http.man`, `compiler_ir.man` |
 
-> **SDLC-Specific Extensions:** Files in `1-requirements/` use `.spec` extension and files in `3-design/` use `.arch` extension. Both are markdown-compatible — the custom extensions signal document purpose at a glance.
+> **SDLC-Specific Extensions:** All per-spec documentation files use custom extensions that signal document purpose at a glance. Every extension uses markdown syntax — only the file extension differs. The full chain:
 >
-> **1:1 Spec–Arch Pairing:** Every `.spec` file in `1-requirements/` must have a corresponding `.arch` file in `3-design/` with the same name and subdirectory path. For example, `1-requirements/stdlib/stdlib_http.spec` pairs with `3-design/stdlib/stdlib_http.arch`. The `.spec` defines *what* to build; the `.arch` defines *how* it is architected. Additional `.arch` files (supplementary design docs) may exist without a corresponding `.spec`, but every `.spec` must have an `.arch` counterpart.
+> | Phase | Extension | Purpose |
+> |-------|-----------|---------|
+> | `1-requirements/` | `.spec` | What to build (requirements, API surface, design goals) |
+> | `3-design/` | `.arch` | How it's architected (data flow, module structure, diagrams) |
+> | `4-development/` | `.setup` | How to develop (prerequisites, build, workflow, troubleshooting) |
+> | `5-testing/` | `.test` | How to verify (unit/integration/E2E/perf test plans, coverage) |
+> | `6-deployment/` | `.deploy` | How to ship (build, package, publish, rollback procedures) |
+> | `7-operation/` | `.guide` | How to use (end-user guide, tutorials, configuration) |
+> | `7-operation/` | `.ops` | How to run (health checks, monitoring, incident response) |
+> | `7-operation/` | `.man` | Reference (API reference, CLI synopsis, configuration tables) |
+>
+> **1:1 Spec Chain:** Every `.spec` file in `1-requirements/` must have corresponding files in downstream phases with the same base name and subdirectory path. The minimum chain is `.spec` → `.arch`. The full chain extends through all phases:
+>
+> ```
+> 1-requirements/stdlib/stdlib_http.spec   → What to build
+> 3-design/stdlib/stdlib_http.arch         → How it's architected
+> 4-development/stdlib/stdlib_http.setup   → How to develop it
+> 5-testing/stdlib/stdlib_http.test        → How to verify it
+> 6-deployment/stdlib/stdlib_http.deploy   → How to ship it
+> 7-operation/stdlib/stdlib_http.guide     → How to use it
+> 7-operation/stdlib/stdlib_http.ops       → How to operate it
+> 7-operation/stdlib/stdlib_http.man       → API/CLI reference
+> ```
+>
+> Additional `.arch` files (supplementary design docs) may exist without a corresponding `.spec`, but every `.spec` must have at minimum an `.arch` counterpart. ADRs in `3-design/adr/` retain `.md` extension.
+>
+> **Phase Granularity:** Not all phases require per-spec files. Phases `0-ideation/` and `2-planning/` use consolidated files with sections referencing multiple specs (e.g., a single roadmap or backlog). Phases `1-requirements/` through `7-operation/` use per-spec files with the extensions above.
 
 **Prohibited:**
 - `camelCase.md`
