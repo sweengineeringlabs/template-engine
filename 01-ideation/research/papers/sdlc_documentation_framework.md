@@ -493,6 +493,25 @@ Supporting research is documented under `{folder}/papers/`:
 > | `5-testing/` | `*.test` | `testing-strategy.md` | Unified test strategy |
 > | `6-deployment/` | `*.deploy` | `ci-cd.md` | Unified deployment pipeline |
 > | `7-operation/` | `*.guide` `*.ops` `*.man` | `ops-manual.md` | Unified operations manual |
+>
+> **Two Navigation Paths:** The per-spec / consolidated structure gives readers two ways to navigate documentation:
+>
+> 1. **Vertical (one component, all phases):** Pick a single spec — e.g., `stdlib_http.spec` — and follow its chain across phases (`.arch` → `.setup` → `.test` → `.deploy` → `.guide`/`.ops`/`.man`) to understand that one component end-to-end, from requirements through operations.
+> 2. **Horizontal (one phase, all components):** Pick a consolidated document — e.g., `testing-strategy.md` — to see the big picture for that phase, then drill into individual per-spec files (e.g., `stdlib_http.test`) for component-level detail.
+>
+> ```
+>                   Horizontal (one phase, all components)
+>                 ┌──────────────────────────────────────────┐
+>                 │         testing-strategy.md               │
+>                 │  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐    │
+>                 │  │ .test│ │ .test│ │ .test│ │ .test│ …  │
+>                 │  └──┬───┘ └──┬───┘ └──┬───┘ └──┬───┘    │
+>                 └─────┼────────┼────────┼────────┼─────────┘
+>       Vertical        │        │        │        │
+>    (one component,    │        │        │        │
+>      all phases)      ▼        ▼        ▼        ▼
+>                     .spec → .arch → .setup → .test → .deploy → .guide/.ops/.man
+> ```
 
 **Prohibited:**
 - `camelCase.md`
