@@ -2,7 +2,7 @@
 
 **Spec:** [{Spec ID}]({path/to/spec.md})
 **Status:** {Draft | Review | Approved}
-**Related:** [FR-{###}](../../1-requirements/FR-{###}-{name}.md)
+**Related:** [FR-{###}](../../1-requirements/FR_{###}_{name}.md)
 
 ## Overview
 

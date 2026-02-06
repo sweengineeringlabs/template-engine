@@ -2,7 +2,7 @@
 
 **Spec:** [{Spec ID}]({path/to/spec.md})
 **Architecture:** [{Component Name} Architecture](../3-design/{component}_architecture.md)
-**Requirements:** [FR-{###}](../../1-requirements/FR-{###}-{name}.md)
+**Requirements:** [FR-{###}](../../1-requirements/{domain}/FR_{###}_{name}.md)
 
 ## Overview
 

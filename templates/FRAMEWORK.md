@@ -127,6 +127,39 @@ docs/
 | GitHub templates | UPPERCASE | `ISSUE_TEMPLATE/`, `PULL_REQUEST_TEMPLATE.md` |
 | Project docs | lowercase-hyphen | `architecture.md`, `quick-start.md` |
 | Directories | lowercase-hyphen | `3-design/`, `4-development/` |
+| Feature-prefixed folders | `FR_{###}/` (snake_case) | `FR_502/`, `FR_200/` |
+| Feature-prefixed files | `FR_{###}_{name}.ext` (snake_case) | `FR_502_runtime_execution.test`, `FR_200_edge_api.spec` |
+
+### Feature-Prefixed Artifacts
+
+Feature requests (FR) generate artifacts across multiple SDLC phases. All feature-scoped
+folders and files **must** use the `FR_{###}` prefix in snake_case:
+
+```
+docs/
+├── 1-requirements/
+│   └── {domain}/
+│       └── FR_{###}_{feature_name}.spec     # Feature spec
+├── 2-planning/
+│   └── FR_{###}/
+│       └── implementation_plan.md           # Per-feature plan
+├── 3-design/
+│   └── FR_{###}/
+│       └── architecture.arch                # Per-feature design
+├── 4-development/
+│   └── backlog/
+│       └── FR_{###}/
+│           └── backlog.md                   # Per-feature backlog
+├── 5-testing/
+│   └── {domain}/
+│       └── FR_{###}_{feature_name}.test     # Per-feature test plan
+└── 6-deployment/
+    └── FR_{###}/
+        └── configuration.md                 # Per-feature config
+```
+
+The `FR-{###}` notation with hyphens is reserved for identifiers in prose (headings, table
+cells, requirement IDs like `FR-502.1`). File paths always use underscores.
 
 ## Git Repository Files (Required)
 

@@ -14,7 +14,7 @@
 
 ## Dependencies
 
-- [FR-{###}](./FR-{###}-{name}.md) - {reason}
+- [FR-{###}](./FR_{###}_{name}.md) - {reason}
 
 ## Requirements
 
@@ -45,19 +45,19 @@
 ## Related Documents
 
 ### Planning
-- [Implementation Plan](../2-planning/FR-{###}/implementation_plan.md)
+- [Implementation Plan](../2-planning/FR_{###}/implementation_plan.md)
 
 ### Design (Frontend)
-- [Architecture](../../gui/frontend/docs/3-design/FR-{###}/architecture.md)
+- [Architecture](../../gui/frontend/docs/3-design/FR_{###}/architecture.md)
 
 ### Design (Backend)
 - [Architecture](../../{module-name}/docs/3-design/architecture.md)
 
 ### Development
-- [Backlog](../../gui/frontend/docs/4-development/backlog/FR-{###}/backlog.md)
+- [Backlog](../../gui/frontend/docs/4-development/backlog/FR_{###}/backlog.md)
 
 ### Operations
-- [Configuration](../../gui/frontend/docs/6-operation/FR-{###}/configuration.md)
+- [Configuration](../../gui/frontend/docs/6-operation/FR_{###}/configuration.md)
 
 ## Implementation
 

@@ -1,6 +1,6 @@
 # FR-{###} Test Plan
 
-**FR:** [FR-{###}](../../../../1-requirements/FR-{###}-{name}.md)
+**FR:** [FR-{###}](../../../../1-requirements/FR_{###}_{name}.md)
 
 ## Overview
 

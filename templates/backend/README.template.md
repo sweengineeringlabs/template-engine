@@ -30,4 +30,4 @@ use {module_name}::prelude::*;
 
 ## Related FRs
 
-- [FR-{###}](../../docs/1-requirements/FR-{###}-{name}.md) - {description}
+- [FR-{###}](../../docs/1-requirements/FR_{###}_{name}.md) - {description}

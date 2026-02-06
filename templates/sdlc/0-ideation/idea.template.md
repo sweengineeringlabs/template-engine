@@ -40,4 +40,4 @@
 
 ## Related Documents
 
-- [Feature Request](../1-requirements/FR-{###}-{name}.md)
+- [Feature Request](../1-requirements/FR_{###}_{name}.md)

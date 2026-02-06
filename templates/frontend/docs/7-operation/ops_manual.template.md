@@ -1,6 +1,6 @@
 # {Module Name} Operations Manual
 
-**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR_{###}_{name}.md)
 
 ## Overview
 

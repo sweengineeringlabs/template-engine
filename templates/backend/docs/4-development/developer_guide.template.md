@@ -1,6 +1,6 @@
 # {Module Name} Developer Guide
 
-**FR:** [FR-{###}](../../../../docs/1-requirements/FR-{###}-{name}.md)
+**FR:** [FR-{###}](../../../../docs/1-requirements/FR_{###}_{name}.md)
 
 ## Overview
 

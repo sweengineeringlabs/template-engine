@@ -1,6 +1,6 @@
 # FR-{###} Implementation Plan
 
-**FR:** [FR-{###}](../../1-requirements/FR-{###}-{name}.md)
+**FR:** [FR-{###}](../../1-requirements/{domain}/FR_{###}_{name}.md)
 
 ## Overview
 
@@ -54,8 +54,8 @@
 **Goal:** Document the feature.
 
 **Files to create:**
-- `docs/3-design/FR-{###}/architecture.md`
-- `docs/6-operation/FR-{###}/configuration.md`
+- `docs/3-design/FR_{###}/architecture.md`
+- `docs/6-operation/FR_{###}/configuration.md`
 
 ## Dependencies
 
