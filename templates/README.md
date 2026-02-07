@@ -9,7 +9,7 @@ This directory contains language-agnostic templates for comprehensive software d
 
 ### Framework Documentation
 - **[framework_doc.template.md](framework_doc.template.md)** - Framework-wide documentation (architecture, security, patterns)
-- **[FRAMEWORK.md](FRAMEWORK.md)** - Complete documentation framework guide
+- **[framework.md](framework.md)** - Complete documentation framework guide
 
 ### Deployment Documentation
 - **[release_versioning.template.md](release_versioning.template.md)** - Version management and SemVer
@@ -67,7 +67,7 @@ Templates use this placeholder format:
 
 For issues or questions about templates:
 - See individual template customization guides
-- Check [FRAMEWORK.md](FRAMEWORK.md) for overall guidance
+- Check [framework.md](framework.md) for overall guidance
 - Open an issue on GitHub
 
 ---

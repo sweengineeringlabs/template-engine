@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - deployment_workflow.template.md (deployment processes)
   - ci_cd.template.md (CI/CD pipelines)
   - publishing.template.md (registry publishing)
-- FRAMEWORK.md (documentation framework guide)
+- framework.md (documentation framework guide)
 - Comprehensive workflow diagrams in all deployment templates
 - ASCII art visualizations for:
   - Deployment flows

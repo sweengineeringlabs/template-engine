@@ -171,10 +171,10 @@ Set up governance files before any other documentation:
 - LICENSE
 - Issue/PR templates
 
-See [Repository Governance Guide](templates/FRAMEWORK.md#git-repository-files)
+See [Repository Governance Guide](templates/framework.md#git-repository-files)
 
 ### Phase 1-6: Structured Documentation
-Follow the phased approach defined in [FRAMEWORK.md](templates/FRAMEWORK.md)
+Follow the phased approach defined in [framework.md](templates/framework.md)
 
 ## Features
 

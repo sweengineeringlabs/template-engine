@@ -2,7 +2,7 @@
 
 **Audience**: Developers, architects, documentation maintainers
 
-Use this checklist to audit any project against the [FRAMEWORK.md](FRAMEWORK.md) documentation standards. Run through each section and record pass/fail status. The checklist is ordered by priority: structural issues first, then content, then polish.
+Use this checklist to audit any project against the [framework.md](framework.md) documentation standards. Run through each section and record pass/fail status. The checklist is ordered by priority: structural issues first, then content, then polish.
 
 ## How to Use
 
@@ -109,21 +109,23 @@ find . -type d -name "uiux" 2>/dev/null
 | 19 | `CODE_OF_CONDUCT.md` — UPPERCASE (if present) | | |
 | 20 | `SUPPORT.md` — UPPERCASE (if present) | | |
 
-### 2.2 Project documentation (lowercase-with-hyphens)
+### 2.2 Project documentation (snake_lower_case)
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
 | 21 | All filenames in `docs/` are lowercase (except README.md) | | |
-| 22 | All filenames use hyphens as separators | | |
+| 22 | All filenames use underscores as separators | | |
 | 23 | All filenames are space-free | | |
+| 24 | Guides in subfolders follow `name_{phase}_guide.md` convention | | |
+| 25 | No `*_testing_*` files outside `5-testing/` | | |
 
 **Verify**:
 ```bash
 # Find UPPERCASE violations in docs/ (excluding README.md, git standard files)
 find docs/ -name "*.md" | grep -E '/[A-Z]{2,}' | grep -v README | grep -v CHANGELOG | grep -v CONTRIBUTING | grep -v SECURITY | grep -v CODE_OF_CONDUCT | grep -v SUPPORT | grep -v LICENSE
 
-# Find underscore violations
-find docs/ -name "*_*" -name "*.md"
+# Find hyphen violations (excluding SDLC-numbered dirs and ADRs)
+find docs/ -name "*-*" -name "*.md" | grep -v '/adr/' | grep -v '/[0-7]-'
 
 # Same checks in module docs
 find crates/ -path "*/docs/*.md" -name "*_*" 2>/dev/null
@@ -314,15 +316,15 @@ Copy this table into your audit report:
 
 | Rule | Source | Summary |
 |------|--------|---------|
-| Architecture compliance checklist required | FRAMEWORK.md directory structure + Phase 2 | `docs/3-design/compliance/compliance_checklist.md` must exist and reflect `architecture.md` |
-| Module doc folders use `docs/` (plural) | FRAMEWORK.md directory structure + commit 59ab40d | Applies to root and all modules |
-| Developer guides subfolder is `guide/` (singular) | FRAMEWORK.md L53 | `4-development/guide/` |
-| UX/UI assets folder is `uxui/` | FRAMEWORK.md directory structure | `3-design/uxui/` |
-| Git standard files are UPPERCASE | FRAMEWORK.md L84-99 | README, CONTRIBUTING, CHANGELOG, SECURITY, LICENSE |
-| Project docs use lowercase-with-hyphens | FRAMEWORK.md L101-129 | All `.md` files inside `docs/` |
-| All docs declare `**Audience**:` after H1 | FRAMEWORK.md W3H pattern | Target reader declaration |
-| TLDR blockquote appears on 200+ line docs only | FRAMEWORK.md L465 | `> **TLDR**:` format |
-| Glossary uses `**Term** - Definition.` format | FRAMEWORK.md L244-257 | Bold term, dash, definition |
-| Root README routes through `docs/README.md` hub | FRAMEWORK.md L162-176 | Single entry point navigation |
-| ADRs use `NNN-title.md` naming | FRAMEWORK.md L48-50 | Zero-padded number prefix |
-| SDLC phases follow standard order | FRAMEWORK.md L16-29 | 0-ideation through 7-operation |
+| Architecture compliance checklist required | framework.md directory structure + Phase 2 | `docs/3-design/compliance/compliance_checklist.md` must exist and reflect `architecture.md` |
+| Module doc folders use `docs/` (plural) | framework.md directory structure + commit 59ab40d | Applies to root and all modules |
+| Developer guides subfolder is `guide/` (singular) | framework.md L53 | `4-development/guide/` |
+| UX/UI assets folder is `uxui/` | framework.md directory structure | `3-design/uxui/` |
+| Git standard files are UPPERCASE | framework.md L84-99 | README, CONTRIBUTING, CHANGELOG, SECURITY, LICENSE |
+| Project docs use snake_lower_case | framework.md L101-147 | All `.md` files inside `docs/` |
+| All docs declare `**Audience**:` after H1 | framework.md W3H pattern | Target reader declaration |
+| TLDR blockquote appears on 200+ line docs only | framework.md L465 | `> **TLDR**:` format |
+| Glossary uses `**Term** - Definition.` format | framework.md L244-257 | Bold term, dash, definition |
+| Root README routes through `docs/README.md` hub | framework.md L162-176 | Single entry point navigation |
+| ADRs use `NNN-title.md` naming | framework.md L48-50 | Zero-padded number prefix |
+| SDLC phases follow standard order | framework.md L16-29 | 0-ideation through 7-operation |

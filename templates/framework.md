@@ -51,10 +51,10 @@ project/
 │   │       ├── README.md               # ADR index
 │   │       └── NNN-[decision].md       # Individual ADRs
 │   ├── 4-development/
-│   │   ├── developer-guide.md          # Development hub document
+│   │   ├── developer_guide.md          # Development hub document
 │   │   └── guide/
-│   │       ├── [topic]-guide.md        # Development guides
-│   │       └── [technology]-[topic].md # Technology-specific guides
+│   │       ├── [topic]_developer_guide.md  # Development guides
+│   │       └── [technology]_[topic].md     # Technology-specific guides
 │   ├── 5-testing/                      # (Optional) Test strategy
 │   ├── 6-deployment/                   # (Optional) Deployment docs
 │   ├── 7-operation/                    # (Optional) Runbooks, monitoring
@@ -100,9 +100,9 @@ INTERNAL_USAGE.md
 .github/PULL_REQUEST_TEMPLATE.md
 ```
 
-### lowercase-with-hyphens (Project Documentation)
+### snake_lower_case (Project Documentation)
 
-All other documentation files use lowercase with hyphens:
+All other documentation files use snake_lower_case:
 
 ```
 docs/
@@ -110,16 +110,31 @@ docs/
 ├── 3-design/
 │   ├── architecture.md
 │   ├── authentication.md
-│   ├── rate-limiting.md
-│   └── security-audit-report.md
+│   ├── rate_limiting.md
+│   └── security_audit_report.md
 ├── 4-development/
-│   ├── developer-guide.md
+│   ├── developer_guide.md
 │   └── guide/
-│       ├── cli-usage.md
-│       ├── quick-start.md
-│       └── getting-started.md
+│       ├── cli_usage.md
+│       ├── quick_start.md
+│       └── getting_started.md
 └── backlog.md
 ```
+
+### Guide Naming Convention
+
+Guides embed their SDLC phase in the filename to prevent ambiguity:
+
+| Location | Pattern | Examples |
+|----------|---------|----------|
+| Colocated in phase folder | `guide_name.md` | `4-development/developer_guide.md`, `4-development/setup_guide.md` |
+| In `guide/` subfolder | `name_{phase}_guide.md` | `4-development/guide/middleware_developer_guide.md` |
+| Design guides | `name_design_guide.md` | `3-design/middleware_design_guide.md` |
+
+**Rules:**
+- `*_testing_*` files belong in `5-testing/`, never in `3-design/`
+- `testing_strategy.md`, `testing_guide.md` → `5-testing/`
+- Avoid ambiguous names like `testing_design`, `development_design`
 
 ### Naming Rules
 
@@ -127,7 +142,7 @@ docs/
 |----------|------------|----------|
 | Git standard files | UPPERCASE | `README.md`, `LICENSE`, `CONTRIBUTING.md` |
 | GitHub templates | UPPERCASE | `ISSUE_TEMPLATE/`, `PULL_REQUEST_TEMPLATE.md` |
-| Project docs | lowercase-hyphen | `architecture.md`, `quick-start.md` |
+| Project docs | snake_lower_case | `architecture.md`, `quick_start.md` |
 | Directories | lowercase-hyphen | `3-design/`, `4-development/` |
 | Feature-prefixed folders | `FR_{###}/` (snake_case) | `FR_502/`, `FR_200/` |
 | Feature-prefixed files | `FR_{###}_{name}.ext` (snake_case) | `FR_502_runtime_execution.test`, `FR_200_edge_api.spec` |
@@ -204,7 +219,7 @@ docs/README.md (Main Hub)
     │   ├→ Security/compliance docs
     │   └→ ADRs
     │
-    ├→ 4-development/developer-guide.md (Dev Hub)
+    ├→ 4-development/developer_guide.md (Dev Hub)
     │   └→ Development guides
     │
     └→ Module overviews (modules/*/docs/README.md)
@@ -316,7 +331,7 @@ Alphabetized list of terms used in [Project Name].
 
 **Example**: See `docs/3-design/architecture.md` in Rustboot
 
-### 6. docs/4-development/developer-guide.md (Development Hub)
+### 6. docs/4-development/developer_guide.md (Development Hub)
 
 **Audience**: Developers, Contributors
 **Format**: W³H (WHO-WHAT-WHY-HOW)
@@ -328,7 +343,7 @@ Alphabetized list of terms used in [Project Name].
 - Link to module overviews
 - Link to architecture docs
 
-**Example**: See `docs/4-development/developer-guide.md` in Rustboot
+**Example**: See `docs/4-development/developer_guide.md` in Rustboot
 
 ### 7. Module Overview (modules/*/docs/README.md)
 
@@ -486,7 +501,7 @@ module/
 | `README.md` | Quick Start | Everyone | Project entry |
 | `docs/README.md` | Hub + Links | All | Main index |
 | `docs/3-design/architecture.md` | Hub + Links | Architects | Design index |
-| `docs/4-development/developer-guide.md` | Hub + Links | Developers | Dev index |
+| `docs/4-development/developer_guide.md` | Hub + Links | Developers | Dev index |
 | `docs/3-design/*.md` | W³H | Specified | Architecture docs |
 | `docs/4-development/guide/*.md` | W³H | Specified | Dev guides |
 | `modules/*/docs/README.md` | W³H + Prerequisites | Developers | Module docs |
@@ -511,7 +526,7 @@ Phase 1: Foundation (README, docs/README.md, glossary.md, templates)
     ↓
 Phase 2: Design Documentation (architecture.md, ADRs)
     ↓
-Phase 3: Development Documentation (developer-guide.md, guides)
+Phase 3: Development Documentation (developer_guide.md, guides)
     ↓
 Phase 4: Module Documentation (module READMEs, examples, tests)
     ↓
@@ -572,7 +587,7 @@ Phase 6: Validation (check all phases complete)
 - [ ] Add security/compliance docs (if applicable)
 
 ### Phase 3: Development Documentation
-- [ ] Create docs/4-development/developer-guide.md hub
+- [ ] Create docs/4-development/developer_guide.md hub
 - [ ] Add development guides in docs/4-development/guide/
 - [ ] Add testing guides
 - [ ] Add technology-specific guides
@@ -610,8 +625,10 @@ Phase 6: Validation (check all phases complete)
 - [ ] **For internal**: Verify INTERNAL_USAGE.md exists
 - [ ] **Verify file naming conventions**:
   - [ ] Git standard files are UPPERCASE (README.md, LICENSE, CONTRIBUTING.md, etc.)
-  - [ ] Project docs are lowercase-with-hyphens (architecture.md, quick-start.md)
-  - [ ] Directories are lowercase-with-hyphens (3-design/, 4-development/)
+  - [ ] Project docs are snake_lower_case (architecture.md, quick_start.md)
+  - [ ] Directories are lowercase-hyphen (3-design/, 4-development/)
+  - [ ] Guides follow `name_{phase}_guide` convention in subfolders
+  - [ ] No `*_testing_*` files outside `5-testing/`
 - [ ] **Verify docs/glossary.md exists** with domain terminology
 - [ ] **Verify docs/3-design/compliance/compliance_checklist.md exists** and reflects current architecture.md rules
 - [ ] Verify no broken links
@@ -653,7 +670,7 @@ Phase 6: Validation (check all phases complete)
 ### Small Library (5-10 modules)
 - Minimal structure: README, docs/README.md, module docs
 - Single architecture.md
-- Single developer-guide.md
+- Single developer_guide.md
 - Templates in docs/templates/
 
 ### Medium Framework (10-20 modules)
@@ -735,7 +752,7 @@ Track in `docs/framework-backlog.md`:
 1. **Audit current docs**: List all existing documentation
 2. **Create structure**: Set up directory hierarchy
 3. **Categorize**: Sort docs into design vs development
-4. **Create hubs**: Write architecture.md and developer-guide.md
+4. **Create hubs**: Write architecture.md and developer_guide.md
 5. **Convert format**: Apply W³H to each doc
 6. **Add Audience**: Declare **Audience** in ALL docs
 7. **Link everything**: Update docs/README.md
@@ -764,7 +781,8 @@ Track in `docs/framework-backlog.md`:
 - ✅ **Issue templates exist** (all projects)
 - ✅ **File naming conventions followed**:
   - Git standard files UPPERCASE
-  - Project docs lowercase-with-hyphens
+  - Project docs snake_lower_case
+  - Guides follow `name_{phase}_guide` convention
 - ✅ **docs/glossary.md exists** with domain terminology
 - ✅ **docs/3-design/compliance/compliance_checklist.md exists** derived from architecture.md
 - ✅ All modules have docs/README.md
