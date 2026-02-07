@@ -45,6 +45,8 @@ project/
 │   │   ├── architecture.md             # Design hub document
 │   │   ├── [feature]-overview.md       # Feature architecture docs
 │   │   ├── [feature]-audit.md          # Audit/compliance docs
+│   │   ├── compliance/
+│   │   │   └── compliance_checklist.md # Architecture compliance checklist (REQUIRED)
 │   │   └── adr/                        # Architecture Decision Records
 │   │       ├── README.md               # ADR index
 │   │       └── NNN-[decision].md       # Individual ADRs
@@ -308,6 +310,7 @@ Alphabetized list of terms used in [Project Name].
 - Security documentation
 - ADRs index
 - Design guides
+- Link to compliance checklist (`compliance/compliance_checklist.md`)
 - Link to module overviews
 - Link to developer guide
 
@@ -565,6 +568,7 @@ Phase 6: Validation (check all phases complete)
 - [ ] Create docs/3-design/architecture.md hub
 - [ ] Add architecture/design documents
 - [ ] Create docs/3-design/adr/ for decisions
+- [ ] **Create docs/3-design/compliance/compliance_checklist.md derived from architecture.md** (REQUIRED)
 - [ ] Add security/compliance docs (if applicable)
 
 ### Phase 3: Development Documentation
@@ -609,6 +613,7 @@ Phase 6: Validation (check all phases complete)
   - [ ] Project docs are lowercase-with-hyphens (architecture.md, quick-start.md)
   - [ ] Directories are lowercase-with-hyphens (3-design/, 4-development/)
 - [ ] **Verify docs/glossary.md exists** with domain terminology
+- [ ] **Verify docs/3-design/compliance/compliance_checklist.md exists** and reflects current architecture.md rules
 - [ ] Verify no broken links
 - [ ] Verify **Audience** in ALL docs
 - [ ] Ensure W³H in all docs
@@ -761,6 +766,7 @@ Track in `docs/framework-backlog.md`:
   - Git standard files UPPERCASE
   - Project docs lowercase-with-hyphens
 - ✅ **docs/glossary.md exists** with domain terminology
+- ✅ **docs/3-design/compliance/compliance_checklist.md exists** derived from architecture.md
 - ✅ All modules have docs/README.md
 - ✅ No broken links
 - ✅ README < 100 lines

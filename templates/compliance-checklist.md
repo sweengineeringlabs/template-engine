@@ -50,22 +50,39 @@ for d in crates/*/; do
 done
 ```
 
-### 1.3 SDLC phase directories
+### 1.3 Architecture compliance checklist
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 6 | Phase numbering is correct (see table below) | | |
-| 7 | Phases appear in correct order (requirements before planning) | | |
+| 6 | `docs/3-design/compliance/compliance_checklist.md` exists | | |
+| 7 | Compliance checklist reflects current `architecture.md` rules | | |
+| 8 | Every enforceable rule in `architecture.md` has a corresponding checkbox | | |
+
+**Verify**:
+```bash
+# Must exist
+ls docs/3-design/compliance/compliance_checklist.md
+
+# Should reference architecture.md
+grep -l 'architecture.md' docs/3-design/compliance/compliance_checklist.md
+```
+
+### 1.4 SDLC phase directories
+
+| # | Check | Pass | Notes |
+|---|-------|------|-------|
+| 9 | Phase numbering is correct (see table below) | | |
+| 10 | Phases appear in correct order (requirements before planning) | | |
 
 Reference: `0-ideation/`, `1-requirements/`, `2-planning/`, `3-design/`, `4-development/`, `5-testing/`, `6-deployment/`, `7-operation/`
 
-### 1.4 Subdirectory naming
+### 1.5 Subdirectory naming
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 8 | ADRs in `3-design/adr/` with `NNN-title.md` format | | |
-| 9 | Developer guides in `4-development/guide/` (singular) | | |
-| 10 | UX/UI assets in `3-design/uxui/` | | |
+| 11 | ADRs in `3-design/adr/` with `NNN-title.md` format | | |
+| 12 | Developer guides in `4-development/guide/` (singular) | | |
+| 13 | UX/UI assets in `3-design/uxui/` | | |
 
 **Verify**:
 ```bash
@@ -84,21 +101,21 @@ find . -type d -name "uiux" 2>/dev/null
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 11 | `README.md` — UPPERCASE | | |
-| 12 | `CONTRIBUTING.md` — UPPERCASE | | |
-| 13 | `CHANGELOG.md` — UPPERCASE | | |
-| 14 | `SECURITY.md` — UPPERCASE | | |
-| 15 | `LICENSE` — UPPERCASE | | |
-| 16 | `CODE_OF_CONDUCT.md` — UPPERCASE (if present) | | |
-| 17 | `SUPPORT.md` — UPPERCASE (if present) | | |
+| 14 | `README.md` — UPPERCASE | | |
+| 15 | `CONTRIBUTING.md` — UPPERCASE | | |
+| 16 | `CHANGELOG.md` — UPPERCASE | | |
+| 17 | `SECURITY.md` — UPPERCASE | | |
+| 18 | `LICENSE` — UPPERCASE | | |
+| 19 | `CODE_OF_CONDUCT.md` — UPPERCASE (if present) | | |
+| 20 | `SUPPORT.md` — UPPERCASE (if present) | | |
 
 ### 2.2 Project documentation (lowercase-with-hyphens)
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 18 | All filenames in `docs/` are lowercase (except README.md) | | |
-| 19 | All filenames use hyphens as separators | | |
-| 20 | All filenames are space-free | | |
+| 21 | All filenames in `docs/` are lowercase (except README.md) | | |
+| 22 | All filenames use hyphens as separators | | |
+| 23 | All filenames are space-free | | |
 
 **Verify**:
 ```bash
@@ -119,19 +136,19 @@ find crates/ -path "*/docs/*.md" | grep -E '/[A-Z]{2,}' | grep -v README 2>/dev/
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 21 | `README.md` exists at root | | |
-| 22 | `CONTRIBUTING.md` exists at root | | |
-| 23 | `CHANGELOG.md` exists at root | | |
-| 24 | `SECURITY.md` exists at root | | |
-| 25 | `LICENSE` exists at root | | |
+| 24 | `README.md` exists at root | | |
+| 25 | `CONTRIBUTING.md` exists at root | | |
+| 26 | `CHANGELOG.md` exists at root | | |
+| 27 | `SECURITY.md` exists at root | | |
+| 28 | `LICENSE` exists at root | | |
 
 **For open-source projects, also check**:
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 26 | `CODE_OF_CONDUCT.md` exists | | |
-| 27 | `SUPPORT.md` exists | | |
-| 28 | `.github/ISSUE_TEMPLATE/` exists | | |
-| 29 | `.github/PULL_REQUEST_TEMPLATE.md` exists | | |
+| 29 | `CODE_OF_CONDUCT.md` exists | | |
+| 30 | `SUPPORT.md` exists | | |
+| 31 | `.github/ISSUE_TEMPLATE/` exists | | |
+| 32 | `.github/PULL_REQUEST_TEMPLATE.md` exists | | |
 
 **Verify**:
 ```bash
@@ -149,8 +166,8 @@ done
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 30 | Every `.md` file in `docs/` has `**Audience**:` declaration | | |
-| 31 | Every module `docs/` README has `**Audience**:` declaration | | |
+| 33 | Every `.md` file in `docs/` has `**Audience**:` declaration | | |
+| 34 | Every module `docs/` README has `**Audience**:` declaration | | |
 
 **Verify**:
 ```bash
@@ -164,8 +181,8 @@ done
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 32 | Docs with 200+ lines have `> **TLDR**:` blockquote | | |
-| 33 | Docs under 200 lines omit TLDR | | |
+| 35 | Docs with 200+ lines have `> **TLDR**:` blockquote | | |
+| 36 | Docs under 200 lines omit TLDR | | |
 
 **Verify**:
 ```bash
@@ -190,9 +207,9 @@ done
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 34 | Terms use `**Term** - Definition.` format | | |
-| 35 | Terms are alphabetized | | |
-| 36 | Acronyms include expansion | | |
+| 37 | Terms use `**Term** - Definition.` format | | |
+| 38 | Terms are alphabetized | | |
+| 39 | Acronyms include expansion | | |
 
 **Verify**:
 ```bash
@@ -209,10 +226,10 @@ grep -n '^[A-Z].*: ' docs/glossary.md | head -10
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 37 | Root README links to `docs/README.md` (single entry point) | | |
-| 38 | `docs/README.md` is a W3H hub with role-based navigation | | |
-| 39 | `docs/README.md` links to all SDLC phase directories | | |
-| 40 | Root README routes through hub (no deep links) | | |
+| 40 | Root README links to `docs/README.md` (single entry point) | | |
+| 41 | `docs/README.md` is a W3H hub with role-based navigation | | |
+| 42 | `docs/README.md` links to all SDLC phase directories | | |
+| 43 | Root README routes through hub (no deep links) | | |
 
 **Verify**:
 ```bash
@@ -229,10 +246,10 @@ grep -E 'docs/[0-9]-' README.md | grep -v 'docs/README.md'
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 41 | All markdown links resolve to existing files | | |
-| 42 | All references use current paths | | |
-| 43 | All references use `docs/` (plural) | | |
-| 44 | All references use `guide/` (singular) | | |
+| 44 | All markdown links resolve to existing files | | |
+| 45 | All references use current paths | | |
+| 46 | All references use `docs/` (plural) | | |
+| 47 | All references use `guide/` (singular) | | |
 
 **Verify**:
 ```bash
@@ -255,9 +272,9 @@ done
 
 | # | Check | Pass | Notes |
 |---|-------|------|-------|
-| 45 | ADR index exists at `docs/3-design/adr/README.md` | | |
-| 46 | ADRs follow `NNN-title.md` naming (zero-padded) | | |
-| 47 | ADR index lists all ADR files with status | | |
+| 48 | ADR index exists at `docs/3-design/adr/README.md` | | |
+| 49 | ADRs follow `NNN-title.md` naming (zero-padded) | | |
+| 50 | ADR index lists all ADR files with status | | |
 
 **Verify**:
 ```bash
@@ -279,14 +296,17 @@ Copy this table into your audit report:
 
 | Category | Checks | Pass | Fail |
 |----------|--------|------|------|
-| Directory structure | 1-10 | | |
-| File naming | 11-20 | | |
-| Required root files | 21-29 | | |
-| Content patterns | 30-36 | | |
-| Navigation pattern | 37-40 | | |
-| Cross-references | 41-44 | | |
-| ADR structure | 45-47 | | |
-| **Total** | **47** | | |
+| Directory structure | 1-5 | | |
+| Architecture compliance checklist | 6-8 | | |
+| SDLC phase directories | 9-10 | | |
+| Subdirectory naming | 11-13 | | |
+| File naming | 14-23 | | |
+| Required root files | 24-32 | | |
+| Content patterns | 33-39 | | |
+| Navigation pattern | 40-43 | | |
+| Cross-references | 44-47 | | |
+| ADR structure | 48-50 | | |
+| **Total** | **50** | | |
 
 ---
 
@@ -294,6 +314,7 @@ Copy this table into your audit report:
 
 | Rule | Source | Summary |
 |------|--------|---------|
+| Architecture compliance checklist required | FRAMEWORK.md directory structure + Phase 2 | `docs/3-design/compliance/compliance_checklist.md` must exist and reflect `architecture.md` |
 | Module doc folders use `docs/` (plural) | FRAMEWORK.md directory structure + commit 59ab40d | Applies to root and all modules |
 | Developer guides subfolder is `guide/` (singular) | FRAMEWORK.md L53 | `4-development/guide/` |
 | UX/UI assets folder is `uxui/` | FRAMEWORK.md directory structure | `3-design/uxui/` |
