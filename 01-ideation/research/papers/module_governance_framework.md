@@ -228,9 +228,9 @@ We derive requirements from common developer questions:
 | What are the interaction flows? | sequence.md | docs/3-design/ |
 | What's the process/pipeline? | workflow.md | docs/3-design/ |
 | What tools does it use? | toolchain.md | docs/3-design/ |
-| How do I develop locally? | developer-guide.md | docs/4-development/ |
-| How do I set up my environment? | setup-guide.md | docs/4-development/ |
-| How do I test it? | testing-strategy.md | docs/5-testing/ |
+| How do I develop locally? | developer_guide.md | docs/4-development/ |
+| How do I set up my environment? | setup_guide.md | docs/4-development/ |
+| How do I test it? | testing_strategy.md | docs/5-testing/ |
 
 ### 4.2 Required Files (12)
 
@@ -254,9 +254,9 @@ Every module must contain these 12 files:
 | `sequence.md` | docs/3-design/ | Interaction flows, sequence diagrams |
 | `workflow.md` | docs/3-design/ | Process flow, pipelines |
 | `toolchain.md` | docs/3-design/ | Tools, dependencies, versions |
-| `developer-guide.md` | docs/4-development/ | Development workflow |
-| `setup-guide.md` | docs/4-development/ | Environment setup instructions |
-| `testing-strategy.md` | docs/5-testing/ | Test approach, coverage targets |
+| `developer_guide.md` | docs/4-development/ | Development workflow |
+| `setup_guide.md` | docs/4-development/ | Environment setup instructions |
+| `testing_strategy.md` | docs/5-testing/ | Test approach, coverage targets |
 
 ### 4.3 Optional Files (3)
 
@@ -276,12 +276,13 @@ The framework enforces consistent naming:
 |---------|------------|----------|
 | Root-level | UPPERCASE | README.md, CONTRIBUTING.md |
 | Subdirectories | lowercase | README.md, architecture.md |
-| Multi-word | hyphen-separated | developer-guide.md, testing-strategy.md |
-| Multiple of same type | prefix-name | backend-architecture.md, frontend-architecture.md |
+| Multi-word files | snake_case | `developer_guide.md`, `testing_strategy.md` |
+| Folders | kebab-case | `3-design/`, `4-development/` |
+| Multiple of same type | prefix_name | `backend_architecture.md`, `frontend_architecture.md` |
 
 **Prohibited patterns:**
 - CamelCase: `TestingStrategy.md` ✗
-- Underscores: `developer_guide.md` ✗
+- kebab-case files: `developer-guide.md` ✗
 - Acronyms: `ARCH.md` ✗
 - Lowercase root: `readme.md` ✗
 
@@ -489,7 +490,7 @@ Module README files follow the **lean principle**—they are quick references, n
 **Exclude:**
 - Full API documentation (→ generated docs)
 - Detailed architecture (→ architecture.md)
-- Complete usage guide (→ developer-guide.md)
+- Complete usage guide (→ developer_guide.md)
 
 **Target length**: 50-100 lines
 
@@ -619,9 +620,9 @@ Pull request templates include documentation checklists:
 - [ ] `docs/3-design/sequence.md`
 - [ ] `docs/3-design/workflow.md`
 - [ ] `docs/3-design/toolchain.md`
-- [ ] `docs/4-development/developer-guide.md`
-- [ ] `docs/4-development/setup-guide.md`
-- [ ] `docs/5-testing/testing-strategy.md`
+- [ ] `docs/4-development/developer_guide.md`
+- [ ] `docs/4-development/setup_guide.md`
+- [ ] `docs/5-testing/testing_strategy.md`
 
 ### For Existing Modules
 - [ ] Updated relevant docs if behavior changed
@@ -832,12 +833,12 @@ This paper presented the Module Governance Framework, a systematic approach to d
     │   ├── workflow.md                    # Required
     │   └── toolchain.md                   # Required
     ├── 4-development/
-    │   ├── developer-guide.md             # Required
-    │   ├── setup-guide.md                       # Required
+    │   ├── developer_guide.md             # Required
+    │   ├── setup_guide.md                       # Required
     │   ├── backlog.md                     # Optional
     │   └── kanban.md                      # Optional
     ├── 5-testing/
-    │   └── testing-strategy.md            # Required
+    │   └── testing_strategy.md            # Required
     └── 6-operation/
         └── releases/                      # Optional
 ```
@@ -857,13 +858,13 @@ This paper presented the Module Governance Framework, a systematic approach to d
     ├── 3-design/
     │   └── architecture.md                # Required
     ├── 4-development/
-    │   ├── developer-guide.md             # Required
+    │   ├── developer_guide.md             # Required
     │   ├── backlog.md                     # Required
     │   └── kanban/                        # Required (folder)
     ├── 5-testing/
-    │   └── testing-strategy.md            # Required
+    │   └── testing_strategy.md            # Required
     └── 6-operation/
-        ├── ops-manual.md                  # Required
+        ├── ops_manual.md                  # Required
         └── releases/                      # Required
 ```
 
