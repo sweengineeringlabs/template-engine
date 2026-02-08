@@ -17,6 +17,10 @@ This directory contains language-agnostic templates for comprehensive software d
 - **[ci_cd.template.md](ci_cd.template.md)** - CI/CD pipeline configuration
 - **[publishing.template.md](publishing.template.md)** - Package registry publishing
 
+### Bug Reporting & Issue Management
+- **[sdlc/4-development/bug_reporting_strategy.template.md](sdlc/4-development/bug_reporting_strategy.template.md)** - Bug reporting strategy (developer/contributor view)
+- **[sdlc/7-operation/bug_reporting_strategy.template.md](sdlc/7-operation/bug_reporting_strategy.template.md)** - Bug reporting strategy (operations/SRE view)
+
 ### Compliance
 - **[compliance-checklist.md](compliance-checklist.md)** - 50-point documentation audit checklist
 - **[backend/docs/3-design/compliance/compliance_checklist.template.md](backend/docs/3-design/compliance/compliance_checklist.template.md)** - Architecture compliance checklist template (REQUIRED per project)
