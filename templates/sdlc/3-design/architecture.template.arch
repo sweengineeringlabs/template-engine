@@ -13,6 +13,25 @@
 
 {1-2 paragraph description of the system architecture, key design principles,
 and the constraints that shaped the current design.}
+
+## Stakeholders & Concerns
+
+> Per ISO/IEC/IEEE 42010:2022
+
+| Stakeholder | Concerns |
+|-------------|----------|
+| {Developers} | {Modularity, testability, build times} |
+| {Architects} | {Layer separation, dependency direction, extensibility} |
+| {Operations} | {Deployment, monitoring, performance} |
+
+## Architectural Viewpoints
+
+| Viewpoint | Concern Addressed | View Section |
+|-----------|-------------------|--------------|
+| {Structural} | {Module organization, dependencies} | [Layer Architecture](#layer-architecture) |
+| {Behavioral} | {Data flow, request handling} | [Data Flow](#data-flow) |
+| {Deployment} | {Infrastructure, scaling} | [Related: Deployment](#related-documents) |
+
 ## System Diagram
 
 ```

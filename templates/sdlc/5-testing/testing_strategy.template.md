@@ -14,6 +14,17 @@
 {1-2 paragraph description of the testing philosophy, goals, and how testing
 integrates into the development workflow.}
 
+## Test Design Specification
+
+> Per ISO/IEC/IEEE 29119-3:2021
+
+| Attribute | Value |
+|-----------|-------|
+| **Test Strategy** | {risk-based | requirements-based | model-based} |
+| **Test Scope** | {in-scope components and features} |
+| **Entry Criteria** | {conditions to start testing} |
+| **Exit Criteria** | {conditions to stop testing} |
+
 ## Test Pyramid
 
 ```
@@ -79,6 +90,14 @@ integrates into the development workflow.}
 | {component-1} | `{crate-name}` | [{crate-name}.test](../../{crate-name}/docs/5-testing/{name}.test) |
 | {component-2} | `{crate-name}` | [{crate-name}.test](../../{crate-name}/docs/5-testing/{name}.test) |
 | {component-3} | `{crate-name}` | [{crate-name}.test](../../{crate-name}/docs/5-testing/{name}.test) |
+
+## Test Procedures
+
+| Procedure | Test Cases | Environment | Execution Order |
+|-----------|-----------|-------------|-----------------|
+| {Smoke} | {TC-001, TC-002} | {CI} | {First} |
+| {Regression} | {TC-003 through TC-010} | {CI} | {After smoke} |
+| {Performance} | {TC-011} | {Staging} | {Pre-release} |
 
 ## Related Documents
 

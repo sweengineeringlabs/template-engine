@@ -6,6 +6,15 @@
 
 {High-level description of the module architecture.}
 
+## Stakeholders & Concerns
+
+> Per ISO/IEC/IEEE 42010:2022
+
+| Stakeholder | Concerns |
+|-------------|----------|
+| {Module consumers} | {API stability, ease of integration} |
+| {Module maintainers} | {Testability, layer separation} |
+
 ## Component Diagram
 
 ```

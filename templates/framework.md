@@ -17,16 +17,16 @@ This framework provides a hierarchical documentation structure that:
 
 The numbered directories follow the Software Development Life Cycle (SDLC) phases:
 
-| Phase | Folder | Purpose | Typical Content |
-|-------|--------|---------|-----------------|
-| 0 | `0-ideation/` | Research & exploration | Research notes, competitive analysis, proof of concepts |
-| 1 | `1-requirements/` | What to build | User stories, acceptance criteria, backlog, roadmap |
-| 2 | `2-planning/` | Sprint planning | Gap analysis, estimates, sprint docs |
-| 3 | `3-design/` | How it works | Architecture, ADRs, sequence diagrams, API specs |
-| 4 | `4-development/` | How to develop | Developer guides, setup, coding standards |
-| 5 | `5-testing/` | Test strategy | Test plans, testing guides, QA procedures |
-| 6 | `6-deployment/` | How to deploy | CI/CD, installation, release procedures |
-| 7 | `7-operation/` | How to run | Runbooks, monitoring, troubleshooting, SLAs |
+| Phase | Folder | Purpose | Typical Content | Standard |
+|-------|--------|---------|-----------------|----------|
+| 0 | `0-ideation/` | Research & exploration | Research notes, competitive analysis, proof of concepts | — |
+| 1 | `1-requirements/` | What to build | User stories, acceptance criteria, backlog, roadmap | ISO/IEC/IEEE 29148:2018 |
+| 2 | `2-planning/` | Sprint planning | Gap analysis, estimates, sprint docs | — |
+| 3 | `3-design/` | How it works | Architecture, ADRs, sequence diagrams, API specs | ISO/IEC/IEEE 42010:2022 |
+| 4 | `4-development/` | How to develop | Developer guides, setup, coding standards | — |
+| 5 | `5-testing/` | Test strategy | Test plans, testing guides, QA procedures | ISO/IEC/IEEE 29119-3:2021 |
+| 6 | `6-deployment/` | How to deploy | CI/CD, installation, release procedures | — |
+| 7 | `7-operation/` | How to run | Runbooks, monitoring, troubleshooting, SLAs | — |
 
 > **Note**: Not all projects need all phases. Start with `3-design/` and `4-development/` at minimum.
 
@@ -329,6 +329,8 @@ Alphabetized list of terms used in [Project Name].
 - Link to module overviews
 - Link to developer guide
 
+> **Standard**: ISO/IEC/IEEE 42010:2022 — architecture descriptions should include stakeholders, concerns, viewpoints, and architecture decisions.
+
 **Example**: See `docs/3-design/architecture.md` in Rustboot
 
 ### 6. docs/4-development/developer_guide.md (Development Hub)
@@ -433,7 +435,22 @@ Alphabetized list of terms used in [Project Name].
 - **Building from source**: See [Prerequisites](prerequisites.md)
 ```
 
-### 10. Framework Documentation (docs/*/\*.md)
+### 10. docs/5-testing/testing_strategy.md (Testing Strategy)
+
+**Purpose**: Define testing approach, coverage targets, and test procedures
+**Audience**: Developers, QA
+**Format**: Structured strategy document
+**Content**:
+- Test strategy and scope
+- Test pyramid and categories
+- Coverage targets
+- CI pipeline integration
+- Per-component test plans
+- Test procedures
+
+> **Standard**: ISO/IEC/IEEE 29119-3:2021 — test documentation should include test design, test cases with traceability, and test procedures.
+
+### 11. Framework Documentation (docs/*/\*.md)
 
 **Audience**: Various (MUST specify)
 **Format**: W³H (WHO-WHAT-WHY-HOW)

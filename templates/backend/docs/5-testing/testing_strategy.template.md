@@ -6,6 +6,8 @@
 
 Testing strategy for {module-name}, extending the base testing strategy.
 
+> **Standard**: ISO/IEC/IEEE 29119-3:2021 — test documentation should include test design, test cases with traceability, and test procedures.
+
 ## Test Layers
 
 | Layer | Type | Mocking | Location |
