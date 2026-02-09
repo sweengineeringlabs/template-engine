@@ -9,6 +9,30 @@ code quality, security, testing, observability, documentation, and release
 automation. Each area is scored PASS / WARN / FAIL. All FAIL items must be
 resolved before release; WARN items should have a tracking issue.
 
+## Standards
+
+This template aligns with three ISO/IEC standards:
+
+| Standard | Scope | Template areas |
+|----------|-------|----------------|
+| **ISO/IEC 25010:2023** | Product quality model (SQuaRE) | #3 Static Analysis, #5 API Docs, #6 Runtime Safety, #8 README, #10 Doc Lint, #11 Security, #12 Test Coverage, #13 Observability, #14 Backwards Compatibility |
+| **ISO/IEC/IEEE 12207:2017** | Software lifecycle processes | #1 CI/CD, #2 Dependency Health, #4 Auditing, #7 Metadata, #9 Release Automation |
+| **ISO/IEC 25040:2024** | Quality evaluation process | Scoring methodology, evidence requirements, sign-off process |
+
+### ISO/IEC 25010:2023 Quality Characteristics Mapping
+
+| 25010 Characteristic | Sub-characteristics | Template Area |
+|----------------------|--------------------|----|
+| Functional suitability | Completeness, correctness, appropriateness | #12 Test Coverage |
+| Performance efficiency | Time behaviour, resource utilisation, capacity | #6 Runtime Safety |
+| Compatibility | Co-existence, interoperability | #14 Backwards Compatibility |
+| Usability | Learnability, operability, user error protection | #8 README & Onboarding |
+| Reliability | Availability, fault tolerance, recoverability | #12 Test Coverage, #13 Observability |
+| Security | Confidentiality, integrity, non-repudiation, accountability, authenticity | #11 Security, #4 Dependency Auditing |
+| Maintainability | Modularity, reusability, analysability, modifiability, testability | #3 Static Analysis, #5 API Docs, #10 Doc Lint |
+| Portability | Adaptability, installability, replaceability | #1 CI/CD Pipeline, #7 Package Metadata |
+| Safety | Operational constraint satisfaction, risk identification, fail safe | #6 Runtime Safety |
+
 ## Verdict: {READY | NOT READY}
 
 | Area | Status | Notes |
@@ -32,6 +56,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 1. CI/CD Pipeline
 
+> **Standard**: ISO/IEC/IEEE 12207:2017 §6.3.1 (Infrastructure Management), ISO/IEC 25010:2023 Portability
+
 **Criteria**: Automated pipeline runs on every push/PR.
 
 - [ ] Test suite runs in CI (`cargo test` / `npm test` / equivalent)
@@ -47,6 +73,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 2. Dependency Health
 
+> **Standard**: ISO/IEC/IEEE 12207:2017 §6.3.2 (Configuration Management)
+
 **Criteria**: No deprecated, unmaintained, or yanked dependencies.
 
 - [ ] No deprecated direct dependencies
@@ -61,6 +89,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 3. Static Analysis
 
+> **Standard**: ISO/IEC 25010:2023 Maintainability (analysability, modifiability)
+
 **Criteria**: Zero warnings from linter with strict settings.
 
 - [ ] Linter passes with warnings-as-errors (`clippy -D warnings` / `eslint --max-warnings 0`)
@@ -73,6 +103,8 @@ resolved before release; WARN items should have a tracking issue.
 ---
 
 ## 4. Dependency Auditing
+
+> **Standard**: ISO/IEC 25010:2023 Security (integrity, authenticity), ISO/IEC/IEEE 12207:2017 §6.3.5 (Quality Assurance)
 
 **Criteria**: Known vulnerabilities are tracked and mitigated.
 
@@ -88,6 +120,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 5. API Documentation
 
+> **Standard**: ISO/IEC 25010:2023 Maintainability (analysability), Usability (learnability)
+
 **Criteria**: Public API is documented for library consumers.
 
 - [ ] Crate-level / package-level documentation exists
@@ -102,6 +136,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 6. Runtime Safety
 
+> **Standard**: ISO/IEC 25010:2023 Performance Efficiency (time behaviour, resource utilisation), Safety (fail safe)
+
 **Criteria**: No avoidable runtime panics or unnecessary allocations in hot paths.
 
 - [ ] No `unwrap()` / `expect()` on fallible operations in production code (or justified)
@@ -115,6 +151,8 @@ resolved before release; WARN items should have a tracking issue.
 ---
 
 ## 7. Package Metadata
+
+> **Standard**: ISO/IEC/IEEE 12207:2017 §6.3.2 (Configuration Management), ISO/IEC 25010:2023 Portability (installability)
 
 **Criteria**: Package is publishable with complete metadata.
 
@@ -132,6 +170,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 8. README & Onboarding
 
+> **Standard**: ISO/IEC 25010:2023 Usability (learnability, operability, user error protection)
+
 **Criteria**: New users can install, run, and understand the project in < 5 minutes.
 
 - [ ] README exists and is concise (< 100 lines for root, links to detailed docs)
@@ -148,6 +188,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 9. Release Automation
 
+> **Standard**: ISO/IEC/IEEE 12207:2017 §6.3.4 (Release Management)
+
 **Criteria**: Releases are reproducible and automated.
 
 - [ ] Version bumps follow a defined process (manual semver or `release-plz` / `semantic-release`)
@@ -163,6 +205,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 10. Documentation Lint
 
+> **Standard**: ISO/IEC 25010:2023 Maintainability (analysability, testability)
+
 **Criteria**: Documentation coverage is enforced by tooling.
 
 - [ ] Missing-docs lint enabled (`#![warn(missing_docs)]` / equivalent)
@@ -175,6 +219,8 @@ resolved before release; WARN items should have a tracking issue.
 ---
 
 ## 11. Security
+
+> **Standard**: ISO/IEC 25010:2023 Security (confidentiality, integrity, non-repudiation, accountability, authenticity)
 
 **Criteria**: Application defends against common attack vectors and manages secrets safely.
 
@@ -193,6 +239,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 12. Test Coverage
 
+> **Standard**: ISO/IEC 25010:2023 Functional Suitability (completeness, correctness), Reliability (fault tolerance)
+
 **Criteria**: Test suite provides confidence against regressions.
 
 - [ ] Unit tests cover core logic and edge cases
@@ -210,6 +258,8 @@ resolved before release; WARN items should have a tracking issue.
 
 ## 13. Observability
 
+> **Standard**: ISO/IEC 25010:2023 Reliability (availability, recoverability), Maintainability (analysability)
+
 **Criteria**: Production behavior is visible and diagnosable.
 
 - [ ] Structured logging with consistent format (JSON / key-value)
@@ -225,6 +275,8 @@ resolved before release; WARN items should have a tracking issue.
 ---
 
 ## 14. Backwards Compatibility
+
+> **Standard**: ISO/IEC 25010:2023 Compatibility (co-existence, interoperability), Portability (replaceability)
 
 **Criteria**: Users can upgrade without unexpected breakage.
 
@@ -242,11 +294,13 @@ resolved before release; WARN items should have a tracking issue.
 
 ## Scoring
 
-| Score | Meaning | Action |
-|-------|---------|--------|
-| **PASS** | Meets criteria fully | None |
-| **WARN** | Partially met or minor gaps | Create tracking issue, non-blocking |
-| **FAIL** | Not met, significant risk | Must resolve before release |
+> **Standard**: ISO/IEC 25040:2024 — quality evaluation process (establish requirements, specify evaluation, design evaluation, execute evaluation, conclude evaluation)
+
+| Score | Meaning | Action | 25040 Phase |
+|-------|---------|--------|-------------|
+| **PASS** | Meets criteria fully | None | Conclude: satisfactory |
+| **WARN** | Partially met or minor gaps | Create tracking issue, non-blocking | Conclude: conditionally satisfactory |
+| **FAIL** | Not met, significant risk | Must resolve before release | Execute: re-evaluate after remediation |
 
 **Release gate**: 0 FAIL items. WARN items tracked in backlog.
 
