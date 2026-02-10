@@ -6,7 +6,7 @@
 
 ## Priority
 
-{Critical | High | Medium | Low}
+{Must | Should | Could | Won't}
 
 ## Summary
 

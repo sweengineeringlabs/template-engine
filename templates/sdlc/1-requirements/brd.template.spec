@@ -36,8 +36,8 @@ problem it solves. Include target audience and high-level value proposition.}
 
 | Spec ID | Title | Priority | Status |
 |---------|-------|----------|--------|
-| FR-{###} | [{spec title}](./{spec-file}.spec) | {Critical | High | Medium | Low} | {Draft | Approved} |
-| FR-{###} | [{spec title}](./{spec-file}.spec) | {Critical | High | Medium | Low} | {Draft | Approved} |
+| FR-{###} | [{spec title}](./{spec-file}.spec) | {Must | Should | Could | Won't} | {Draft | Approved} |
+| FR-{###} | [{spec title}](./{spec-file}.spec) | {Must | Should | Could | Won't} | {Draft | Approved} |
 
 ## Domain: {domain-2}
 
@@ -45,8 +45,8 @@ problem it solves. Include target audience and high-level value proposition.}
 
 | Spec ID | Title | Priority | Status |
 |---------|-------|----------|--------|
-| FR-{###} | [{spec title}](./{spec-file}.spec) | {Critical | High | Medium | Low} | {Draft | Approved} |
-| FR-{###} | [{spec title}](./{spec-file}.spec) | {Critical | High | Medium | Low} | {Draft | Approved} |
+| FR-{###} | [{spec title}](./{spec-file}.spec) | {Must | Should | Could | Won't} | {Draft | Approved} |
+| FR-{###} | [{spec title}](./{spec-file}.spec) | {Must | Should | Could | Won't} | {Draft | Approved} |
 
 ## Domain: {domain-3}
 
@@ -54,8 +54,8 @@ problem it solves. Include target audience and high-level value proposition.}
 
 | Spec ID | Title | Priority | Status |
 |---------|-------|----------|--------|
-| FR-{###} | [{spec title}](./{spec-file}.spec) | {Critical | High | Medium | Low} | {Draft | Approved} |
-| FR-{###} | [{spec title}](./{spec-file}.spec) | {Critical | High | Medium | Low} | {Draft | Approved} |
+| FR-{###} | [{spec title}](./{spec-file}.spec) | {Must | Should | Could | Won't} | {Draft | Approved} |
+| FR-{###} | [{spec title}](./{spec-file}.spec) | {Must | Should | Could | Won't} | {Draft | Approved} |
 
 ## Cross-Cutting Concerns
 

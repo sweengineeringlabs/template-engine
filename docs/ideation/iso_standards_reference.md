@@ -1,10 +1,10 @@
-# ISO/IEC/IEEE Standards Reference
+# Standards Reference
 
 **Audience**: Architects, documentation maintainers
 
 ## Overview
 
-Three ISO/IEC/IEEE standards map to specific SDLC phases in the template-engine documentation framework. Each standard defines structure, attributes, and traceability expectations for its document type.
+Ten standards and guidelines map to specific SDLC phases in the template-engine documentation framework: eight ISO/IEC/IEEE standards, one IEEE standard, and one PMI guide. Each defines structure, attributes, and traceability expectations for its document type.
 
 ## Standards Comparison
 
@@ -21,11 +21,18 @@ Three ISO/IEC/IEEE standards map to specific SDLC phases in the template-engine 
 
 ## Mapping to template-engine
 
-| Standard | Framework Section | Template File | doc-engine Check |
-|----------|-------------------|---------------|------------------|
-| 29148:2018 | §5 (architecture section note) | `sdlc/1-requirements/` | Check 89: `srs_29148_attributes` |
-| 42010:2022 | §5 (architecture section note) | `sdlc/3-design/architecture.template.arch` | Check 90: `arch_42010_sections` |
-| 29119-3:2021 | §10 (testing strategy section) | `sdlc/5-testing/testing_strategy.template.md` | Check 91: `test_29119_sections` |
+| Standard | Framework Section | Template File | doc-engine Checks |
+|----------|-------------------|---------------|-------------------|
+| 29148:2018 | §5 (requirements) | `sdlc/1-requirements/` | 89: `srs_29148_attributes`, 118: ConOps, 119: StRS, 120: traceability matrix |
+| 42010:2022 | §5 (architecture) | `sdlc/3-design/architecture.template.arch` | 90: `arch_42010_sections` |
+| 29119-3:2021 | §10 (testing strategy) | `sdlc/5-testing/testing_strategy.template.md` | 91: `test_29119_sections`, 100: test design, 101: test cases |
+| 12207:2017 | Cross-phase (lifecycle) | All SDLC phases | 92, 96: production readiness, 109-113: planning artifacts, 120-122: traceability/progress/decisions |
+| 15289:2019 | Cross-phase (info items) | All SDLC phases | 99, 102-117: phase artifacts, 121-123: progress reports/decision log/audit report |
+| 26514:2022 | §4 (user info) | `sdlc/4-development/`, `sdlc/6-deployment/` | 94: `dev_guide_26514_sections` |
+| 25010:2023 | §6 (quality) | `sdlc/6-deployment/production_readiness` | 93, 97: product quality sections |
+| 25040:2024 | §6 (evaluation) | `sdlc/6-deployment/production_readiness` | 98: evaluation process sections |
+| IEEE 1028 | Cross-phase (audits) | `sdlc/2-planning/` | 123: audit report |
+| PMBOK (PMI) | §2 (planning) | `sdlc/2-planning/` | 85: schedule, 86: resource plan, 87: communication plan |
 
 ## How Each Standard Applies
 
@@ -33,7 +40,7 @@ Three ISO/IEC/IEEE standards map to specific SDLC phases in the template-engine 
 
 The template-engine framework already follows 29148 structure. Each requirement block (FR-xxx, NFR-xxx) includes the five mandatory attributes:
 
-- **Priority** — MoSCoW classification
+- **Priority** — MoSCoW classification (Must / Should / Could / Won't)
 - **State** — lifecycle state (Proposed, Approved, Verified)
 - **Verification** — method (Test, Inspection, Analysis, Demonstration)
 - **Traces to** — bidirectional traceability to stakeholders and architecture
@@ -60,3 +67,31 @@ The W3H structure (Who/What/Why/How) in template-engine architecture docs natura
 3. **Test Procedure Specification** — execution procedures, environments, ordering
 
 The template-engine testing strategy template maps directly: Test Pyramid -> design, Test Categories -> cases, Coverage Targets -> exit criteria, CI Pipeline -> procedures.
+
+### ISO/IEC/IEEE 12207:2017 — Software Life Cycle Processes
+
+12207 is the foundational lifecycle standard defining process areas for software systems. doc-engine enforces its requirements through planning, traceability, and phase artifact checks across the entire SDLC. Key process areas: project planning (56, 85-87, 109), assessment and control (92, 96, 121), decision management (122), risk management (111), and configuration management (110).
+
+### ISO/IEC/IEEE 15289:2019 — Content of Life-Cycle Information Items
+
+15289 defines content requirements for documentation artifacts produced throughout the software lifecycle. doc-engine checks file existence for all phase artifacts (60-68, 99-117), plus cross-phase items: progress/status reports (121), decision log (122), and audit report (123).
+
+### ISO/IEC/IEEE 26514:2022 — Information for Users
+
+26514 defines the design and development of information for software users. doc-engine validates developer guide structure (94) against task analysis, information structure, and writing guidelines.
+
+### ISO/IEC 25010:2023 — Product Quality Model (SQuaRE)
+
+25010 defines the product quality model with quality characteristics. doc-engine validates production readiness documents (93, 97) for security, reliability, maintainability, portability, and usability sections.
+
+### ISO/IEC 25040:2024 — Evaluation Process (SQuaRE)
+
+25040 defines the evaluation process. doc-engine validates that production readiness documents (98) contain scoring criteria and sign-off sections for evaluation conclusion.
+
+### IEEE 1028 — Software Reviews and Audits
+
+IEEE 1028 defines processes for software reviews and audits, including management reviews, technical reviews, inspections, walk-throughs, and audits. doc-engine checks for the existence of an audit report artifact (123) per clause 4 (audit process).
+
+### PMBOK — Project Management Body of Knowledge (PMI)
+
+PMBOK is a guide published by the Project Management Institute (PMI), not an ISO/IEC/IEEE standard. It describes best practices for project management across knowledge areas: scope, schedule, cost, quality, resource, communication, risk, procurement, and stakeholder management. doc-engine checks for three PMBOK-inspired planning artifacts: schedule (85), resource plan (86), and communication plan (87). These align with PMBOK knowledge areas 6 (Schedule Management), 9 (Resource Management), and 10 (Communications Management). PMBOK aligns with ISO 21500:2021 (Guidance on project management).
