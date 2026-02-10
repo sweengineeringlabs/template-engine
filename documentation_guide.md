@@ -1,5 +1,16 @@
 # Documentation Guide
 
+**Standard**: ISO/IEC/IEEE 26514:2022 (Information for users), ISO/IEC/IEEE 15289:2019 (Life-cycle documentation content)
+
+### Supporting Standards (ISO/IEC/IEEE 2651x Series)
+
+| Standard | Focus |
+|----------|-------|
+| ISO/IEC/IEEE 26511 | Management of documentation processes |
+| ISO/IEC/IEEE 26512 | Acquirer/supplier requirements for documentation |
+| ISO/IEC/IEEE 26513 | Testing and reviewing documentation |
+| ISO/IEC/IEEE 26515 | Documentation in agile environments |
+
 **Audience**: All team members (writers, developers, reviewers)
 
 ---
