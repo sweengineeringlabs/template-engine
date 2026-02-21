@@ -292,6 +292,49 @@ find docs/3-design/adr/ -name "*.md" ! -name "README.md" | grep -v '^docs/3-desi
 
 ---
 
+## 8. ISO/IEEE Gap-Closure Artifacts (Large Projects)
+
+These checks verify the existence of ISO-mandated documents that close gaps identified against ISO/IEC/IEEE 29148, 12207, 15289, and IEEE 1028. They apply to `--scope large` projects.
+
+### 8.1 Ideation & Requirements
+
+| # | Check | Pass | Notes |
+|---|-------|------|-------|
+| 51 | `docs/0-ideation/conops.md` — Concept of Operations (ConOps) exists | | |
+| 52 | `docs/1-requirements/strs.md` — Stakeholder Requirements Specification (StRS) exists | | |
+| 53 | `docs/1-requirements/traceability_matrix.md` — Traceability matrix exists | | |
+
+**Verify**:
+```bash
+ls docs/0-ideation/conops.md docs/1-requirements/strs.md docs/1-requirements/traceability_matrix.md
+```
+
+### 8.2 Cross-phase Planning
+
+| # | Check | Pass | Notes |
+|---|-------|------|-------|
+| 54 | `docs/2-planning/progress_reports.md` — Progress/status reports exist | | |
+| 55 | `docs/2-planning/decision_log.md` — Decision log exists | | |
+| 56 | `docs/2-planning/audit_report.md` — Audit report exists | | |
+
+**Verify**:
+```bash
+ls docs/2-planning/progress_reports.md docs/2-planning/decision_log.md docs/2-planning/audit_report.md
+```
+
+**ISO References**:
+
+| Check | Standard | Clause |
+|-------|----------|--------|
+| 51 | 29148, 15289 | 29148:Annex B, 15289:6.2 |
+| 52 | 29148 | 29148:6.2, 29148:7 |
+| 53 | 29148, 12207 | 29148:5.2.6, 12207:6.4.3 |
+| 54 | 15289, 12207 | 15289:9, 12207:6.3.2 |
+| 55 | 15289, 12207 | 15289:9, 12207:6.3.3 |
+| 56 | 15289, 1028 | 15289:9.2, 1028:4 |
+
+---
+
 ## Quick Summary Table
 
 Copy this table into your audit report:
@@ -308,7 +351,8 @@ Copy this table into your audit report:
 | Navigation pattern | 40-43 | | |
 | Cross-references | 44-47 | | |
 | ADR structure | 48-50 | | |
-| **Total** | **50** | | |
+| ISO gap-closure artifacts | 51-56 | | |
+| **Total** | **56** | | |
 
 ---
 
