@@ -19,9 +19,9 @@ The numbered directories follow the Software Development Life Cycle (SDLC) phase
 
 | Phase | Folder | Purpose | Typical Content | Standard |
 |-------|--------|---------|-----------------|----------|
-| 0 | `0-ideation/` | Research & exploration | Research notes, competitive analysis, proof of concepts | — |
-| 1 | `1-requirements/` | What to build | User stories, acceptance criteria, backlog, roadmap | ISO/IEC/IEEE 29148:2018 |
-| 2 | `2-planning/` | Sprint planning | Gap analysis, estimates, sprint docs | — |
+| 0 | `0-ideation/` | Research & exploration | Research notes, competitive analysis, proof of concepts, ConOps | ISO/IEC/IEEE 29148:2018 (Annex B) |
+| 1 | `1-requirements/` | What to build | User stories, acceptance criteria, SRS, StRS, traceability matrix | ISO/IEC/IEEE 29148:2018 |
+| 2 | `2-planning/` | Sprint planning | Gap analysis, estimates, sprint docs, progress reports, decision log, RFCs | ISO/IEC/IEEE 12207:2017, 15289:2019 |
 | 3 | `3-design/` | How it works | Architecture, ADRs, sequence diagrams, API specs | ISO/IEC/IEEE 42010:2022 |
 | 4 | `4-development/` | How to develop | Developer guides, setup, coding standards | — |
 | 5 | `5-testing/` | Test strategy | Test plans, testing guides, QA procedures | ISO/IEC/IEEE 29119-3:2021 |
@@ -29,6 +29,8 @@ The numbered directories follow the Software Development Life Cycle (SDLC) phase
 | 7 | `7-operation/` | How to run | Runbooks, monitoring, troubleshooting, SLAs | — |
 
 > **Note**: Not all projects need all phases. Start with `3-design/` and `4-development/` at minimum.
+
+> **Lifecycle**: For how documents flow between phases (Idea → FR → RFC → ADR → Architecture), see [`sdlc/lifecycle.md`](../sdlc/lifecycle.md).
 
 ## Directory Structure
 
@@ -39,8 +41,17 @@ project/
 │   ├── README.md                       # Main documentation hub
 │   ├── glossary.md                     # Term definitions (REQUIRED)
 │   ├── 0-ideation/                     # (Optional) Research & ideas
+│   │   └── conops.md                   # Concept of Operations (29148 Annex B)
 │   ├── 1-requirements/                 # (Optional) Requirements docs
+│   │   ├── srs.md                      # Software Requirements Specification
+│   │   ├── strs.md                     # Stakeholder Requirements Specification (29148)
+│   │   └── traceability_matrix.md      # Requirements traceability (29148, 12207)
 │   ├── 2-planning/                     # (Optional) Sprint planning
+│   │   ├── progress_reports.md         # Progress/status reports (12207, 15289)
+│   │   ├── decision_log.md             # Decision log (12207, 15289)
+│   │   ├── audit_report.md            # Audit report (15289, 1028)
+│   │   └── rfc/                        # Request for Comments (pre-decision proposals)
+│   │       └── NNN-[proposal].md       # Individual RFCs (accepted → ADR; rejected → archived here)
 │   ├── 3-design/
 │   │   ├── architecture.md             # Design hub document
 │   │   ├── [feature]-overview.md       # Feature architecture docs

@@ -17,12 +17,17 @@ This directory contains language-agnostic templates for comprehensive software d
 - **[ci_cd.template.md](ci_cd.template.md)** - CI/CD pipeline configuration
 - **[publishing.template.md](publishing.template.md)** - Package registry publishing
 
+### Planning & Proposals
+
+- **[sdlc/2-planning/rfc.template.md](sdlc/2-planning/rfc.template.md)** - Request for Comments (pre-decision proposals that graduate to ADRs)
+- **[sdlc/lifecycle.md](sdlc/lifecycle.md)** - SDLC document lifecycle: how Idea → FR → RFC → ADR → Architecture flows
+
 ### Bug Reporting & Issue Management
 - **[sdlc/4-development/bug_reporting_strategy.template.md](sdlc/4-development/bug_reporting_strategy.template.md)** - Bug reporting strategy (developer/contributor view)
 - **[sdlc/7-operation/bug_reporting_strategy.template.md](sdlc/7-operation/bug_reporting_strategy.template.md)** - Bug reporting strategy (operations/SRE view)
 
 ### Compliance
-- **[compliance-checklist.md](compliance-checklist.md)** - 50-point documentation audit checklist
+- **[compliance-checklist.md](compliance-checklist.md)** - 56-point documentation audit checklist
 - **[backend/docs/3-design/compliance/compliance_checklist.template.md](backend/docs/3-design/compliance/compliance_checklist.template.md)** - Architecture compliance checklist template (REQUIRED per project)
 
 ### Repository Files
