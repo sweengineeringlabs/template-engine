@@ -11,11 +11,12 @@ This directory contains language-agnostic templates for comprehensive software d
 - **[framework_doc.template.md](framework_doc.template.md)** - Framework-wide documentation (architecture, security, patterns)
 - **[framework.md](framework.md)** - Complete documentation framework guide
 
-### Deployment Documentation
+### Deployment & Operations Documentation
 - **[release_versioning.template.md](release_versioning.template.md)** - Version management and SemVer
 - **[deployment_workflow.template.md](deployment_workflow.template.md)** - Deployment strategies and processes
 - **[ci_cd.template.md](ci_cd.template.md)** - CI/CD pipeline configuration
 - **[publishing.template.md](publishing.template.md)** - Package registry publishing
+- **[sdlc/7-operation/filesystem_paths.template.md](sdlc/7-operation/filesystem_paths.template.md)** - XDG Base Directory compliant file storage paths
 
 ### Planning & Proposals
 

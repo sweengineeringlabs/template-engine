@@ -100,5 +100,6 @@ impl {Module}Config {
 
 ## See Also
 
+- [Filesystem Paths](../../7-operation/filesystem_paths.md) — XDG-compliant file storage locations
 - [Troubleshooting](troubleshooting.md)
 - [Integration Guide](../3-design/integration.md)

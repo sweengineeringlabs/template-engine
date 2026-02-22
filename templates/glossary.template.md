@@ -167,6 +167,9 @@ Alphabetized list of terms used in {Project Name}.
 
 ## X
 
+**XDG Base Directory Specification**
+: A freedesktop.org standard defining where applications should store config (`~/.config/`), data (`~/.local/share/`), state (`~/.local/state/`), and cache (`~/.cache/`) files. See [Filesystem Paths](7-operation/filesystem_paths.md).
+
 **{Term}**
 : {Definition of the term.}
 
