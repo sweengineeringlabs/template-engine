@@ -25,6 +25,7 @@ This template engine is based on documented research. If your project is based o
 | Paper | Description |
 |-------|-------------|
 | [SEA Workflow](sea_workflow.md) | Stratified Encapsulation Architecture workflow guide |
+| [Pattern/Svc Workflow](pattern_svc_workflow.md) | Cross-repo `{domain}-pattern`/`{domain}-svc` split: naming, where shared logic belongs, SemVer, compliance checklist |
 | [SDLC Documentation Framework](01-ideation/research/papers/sdlc_documentation_framework.md) | Documentation standards across SDLC phases |
 | [Module Governance Framework](01-ideation/research/papers/module_governance_framework.md) | Module organization and governance patterns |
 | [Documentation Navigation Framework](01-ideation/research/papers/documentation_navigation_framework.md) | Documentation structure and navigation |

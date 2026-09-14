@@ -12,6 +12,11 @@
 
 Detailed workflow for creating or migrating modules to SEA (Stratified Encapsulation Architecture) compliance.
 
+For a domain whose contract needs to be published and reused across **multiple
+separate repos** (not just layers within one module), see
+[Pattern/Svc Workflow](pattern_svc_workflow.md) instead -- same `spi`/`core`
+vocabulary, different scope.
+
 ## Module Structure
 
 ```
