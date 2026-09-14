@@ -8,6 +8,7 @@
 ## Table of Contents
 - [When to Use This, vs SEA's In-Repo Layering](#when-to-use-this-vs-seas-in-repo-layering)
 - [Repo Structure](#repo-structure)
+- [Single Responsibility: One Domain Per `-pattern` Crate](#single-responsibility-one-domain-per--pattern-crate)
 - [Naming Conventions](#naming-conventions)
 - [The "Zero Implementation" Rule, Precisely](#the-zero-implementation-rule-precisely)
 - [Where Shared Logic Belongs](#where-shared-logic-belongs)
@@ -60,6 +61,56 @@ organized SEA-style — the two conventions compose, they don't compete.
 consumer-repo/                     # depends on both by version, defines no
                                     # primitives of its own for this domain
 ```
+
+## Single Responsibility: One Domain Per `-pattern` Crate
+
+A `-pattern` crate is one bounded domain concept — one reason to change. Two
+traits sharing a repo's own history, or sounding topically adjacent, is not the
+same thing as sharing a responsibility. Before adding a second trait to an
+existing `-pattern` crate (or before splitting one that already has two), run
+this test:
+
+> **Do the two traits have different consumers, different delivery/behavioral
+> contracts, or different evolution drivers?** If yes to any of these, they are
+> two domains, not one — even if they were extracted from the same source repo,
+> even if most consumers currently want both.
+
+**Real case study, this org**: `message-broker-pattern` originally bundled
+`MessageBroker` (fan-out/broadcast — every subscriber gets every message) with
+`TaskQueue` (competing-consumer — each task goes to exactly one worker). They
+came from the same source pilot (`edge-message-broker`) and were merged into
+one crate specifically so "a consumer gets this domain's whole primitive set
+from one crate" — migration-completeness, not SRP, was the reasoning at the
+time. Revisited later: `MessageBroker` and `TaskQueue` have genuinely different
+evolution drivers (pub/sub concerns — topic wildcards, ordering — vs. queue
+concerns — visibility timeout, retry, dead-letter handling) and different
+consumers (some want broadcast, some want a work queue, not all want both).
+Split into `message-broker-pattern` (`MessageBroker` only) and a new
+`task-queue-pattern` (`TaskQueue` only) — and the split goes **all the way
+through `-svc` too**: `message-broker-svc-nats-spi` (broker only) and a new
+`task-queue-svc-nats-spi` (queue only), not one crate implementing both traits
+per backend. Shared history is not shared responsibility, one layer down
+either.
+
+**Applied proactively, same org, same day**: "scheduler" is ambiguous across
+three distinct domains — an executor/runtime abstraction (which runtime drives
+a future — no concept of time), a time-based/cron scheduler (run at/every X),
+and a distributed task queue (already `TaskQueue`, above). Rather than build
+one `scheduler-pattern` covering all three and needing this same correction
+later, they were kept as separate repo pairs from the start:
+`executor-pattern`/`executor-svc` (the runtime-selection domain, renamed from
+"Scheduler" to "Executor" specifically to stop it from absorbing the
+time-based domain's name) and `scheduler-pattern`/`scheduler-svc` (the
+time-based domain, freed of that ambiguity). Neither depends on the other's
+crate for its own trait — `scheduler-svc`'s implementation may use an
+`Executor` internally to run a fired job, but that's an implementation detail
+of `-svc`, invisible to `scheduler-pattern`'s own contract.
+
+**The litmus test for a new domain considering whether to bundle two traits**:
+would a consumer who genuinely wants only one of them be forced to also
+depend on, understand, and keep pace with version bumps to the other? If yes,
+for two traits with real behavioral differences, that's two `-pattern` crates,
+not a bundle-for-convenience.
 
 ## Naming Conventions
 
@@ -207,6 +258,10 @@ one rule per row, each with a real, re-run-and-verify `grep`/`cargo` command —
 an assertion. See `message-broker-svc`'s own checklist for a worked example this
 was derived from. Minimum rule set:
 
+- [ ] Every trait in `-pattern` shares the same responsibility with every other
+      trait there — different consumers or different evolution drivers means a
+      separate `-pattern`/`-svc` repo pair, not a second trait bundled in
+      (see [Single Responsibility](#single-responsibility-one-domain-per--pattern-crate))
 - [ ] No crate-spanning "which backend" type anywhere (`grep` for the obvious enum
       name returns nothing)
 - [ ] `-pattern` implements none of its own primary traits for a concrete type
@@ -252,6 +307,13 @@ kept here specifically because they were real mistakes, not hypothetical ones:
 5. **Deprecating instead of deleting** a crate/module once its content moves.
    `inmemory-spi` and `spi/shared` were both deleted outright when their content
    relocated — no compatibility shim, no re-export stub.
+6. **Bundling two traits with different reasons to change into one `-pattern`
+   crate because they share an origin repo.** `MessageBroker` (fan-out) and
+   `TaskQueue` (competing-consumer) were merged into one crate for
+   migration-completeness, not because they're one responsibility — see
+   [Single Responsibility](#single-responsibility-one-domain-per--pattern-crate)
+   above for the real case study and the split now underway to fix it, all the
+   way through `-svc`.
 
 ## Worked Example
 
@@ -261,7 +323,26 @@ kept here specifically because they were real mistakes, not hypothetical ones:
 `Validator` trait carries `validate_config`/`validator_response` as default
 methods — the concrete, reusable instance of the "default method on the trait
 itself" rule above. See that repo pair's own `docs/3-design/architecture.md` for
-the full reasoning behind each decision recorded here.
+the full reasoning behind each decision recorded here. The SRP split described
+above (`TaskQueue` moving to a new `task-queue-pattern`/`task-queue-svc` repo
+pair) is tracked in `message-broker-pattern#2`/`message-broker-svc#4` — planned,
+not yet executed as of this writing.
 
 Prior art for the same split, one domain over: `wasm-capability-pattern` /
 `wasm-capability-svc`.
+
+A second worked example, built the same day this SRP section was added:
+`executor-pattern`/`executor-svc` (extracted from a real existing
+implementation, `edge/scheduler`'s `swe-edge-runtime-scheduler` — see that
+repo's own ADR-001 for the extraction and the `Scheduler`→`Executor` rename)
+and `scheduler-pattern`/`scheduler-svc` (designed contract-first, no existing
+pilot — see that repo's own ADR-001 for the domain-modeling reasoning behind
+`Trigger`/`Job`/`JobId` with no prior implementation to extract from). Also
+worth noting: `Executor::run<F: Future>` is generic, so `Executor` is not
+object-safe (no `dyn Executor`) — `executor-svc-saf`'s `ExecutorFactory`
+returns `impl Executor` per constructor instead of the usual
+`Box<dyn Trait>` shape. `Scheduler::schedule`/`::cancel` have no generic
+parameters, so `Scheduler` *is* object-safe, and `scheduler-svc-saf`'s
+`SchedulerFactory` does return `Box<dyn Scheduler>`. Two sibling repos in the
+same org, two different, both-correct answers — check your own trait's
+object-safety before assuming one shape.
