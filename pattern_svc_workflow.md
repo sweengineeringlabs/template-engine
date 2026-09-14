@@ -312,21 +312,23 @@ kept here specifically because they were real mistakes, not hypothetical ones:
    `TaskQueue` (competing-consumer) were merged into one crate for
    migration-completeness, not because they're one responsibility — see
    [Single Responsibility](#single-responsibility-one-domain-per--pattern-crate)
-   above for the real case study and the split now underway to fix it, all the
+   above for the real case study and the split that fixed it, all the
    way through `-svc`.
 
 ## Worked Example
 
 `message-broker-pattern` + `message-broker-svc` (this org, this repo pair) —
-`core::{InMemoryMessageBroker, InMemoryTaskQueue}`, `spi::{nats,kafka,postgres}-spi`,
-`saf::{MessageBrokerFactory, TaskQueueFactory}`. `message-broker-pattern`'s own
+`core::InMemoryMessageBroker`, `spi::{nats,kafka,postgres}-spi`,
+`saf::MessageBrokerFactory`. `message-broker-pattern`'s own
 `Validator` trait carries `validate_config`/`validator_response` as default
 methods — the concrete, reusable instance of the "default method on the trait
 itself" rule above. See that repo pair's own `docs/3-design/architecture.md` for
 the full reasoning behind each decision recorded here. The SRP split described
 above (`TaskQueue` moving to a new `task-queue-pattern`/`task-queue-svc` repo
-pair) is tracked in `message-broker-pattern#2`/`message-broker-svc#4` — planned,
-not yet executed as of this writing.
+pair) has been executed — see `message-broker-pattern#2`/`message-broker-svc#4`
+(both closed) and the new
+[`task-queue-pattern`](https://github.com/sweengineeringlabs/task-queue-pattern)/
+[`task-queue-svc`](https://github.com/sweengineeringlabs/task-queue-svc) repo pair.
 
 Prior art for the same split, one domain over: `wasm-capability-pattern` /
 `wasm-capability-svc`.
