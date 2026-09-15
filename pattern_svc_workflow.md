@@ -9,6 +9,7 @@
 - [When to Use This, vs SEA's In-Repo Layering](#when-to-use-this-vs-seas-in-repo-layering)
 - [Repo Structure](#repo-structure)
 - [Single Responsibility: One Domain Per `-pattern` Crate](#single-responsibility-one-domain-per--pattern-crate)
+- [Zero-Cost Dispatch: `impl Trait` vs a Closed Enum vs `Arc`/`Box<dyn Trait>`](#zero-cost-dispatch-impl-trait-vs-a-closed-enum-vs-arcboxdyn-trait)
 - [Naming Conventions](#naming-conventions)
 - [The "Zero Implementation" Rule, Precisely](#the-zero-implementation-rule-precisely)
 - [Where Shared Logic Belongs](#where-shared-logic-belongs)
@@ -111,6 +112,74 @@ would a consumer who genuinely wants only one of them be forced to also
 depend on, understand, and keep pace with version bumps to the other? If yes,
 for two traits with real behavioral differences, that's two `-pattern` crates,
 not a bundle-for-convenience.
+
+## Zero-Cost Dispatch: `impl Trait` vs a Closed Enum vs `Arc`/`Box<dyn Trait>`
+
+Every async `-pattern` trait's methods, and every `-svc` `*Factory`'s constructor
+return type, is a real choice between three shapes — not a default to reach for
+without checking which one actually fits. Checked and fixed across six domains in
+one pass after being called out as a real gap, not a hypothetical one — every
+`-pattern`/`-svc` pair built before the check (`message-broker`, `task-queue`,
+`scheduler`, `oltp`, `olap`, `pipeline`) had at least one of these wrong; see each
+repo's own `#issues` tagged "Zero-cost abstraction violation" for the specifics.
+
+**`impl Trait` — the default.** Compile-time-fixed to one concrete type per
+function, so it costs nothing beyond what the concrete implementation itself
+costs: no heap allocation, no vtable, inlinable across the call. Use this for
+every async trait method (`-> impl Future<Output = T> + Send + '_`, RPITIT,
+stable since Rust 1.75 — never a local `Pin<Box<dyn Future>>` wrapper type
+"for consistency," that box is a real per-call allocation with nothing to show
+for it) and for any `*Factory` constructor where the concrete type is always
+known at that constructor (`SchedulerFactory::in_memory() -> impl Scheduler`,
+`TransactionalStoreFactory::in_memory() -> impl TransactionalStore<..>`,
+`AnalyticalStoreFactory::in_memory() -> impl AnalyticalStore`,
+`PipelineFactory::in_memory(..) -> impl Pipeline<..>` — none of these have a
+second backend today, so there is nothing for a caller to select between at
+runtime). The real cost: a trait using RPITIT, or with an associated type, is
+no longer object-safe — there is no `Box<dyn Trait>` for it, and every method
+signature has to accept that up front, not discover it as a surprise later.
+
+**A closed enum — when a `-svc` repo has multiple real backends and a real
+caller needs to pick one at runtime** (config-driven backend selection, e.g. a
+deployed binary reading `BROKER_BACKEND` from the environment without
+recompiling) **and the full set of backends is known and finite at compile
+time.** One variant per backend, `match self { .. }` inside each trait method,
+each variant's own `async` code becoming one branch of a single generated
+state machine — a jump table, not a vtable, and no heap allocation. This is
+what `message-broker-svc`'s `AnyMessageBroker` and `task-queue-svc`'s
+`AnyTaskQueue` are: every `MessageBrokerFactory`/`TaskQueueFactory`
+constructor returns the same one concrete enum type, so callers keep the
+"one factory, one uniform return type" ergonomics a `Box<dyn Trait>` used to
+provide, without paying for it. A real trade-off worth naming: if the enum's
+variants differ a lot in size, the smallest variant pays the stack cost of the
+largest one unless boxed individually (`task-queue-svc`'s `Nats` variant
+boxes its inner `NatsTaskQueue` for exactly this reason — a one-time
+construction-time allocation, not a per-call one, a fundamentally smaller
+concern than what this section exists to avoid).
+
+**`Arc<dyn Trait>`/`Box<dyn Trait>` — only when the set of implementors is
+genuinely open-ended,** not just "more than one": arbitrary caller-supplied
+closures, or types from crates this repo has never heard of. This is real,
+justified erasure, not a shortcut — `scheduler-pattern`'s `Job`
+(`Arc<dyn Fn() -> BoxFuture<..> + Send + Sync>`) and `pipeline-pattern`'s
+`Stage<P>` (`Arc<dyn Fn(P) -> Pin<Box<dyn Future<..>>> + Send + Sync>`) both
+use it because a scheduler/pipeline stores a runtime-configured list of
+closures no implementor can enumerate at compile time — the same reason
+`std::thread::spawn`'s closure parameter or any GUI event-callback registry
+ends up boxed too. `Arc` specifically (not `Box`) where the value needs
+shared, cheaply-cloneable ownership across threads (a job invoked on whatever
+worker thread the backend picks, possibly more than once for an `Every`
+trigger) — `Box` where a single owner is enough. Before reaching for this
+shape, check whether the actual requirement is "many different things I don't
+control" (this) or "one of a few things I do control" (the enum above) or
+"exactly one thing, known here" (`impl Trait`) — the wrong one either forces
+callers into generics they don't need, or pays for polymorphism nothing uses.
+
+**Compliance rule**: every async trait method and every `*Factory` constructor
+return type must be one of the three shapes above, with the choice argued in
+that repo's own `docs/3-design/architecture.md` — not asserted, not copied
+from a sibling repo's shape without checking whether the same reasoning
+actually applies.
 
 ## Naming Conventions
 
@@ -270,9 +339,13 @@ was derived from. Minimum rule set:
 - [ ] No crate under `spi/` is named for a backend that wraps nothing external
 - [ ] No `spi`/`core`/`saf` crate hand-rolls logic that already lives as a default
       method on a `-pattern` trait
-- [ ] Every `*Factory` constructor in `saf` returns the same boxed trait-object
-      type — never a mix of `impl Trait` and `Box<dyn Trait>` across constructors
-      of the same factory
+- [ ] Every async trait method returns `impl Future`, never a boxed future
+      wrapper type (see [Zero-Cost Dispatch](#zero-cost-dispatch-impl-trait-vs-a-closed-enum-vs-arcboxdyn-trait))
+- [ ] Every `*Factory` constructor's return type is one of `impl Trait` / a
+      closed enum / `Arc`/`Box<dyn Trait>`, chosen and argued per that trait's
+      actual object-safety and runtime-selection needs — never assumed from a
+      sibling repo's shape, never a mix of `impl Trait` and `Box<dyn Trait>`
+      across constructors of the same factory
 - [ ] `saf`'s own public surface never re-exports a concrete `spi`/`core` type
 - [ ] `-svc` has zero dependency on any specific consumer repo
 - [ ] Lint gates (`#![deny(unsafe_code)]`, `#![warn(missing_docs)]`, `clippy -D
@@ -342,9 +415,48 @@ pilot — see that repo's own ADR-001 for the domain-modeling reasoning behind
 `Trigger`/`Job`/`JobId` with no prior implementation to extract from). Also
 worth noting: `Executor::run<F: Future>` is generic, so `Executor` is not
 object-safe (no `dyn Executor`) — `executor-svc-saf`'s `ExecutorFactory`
-returns `impl Executor` per constructor instead of the usual
-`Box<dyn Trait>` shape. `Scheduler::schedule`/`::cancel` have no generic
-parameters, so `Scheduler` *is* object-safe, and `scheduler-svc-saf`'s
-`SchedulerFactory` does return `Box<dyn Scheduler>`. Two sibling repos in the
-same org, two different, both-correct answers — check your own trait's
-object-safety before assuming one shape.
+returns `impl Executor` per constructor. `Scheduler::schedule`/`::cancel`
+have no generic parameters, so `Scheduler` *is* object-safe — but
+`scheduler-svc-saf`'s `SchedulerFactory` returns `impl Scheduler` too, not
+`Box<dyn Scheduler>` (a later correction — see
+[Zero-Cost Dispatch](#zero-cost-dispatch-impl-trait-vs-a-closed-enum-vs-arcboxdyn-trait)
+above): object safety being *available* isn't a reason to pay for dynamic
+dispatch nobody needs. With one backend and no real caller selecting between
+backends at runtime, `impl Trait` is strictly better than `Box<dyn Trait>`
+even for a trait that could support the latter. Object-safety and "should
+this factory use it" are two different questions — check both.
+
+A third worked example: every `-pattern`/`-svc` pair built before
+[Zero-Cost Dispatch](#zero-cost-dispatch-impl-trait-vs-a-closed-enum-vs-arcboxdyn-trait)
+existed as a documented rule got a real, checked pass against it, one issue
+per repo tagged "Zero-cost abstraction violation" (all now closed — see each
+repo's own issue history for before/after):
+
+- `message-broker-pattern`'s `MessageBroker` moved from a boxed
+  `BrokerFuture` to `impl Future` per method; `message-broker-svc`'s
+  `MessageBrokerFactory` moved from `Box<dyn MessageBroker>` to
+  `AnyMessageBroker` (closed enum — five real backends, genuine runtime
+  selection). `task-queue-pattern`/`task-queue-svc` got the identical
+  treatment (`AnyTaskQueue`), and `Task`'s `Bytes` payload was checked and
+  kept, not made generic — NATS/Kafka genuinely need bytes on the wire.
+- `oltp-pattern`'s `TransactionalStore` and `olap-pattern`'s
+  `AnalyticalStore` moved from a fixed, opaque-bytes payload type to
+  associated types (`type Key`/`type Record`; `type Rows: Stream<..>`),
+  once checked against this org's own real prior art for both domains
+  (`edge-application-repository-api::Repository<Entity, Id>`,
+  found only after both crates had already shipped without checking for
+  it first — see [Naming Conventions](#naming-conventions) for why
+  checking for prior art before designing contract-first is not optional).
+  Both are now generic all the way through their `-svc` implementations
+  (`InMemoryTransactionalStore<K, R>`), and both factories return
+  `impl Trait` (one backend each, no runtime selection to preserve).
+- `pipeline-pattern`'s `Pipeline` got the same associated-type treatment
+  (`type Payload`), while its `Stage<P>` callback type kept its own boxed
+  future on purpose — the justified `Arc<dyn Trait>` case from
+  [Zero-Cost Dispatch](#zero-cost-dispatch-impl-trait-vs-a-closed-enum-vs-arcboxdyn-trait)
+  above, for the same reason `scheduler-pattern`'s `Job` does.
+
+The pattern across all six: every trait's *own* methods went to `impl Trait`
+or an associated type without exception; every `-svc` factory's return type
+was re-derived from its actual backend count and actual runtime-selection
+need, not copied from whichever shape a sibling repo already had.
