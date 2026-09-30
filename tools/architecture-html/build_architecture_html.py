@@ -337,8 +337,11 @@ def svg_sequence(code):
                 else:
                     SELF_RM[0] = max(SELF_RM[0], 52 + len(ev[3]) * 6.7 + 30 - HW[-1] / 2)
                 continue
-            assert j == i + 1, ('non-adjacent message', ev)
-            need[i] = max(need[i], len(ev[3]) * 6.7 + 44)
+            # a message may cross the lifelines between its ends, as in any sequence diagram: give the span room for its label
+            want = len(ev[3]) * 6.7 + 44
+            have = sum(need[i:j])
+            if have < want:
+                need[j - 1] += want - have
     # a note over the first or last participant must stay inside the alt frame, which starts 20 px from each edge
     NOTE_INSET = 34
     LM = RM = 40
