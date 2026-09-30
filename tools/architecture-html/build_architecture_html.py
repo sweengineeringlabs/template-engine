@@ -62,6 +62,8 @@ EXTRA_CSS = """
   nav.toc .toc-sub a{ display: block; padding: 4px 0 4px 12px; margin-left: -1px; font-size: 12px; font-weight: 400; color: var(--ink-soft); border-left: 2px solid transparent; }
   nav.toc .toc-sub a:hover{ color: var(--ink); border-left-color: var(--line); }
   nav.toc .toc-sub a[aria-current="true"]{ color: var(--accent-ink); border-left-color: var(--accent); font-weight: 600; }
+  html.js section.is-off{ display: none; }
+  @media print{ html.js section.is-off{ display: block; } }
   html.js .tabs > .panel > h3:first-child{ display: none; }   /* the tab already names the panel */
   html.js .tabs.sub > .panel > h4:first-child{ display: none; }
   section p, section ul, section ol{ max-width: 88ch; }
@@ -349,6 +351,7 @@ def svg_sequence(code):
     front, back = [], []
     labels = []          # (text, x0, y0, x1, y1) for the overlap check
     borders = []         # y of every horizontal frame border
+    note_boxes = []      # (x0, y0, x1, y1) of every note, so no label can sit on one
     y = 92
     depth, frame_top = 0, None
     for ev in events:
@@ -372,8 +375,9 @@ def svg_sequence(code):
             assert w / 2 + 8 <= min(neighbours), ('note wider than its column', ev[2], w, neighbours)
             assert cx[k] - w / 2 >= X0 + 8 and cx[k] + w / 2 <= X1 - 8, ('note sticks out of the frame', ev[2])
             front.append(f'<rect class="dg-note" x="{cx[k] - w / 2}" y="{y}" width="{w}" height="28" rx="6"/>')
+            note_boxes.append((cx[k] - w / 2, y, cx[k] + w / 2, y + 28))
             front.append(f'<text class="dg-t" x="{cx[k]}" y="{y + 18}" text-anchor="middle">{html.escape(ev[2])}</text>')
-            y += 44
+            y += 54   # room for the next message label below the note
         elif kind == 'alt':
             assert depth == 0, 'nested alt is not supported'
             depth, frame_top = 1, y - 14
@@ -401,6 +405,8 @@ def svg_sequence(code):
             y += 28   # room for the next message label below the frame border
     assert depth == 0, 'unclosed alt'
     for (txt, lx0, ly0, lx1, ly1) in labels:
+        for (nx0, ny0, nx1, ny1) in note_boxes:
+            assert not (lx0 < nx1 and nx0 < lx1 and ly0 < ny1 and ny0 < ly1), ('a message label touches a note', txt)
         for by in borders:
             assert not (ly0 - 1 < by < ly1 + 1), ('a message label touches a frame border', txt, by)
     H = round(y + 16)
@@ -655,7 +661,7 @@ def nav_item(sid, t):
 
 
 nav = '\n'.join(nav_item(sid, t) for sid, t, _ in sections)
-secs = '\n'.join('      <section id="%s">\n        <h2>%s</h2>\n%s\n      </section>' % (sid, html.escape(t), '\n'.join('        ' + l for l in b.split('\n'))) for sid, t, b in sections)
+secs = '\n'.join('      <section id="%s">\n        <h2>%s</h2>\n%s\n      </section>' % (sid, html.escape(t), b) for sid, t, b in sections)
 
 TAB_JS = '''<script>
 (function () {
@@ -713,15 +719,12 @@ TOC_JS = '''<script>
   var items = Array.prototype.slice.call(document.querySelectorAll('nav.toc > ol > li[data-section]'));
   if (!items.length) { return; }
   var sections = items.map(function (li) { return document.getElementById(li.getAttribute('data-section')); });
-  var LINE = 140;   // a section is active once its top has passed this many pixels from the viewport top
-  function activeIndex() {
-    var idx = 0;
-    sections.forEach(function (s, i) { if (s && s.offsetHeight && s.getBoundingClientRect().top <= LINE) { idx = i; } });
-    return idx;
+  // only the section selected in the sidebar is shown; without JavaScript every section shows
+  function showSection(i) {
+    items.forEach(function (li, k) { li.classList.toggle('is-active', k === i); });
+    sections.forEach(function (s, k) { if (s) { s.classList.toggle('is-off', k !== i); } });
   }
-  function sync() {
-    var on = activeIndex();
-    items.forEach(function (li, i) { li.classList.toggle('is-active', i === on); });
+  function syncTabs() {
     var selected = {};
     Array.prototype.forEach.call(document.querySelectorAll('[role="tab"][aria-selected="true"]'), function (t) {
       selected[t.getAttribute('aria-controls')] = true;
@@ -730,15 +733,20 @@ TOC_JS = '''<script>
       if (selected[a.getAttribute('data-panel')]) { a.setAttribute('aria-current', 'true'); } else { a.removeAttribute('aria-current'); }
     });
   }
-  var pending = false;
-  function later() { if (!pending) { pending = true; requestAnimationFrame(function () { pending = false; sync(); }); } }
-  window.addEventListener('scroll', later, { passive: true });
-  window.addEventListener('resize', later);
-  window.addEventListener('hashchange', function () { setTimeout(sync, 0); });
-  Array.prototype.forEach.call(document.querySelectorAll('[role="tab"], nav.toc a'), function (el) {
-    el.addEventListener('click', function () { setTimeout(sync, 0); });
+  function fromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var el = id ? document.getElementById(id) : null;
+    var section = el ? el.closest('section') : null;
+    var i = section ? sections.indexOf(section) : -1;
+    showSection(i < 0 ? 0 : i);
+    syncTabs();
+    if (el) { el.scrollIntoView(); }
+  }
+  window.addEventListener('hashchange', function () { setTimeout(fromHash, 0); });
+  Array.prototype.forEach.call(document.querySelectorAll('[role="tab"]'), function (el) {
+    el.addEventListener('click', function () { setTimeout(syncTabs, 0); });
   });
-  sync();
+  fromHash();
 })();
 </script>'''
 
