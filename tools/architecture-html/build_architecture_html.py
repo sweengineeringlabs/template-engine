@@ -358,7 +358,7 @@ def svg_sequence(code):
     for k in range(n - 1):
         cx.append(cx[-1] + need[k])
     W = round(cx[-1] + HW[-1] / 2 + RM)
-    assert W <= 1040, ('sequence diagram too wide', W)
+    assert W <= 1400, ('sequence diagram too wide', W)
     X0, X1 = 20, W - 20
 
     front, back = [], []
