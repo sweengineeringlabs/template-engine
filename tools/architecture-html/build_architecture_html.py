@@ -54,13 +54,16 @@ EXTRA_CSS = """
   pre.diagram code{ background: transparent; border: 0; padding: 0; font-size: inherit; }
   section h3{ margin: 22px 0 8px; }
   section h4{ margin: 20px 0 6px; font-size: 15px; }
-  nav.toc li > a{ transition: color .12s; }
-  nav.toc li.is-active > a{ color: var(--accent-ink); border-left-color: var(--accent); font-weight: 600; }
-  nav.toc .toc-sub{ display: none; list-style: none; margin: 0 0 6px; padding: 0; }
+  /* main entries: dark and medium weight. Tab entries: smaller, lighter, indented under a connector line */
+  nav.toc > ol > li > a{ color: var(--ink); font-weight: 500; transition: color .12s; }
+  nav.toc > ol > li.is-active > a{ color: var(--accent-ink); border-left-color: var(--accent); font-weight: 700; }
+  nav.toc .toc-sub{ display: none; list-style: none; margin: 0 0 8px 46px; padding: 0; border-left: 1px solid var(--line); }
   nav.toc li.is-active > .toc-sub{ display: block; }
-  nav.toc .toc-sub a{ display: block; padding: 4px 0 4px 46px; font-size: 12.5px; border-left: 2px solid transparent; }
+  nav.toc .toc-sub a{ display: block; padding: 4px 0 4px 12px; margin-left: -1px; font-size: 12px; font-weight: 400; color: var(--ink-soft); border-left: 2px solid transparent; }
+  nav.toc .toc-sub a:hover{ color: var(--ink); border-left-color: var(--line); }
   nav.toc .toc-sub a[aria-current="true"]{ color: var(--accent-ink); border-left-color: var(--accent); font-weight: 600; }
   html.js .tabs > .panel > h3:first-child{ display: none; }   /* the tab already names the panel */
+  html.js .tabs.sub > .panel > h4:first-child{ display: none; }
   section p, section ul, section ol{ max-width: 88ch; }
 """
 
@@ -325,11 +328,21 @@ def svg_sequence(code):
             i, j = sorted((idx[ev[1]], idx[ev[2]]))
             assert j == i + 1, ('non-adjacent message', ev)
             need[i] = max(need[i], len(ev[3]) * 6.7 + 44)
-    MARGIN = 40
-    cx = [MARGIN + HW[0] / 2]
+    # a note over the first or last participant must stay inside the alt frame, which starts 20 px from each edge
+    NOTE_INSET = 34
+    LM = RM = 40
+    for ev in events:
+        if ev[0] == 'note':
+            half = (len(ev[2]) * 6.7 + 24) / 2
+            k = idx[ev[1]]
+            if k == 0:
+                LM = max(LM, NOTE_INSET + half - HW[0] / 2)
+            if k == n - 1:
+                RM = max(RM, NOTE_INSET + half - HW[-1] / 2)
+    cx = [LM + HW[0] / 2]
     for k in range(n - 1):
         cx.append(cx[-1] + need[k])
-    W = round(cx[-1] + HW[-1] / 2 + MARGIN)
+    W = round(cx[-1] + HW[-1] / 2 + RM)
     assert W <= 1040, ('sequence diagram too wide', W)
     X0, X1 = 20, W - 20
 
@@ -357,6 +370,7 @@ def svg_sequence(code):
             w = len(ev[2]) * 6.7 + 24
             neighbours = [abs(cx[k] - cx[j]) for j in (k - 1, k + 1) if 0 <= j < n]
             assert w / 2 + 8 <= min(neighbours), ('note wider than its column', ev[2], w, neighbours)
+            assert cx[k] - w / 2 >= X0 + 8 and cx[k] + w / 2 <= X1 - 8, ('note sticks out of the frame', ev[2])
             front.append(f'<rect class="dg-note" x="{cx[k] - w / 2}" y="{y}" width="{w}" height="28" rx="6"/>')
             front.append(f'<text class="dg-t" x="{cx[k]}" y="{y + 18}" text-anchor="middle">{html.escape(ev[2])}</text>')
             y += 44
@@ -419,6 +433,20 @@ def pick_diagram(code):
     return svg.replace('dg-arrow', 'dg-arrow-%d' % DIAG_COUNT[0])
 
 
+USED_IDS = set()
+
+
+def unique_id(s):
+    """An HTML id from a heading, made unique when several sections repeat a heading such as 'Error flow'."""
+    base = slug(s)
+    n, cand = 2, base
+    while cand in USED_IDS:
+        cand = '%s-%d' % (base, n)
+        n += 1
+    USED_IDS.add(cand)
+    return cand
+
+
 def slug(s):
     s = re.sub(r'`', '', s.lower())
     s = re.sub(r'[^a-z0-9]+', '-', s).strip('-')
@@ -464,16 +492,43 @@ preamble = []   # paragraphs before the first ## heading: Audience, Status, Form
 section_tabs = {}   # section id -> [(panel id, tab title)]
 
 
+SUBTAB_SECTIONS = {'data-flow'}   # sections whose #### parts become sub-tabs inside each tab
+
+
+def plain_chunk(c):
+    """A chunk as HTML when it is not being turned into a tab: headings stay headings."""
+    if not isinstance(c, tuple):
+        return c
+    if c[0] == 'H3':
+        return '<h3 id="%s">%s</h3>' % (unique_id(c[1]), inline(c[1]))
+    return '<h4 id="%s">%s</h4>' % (unique_id(c[1]), inline(c[1]))
+
+
+def render_parts(chunks, base, subtabs):
+    """The chunks of one panel. Its #### parts become sub-tabs when asked and there are two or more."""
+    marks = [k for k, c in enumerate(chunks) if isinstance(c, tuple) and c[0] == 'H4']
+    if not subtabs or len(marks) < 2:
+        return '\n'.join(plain_chunk(c) for c in chunks)
+    lead = [plain_chunk(c) for c in chunks[:marks[0]]]
+    tabs, panels = [], []
+    for n, k in enumerate(marks):
+        end = marks[n + 1] if n + 1 < len(marks) else len(chunks)
+        title = chunks[k][1]
+        pid = slug(base + '-' + title)
+        tabs.append('<button type="button" role="tab" id="tab-%s" aria-controls="%s" aria-selected="%s" tabindex="%s">%s</button>'
+                    % (pid, pid, 'true' if n == 0 else 'false', '0' if n == 0 else '-1', inline(title)))
+        panels.append('<div class="panel" role="tabpanel" id="%s" aria-labelledby="tab-%s">\n<h4>%s</h4>\n%s\n</div>'
+                      % (pid, pid, inline(title), '\n'.join(plain_chunk(c) for c in chunks[k + 1:end])))
+    return '\n'.join(lead + ['<div class="tabs sub" data-tabs>', '<div class="tablist" role="tablist" aria-label="%s">' % html.escape(base) + ''.join(tabs) + '</div>'] + panels + ['</div>'])
+
+
 def render_body(sid, chunks):
     """A section with two or more ### parts becomes tabs (one panel per part); otherwise the parts stay in order."""
-    marks = [k for k, c in enumerate(chunks) if isinstance(c, tuple)]
-
-    def h3(title, pid=None):
-        return '<h3%s>%s</h3>' % (' id="%s"' % pid if pid else '', inline(title))
-
+    marks = [k for k, c in enumerate(chunks) if isinstance(c, tuple) and c[0] == 'H3']
+    subtabs = sid in SUBTAB_SECTIONS
     if len(marks) < 2:
-        return '\n'.join(h3(c[1], slug(c[1])) if isinstance(c, tuple) else c for c in chunks)
-    lead = chunks[:marks[0]]
+        return render_parts(chunks, sid, False)
+    lead = [render_parts(chunks[:marks[0]], sid, False)] if marks[0] else []
     tabs, panels = [], []
     section_tabs[sid] = []
     for n, k in enumerate(marks):
@@ -483,7 +538,8 @@ def render_body(sid, chunks):
         section_tabs[sid].append((pid, title))
         tabs.append('<button type="button" role="tab" id="tab-%s" aria-controls="%s" aria-selected="%s" tabindex="%s">%s</button>'
                     % (pid, pid, 'true' if n == 0 else 'false', '0' if n == 0 else '-1', inline(title)))
-        panels.append('<div class="panel" role="tabpanel" id="%s" aria-labelledby="tab-%s">\n%s\n%s\n</div>' % (pid, pid, h3(title), '\n'.join(chunks[k + 1:end])))
+        panels.append('<div class="panel" role="tabpanel" id="%s" aria-labelledby="tab-%s">\n<h3>%s</h3>\n%s\n</div>'
+                      % (pid, pid, inline(title), render_parts(chunks[k + 1:end], pid, subtabs)))
     return '\n'.join(lead + ['<div class="tabs" data-tabs>', '<div class="tablist" role="tablist" aria-label="%s">' % html.escape(sid) + ''.join(tabs) + '</div>'] + panels + ['</div>'])
 
 
@@ -529,7 +585,7 @@ while i < len(lines):
     if ln.startswith('#### '):
         flush_para(para)
         t = ln[5:].strip()
-        body.append('<h4 id="%s">%s</h4>' % (slug(t), inline(t)))
+        body.append(('H4', t))
         i += 1
         continue
     if ln.startswith('### '):
@@ -587,9 +643,12 @@ while i < len(lines):
 flush_para(para)
 close_section()
 
+TOC_FLAT = {'overview'}   # sections whose tabs are not repeated under their sidebar entry
+
+
 def nav_item(sid, t):
     sub = ''
-    if sid in section_tabs:
+    if sid in section_tabs and sid not in TOC_FLAT:
         sub = '\n              <ol class="toc-sub">' + ''.join(
             '<li><a href="#%s" data-panel="%s">%s</a></li>' % (p, p, inline(tt)) for p, tt in section_tabs[sid]) + '</ol>\n            '
     return '            <li data-section="%s"><a href="#%s"><span class="tn"></span>%s</a>%s</li>' % (sid, sid, html.escape(t), sub)
