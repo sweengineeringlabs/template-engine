@@ -325,14 +325,24 @@ def svg_sequence(code):
     n = len(parts)
     HW = [max(110, len(p[1]) * 7.3 + 28) for p in parts]
     need = [(HW[k] + HW[k + 1]) / 2 + 30 for k in range(n - 1)]
+    SELF_RM = [0]   # extra room right of the last lifeline for a self-call there
     for ev in events:
         if ev[0] == 'msg':
             i, j = sorted((idx[ev[1]], idx[ev[2]]))
+            if i == j:
+                # a self-call is drawn as a loop to the right of the lifeline, with its label beside the loop
+                assert not ev[4], ('a self-call has no reply arrow', ev)
+                if i < n - 1:
+                    need[i] = max(need[i], len(ev[3]) * 6.7 + 52 + 8 + HW[i + 1] / 2 - 20 + 6)
+                else:
+                    SELF_RM[0] = max(SELF_RM[0], 52 + len(ev[3]) * 6.7 + 30 - HW[-1] / 2)
+                continue
             assert j == i + 1, ('non-adjacent message', ev)
             need[i] = max(need[i], len(ev[3]) * 6.7 + 44)
     # a note over the first or last participant must stay inside the alt frame, which starts 20 px from each edge
     NOTE_INSET = 34
     LM = RM = 40
+    RM = max(RM, SELF_RM[0])
     for ev in events:
         if ev[0] == 'note':
             half = (len(ev[2]) * 6.7 + 24) / 2
@@ -359,6 +369,15 @@ def svg_sequence(code):
         if kind == 'msg':
             f, t = idx[ev[1]], idx[ev[2]]
             x1, x2 = cx[f], cx[t]
+            if f == t:
+                tw = len(ev[3]) * 6.7
+                assert f == n - 1 or x1 + 52 + tw + 8 <= cx[f + 1] - HW[f + 1] / 2 + 20, ('self-call label too wide', ev[3])
+                assert x1 + 52 + tw <= X1, ('self-call label sticks out of the frame', ev[3])
+                front.append(f'<path class="dg-edge" d="M {x1} {y} H {x1 + 34} V {y + 22} H {x1 + 4}" fill="none" marker-end="url(#dg-arrow)"/>')
+                front.append(f'<text class="dg-l" x="{x1 + 42}" y="{y + 15}">{html.escape(ev[3])}</text>')
+                labels.append((ev[3], x1 + 42, y + 3, x1 + 42 + tw, y + 16))
+                y += 58
+                continue
             span = abs(x2 - x1)
             tw = len(ev[3]) * 6.7
             assert tw + 30 <= span, ('message label wider than its span', ev[3], tw, span)
