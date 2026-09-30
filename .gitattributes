@@ -1,0 +1,2 @@
+# One line ending for every text file, whatever the contributor's core.autocrlf setting.
+* text=auto eol=lf
