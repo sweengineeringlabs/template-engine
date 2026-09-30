@@ -33,6 +33,7 @@ EXTRA_CSS = """
   .doc-meta p{ margin: 3px 0; }
   .doc-meta strong{ color: var(--ink); font-family: "IBM Plex Mono", ui-monospace, monospace; font-weight: 600; }
   figure.diagram-fig{ margin: 14px 0 22px; }
+  figure.diagram-wide{ overflow-x: auto; }
   figure.diagram-fig figcaption{ color: var(--ink-soft); font-size: 13px; margin-top: 8px; }
   svg.diagram-svg{ width: 100%; height: auto; max-width: 1040px; display: block; font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; }
   .dg-group{ fill: var(--schematic); stroke: var(--line); stroke-width: 1; }
@@ -285,7 +286,11 @@ def _defs():
 
 
 def _fig(W, H, body, aria, caption):
-    return (f'<figure class="diagram-fig"><svg class="diagram-svg" viewBox="0 0 {W} {H}" role="img" aria-label="{html.escape(aria)}">'
+    # a diagram wider than the page keeps its natural size and scrolls sideways, so its text stays readable
+    wide = W > 1040
+    cls = 'diagram-fig diagram-wide' if wide else 'diagram-fig'
+    size = f' style="width:{W}px;max-width:none"' if wide else ''
+    return (f'<figure class="{cls}"><svg class="diagram-svg" viewBox="0 0 {W} {H}"{size} role="img" aria-label="{html.escape(aria)}">'
             f'{_defs()}{body}</svg><figcaption>{html.escape(caption)}</figcaption></figure>')
 
 
