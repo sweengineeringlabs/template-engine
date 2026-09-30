@@ -2,7 +2,8 @@
 
 > **TLDR:** Two published crates/repos per domain — `{domain}-pattern` (traits +
 > value types + errors + DTOs, zero implementation, zero backend vocabulary) and
-> `{domain}-svc` (`core` + `spi/*` + `saf`, every real implementation). Consumers
+> `{domain}-svc` (a `{domain}-core` crate and one `{domain}-{tech}-spi` crate per
+> technology, each with its own public `saf` module; every real implementation). Consumers
 > depend on both by version. See checklist at end.
 
 ## Table of Contents
@@ -34,10 +35,10 @@ including three real corrections made along the way (documented under
 |---|---|---|
 | Scope | Layers within **one** module, one repo | A domain's primitives, split across **two** published repos |
 | Consumer | Code elsewhere in the same repo | Any number of *other* repos, by version |
-| Layers | `common`/`spi`/`api`/`core`/facade, all siblings | `-pattern` (contract) and `-svc` (`core`+`spi/*`+`saf`), each its own repo |
+| Layers | `common`/`spi`/`api`/`core`/facade, all siblings | `-pattern` (contract) and `-svc` (`-core` and `-{tech}-spi` crates, each with a `saf` module), each its own repo |
 | Use when | Organizing one module's internals | A domain's contract needs to be reused and versioned independently of any one implementation, by multiple consuming repos |
 
-A `-svc` repo's own internals (`core`, `spi/<tech>-spi`, `saf`) are themselves
+A `-svc` repo's own internals (`core`, `spi/<tech>-spi`, and a `saf` module in each) are themselves
 organized SEA-style — the two conventions compose, they don't compete.
 
 ## Repo Structure
@@ -52,16 +53,35 @@ organized SEA-style — the two conventions compose, they don't compete.
     └── types/                     # BrokerFuture, marker constants
 
 {domain}-svc/                      # published, standalone
-└── main/{domain}/
-    ├── core/                      # the technology-free reference implementation
-    ├── spi/
-    │   ├── {tech-a}-spi/          # wraps exactly one external technology
-    │   └── {tech-b}-spi/
-    └── saf/                       # construction facade + no-op reference impl
+└── scm/main/                      # current layout: one crate per box below
+    ├── core/                      # crate {domain}-core
+    │   └── src/{core,saf}/        #   core: technology-free reference impl (private)
+    │                              #   saf : factory + no-op reference impl (public, the only seam)
+    └── spi/
+        ├── {tech-a}-spi/          # crate {domain}-{tech-a}-spi, wraps exactly one external technology
+        │   └── src/{spi,saf}/     #   spi: the implementation (private); saf: its factory (public)
+        └── {tech-b}-spi/
 
 consumer-repo/                     # depends on both by version, defines no
                                     # primitives of its own for this domain
 ```
+
+### Layout history: `saf` merged into each crate
+
+`runtime-svc` ADR-001, Correction 2 (2026-09-29), merged the standalone `saf` crate into each
+`-core` and `-spi` crate. With `core` and `saf` as separate crates, "depend on `saf`, not `core`"
+was only a documentation convention: a consumer could add `core` as a dependency and construct the
+implementation directly, bypassing the factory. As one crate with the implementation `pub(crate)`
+and its module non-`pub`, a consumer can only obtain it through the factory, as a trait object or
+`impl Trait`.
+
+Read in the repos on 2026-09-30: the merged layout is in `runtime-svc`, `oci-svc`
+(`oci-linux-spi`) and `cri-svc` (`cri-core`). The older layout, with a separate `core`, `saf` and
+`spi/*` crates, is still in `message-broker-svc`, `task-queue-svc`, `scheduler-svc` and
+`executor-svc`, and `svc-discovery` has separate `saf` and `spi` crates. Where a cross-backend
+closed enum (the `AnyMessageBroker` shape in the dispatch section below) lives once `saf` is inside
+each crate is not settled in any repo read. In the merged repos, backend choice is the consumer's:
+`cri-core` receives its container backend by injecting a `ContainerRuntimeFactory`.
 
 ## Single Responsibility: One Domain Per `-pattern` Crate
 
@@ -187,7 +207,9 @@ actually applies.
   Nothing else. Never named `{domain}-contract` if `-pattern` is this org's live
   convention for the repo pair — check a real sibling (`wasm-capability-pattern`)
   before naming a new one from scratch.
-- **`{domain}-svc`** — every real implementation. `core` + `spi/*` + `saf`.
+- **`{domain}-svc`** — every real implementation: a `{domain}-core` crate and one
+  `{domain}-{technology}-spi` crate per technology, each with a public `saf` module
+  (see [Layout history](#layout-history-saf-merged-into-each-crate)).
 - **`core`** — the **zero-external-dependency reference implementation** of the
   domain's trait(s). Not a home for shared helper functions. Verified precedent:
   `runtime-resource-limit-core` ("pure, technology-free logic with no external
@@ -202,10 +224,13 @@ actually applies.
   currently filed — it belongs in `core`. There is no such thing as an
   "in-memory spi", a "local-fs spi", or any `*-spi` crate whose `Cargo.toml` names
   no external client library.
-- **`saf`** — construction facade (`XFactory` structs, associated functions) plus
-  the reference no-op implementation, if the domain has one. Never re-exports a
-  concrete `spi`/`core` type — a consumer depending on `-svc-saf` alone cannot name
-  `NatsMessageBroker` etc. without also depending on that `spi` crate directly.
+- **`saf`** — a public module in each `-core` and `-spi` crate (not a standalone crate
+  in the merged layout): construction facade (`XFactory` structs, associated functions)
+  plus the reference no-op implementation, if the domain has one. Never re-exports a
+  concrete `spi`/`core` type, and the implementation behind it is `pub(crate)`, so a
+  consumer cannot name `NatsMessageBroker` etc. at all, only obtain one from the factory.
+  (In the older layout `saf` is a separate crate, and a consumer depending on `-svc-saf`
+  alone cannot name a concrete type without also depending on that `spi` crate.)
 - Apply this org's global naming rules on top: types are nouns, functions are
   verbs, reject `*Service`/`*Manager`/`*Handler`/`*Helper`/`*Util` suffixes.
 
@@ -302,7 +327,8 @@ just follow this table blindly:
 ## The path + version Dependency Rule
 
 Every intra-repo dependency between crates that are each independently published
-(e.g. `-saf` depending on `spi/nats-spi`, or `core` depending on `-pattern`) sets
+(e.g. a `-saf` depending on `spi/nats-spi` in the older layout, or `core` depending on
+`-pattern`) sets
 **both** `path` and `version` in `Cargo.toml`:
 
 ```toml
@@ -317,7 +343,8 @@ bump the floor whenever a new capability you depend on ships.
 ## Per-Crate Git Tagging
 
 Each independently-published crate gets its own tag series in the shared repo:
-`{crate-dir}/v{version}` — e.g. `core/v0.2.1`, `nats-spi/v0.1.4`, `saf/v0.2.2`. Not
+`{crate-dir}/v{version}` — e.g. `core/v0.2.1`, `nats-spi/v0.1.4`, and `saf/v0.2.2` in the older
+layout where `saf` is its own crate. Not
 one tag per repo release; each crate's own history is independently addressable.
 
 ## Compliance Checklist
@@ -347,6 +374,8 @@ was derived from. Minimum rule set:
       sibling repo's shape, never a mix of `impl Trait` and `Box<dyn Trait>`
       across constructors of the same factory
 - [ ] `saf`'s own public surface never re-exports a concrete `spi`/`core` type
+- [ ] Merged layout: no standalone `saf` crate, the implementation is `pub(crate)`, and the
+      `core`/`spi` module is non-`pub`, so the factory is the only way to obtain it
 - [ ] `-svc` has zero dependency on any specific consumer repo
 - [ ] Lint gates (`#![deny(unsafe_code)]`, `#![warn(missing_docs)]`, `clippy -D
       warnings`, `fmt --check`) enforced in every crate
